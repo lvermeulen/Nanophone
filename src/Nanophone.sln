@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryProvider.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryConsumer.WebApi", "Nanophone.RegistryConsumer.WebApi\Nanophone.RegistryConsumer.WebApi.csproj", "{BACD33A7-A432-45C4-BFD2-9435F86DBF05}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
