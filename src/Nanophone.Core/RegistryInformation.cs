@@ -8,12 +8,14 @@ namespace Nanophone.Core
     {
         public string Address { get; }
         public int Port { get; }
+        public string Version { get; }
         public IEnumerable<KeyValuePair<string, string>> KeyValuePairs { get; }
 
-        public RegistryInformation(string serviceAddress, int servicePort, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public RegistryInformation(string serviceAddress, int servicePort, string version, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
             Address = serviceAddress;
             Port = servicePort;
+            Version = version;
             KeyValuePairs = keyValuePairs;
         }
     }

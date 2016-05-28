@@ -12,6 +12,8 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
 {
     public class ConsulRegistryProvider : IRegistryProvider
     {
+        private const string VERSION_PREFIX = "version-";
+
         private static readonly ILog s_log = LogManager.GetLogger<ConsulRegistryProvider>();
 
         private readonly ConsulRegistryProviderConfiguration _configuration;
@@ -70,8 +72,11 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
                 {
                     string serviceAddress = serviceEntry.Service.Address;
                     int servicePort = serviceEntry.Service.Port;
-                    // XXX tags
-                    return new RegistryInformation(serviceAddress, servicePort);
+                    string version = serviceEntry.Service.Tags
+                        ?.FirstOrDefault(x => x.StartsWith(VERSION_PREFIX, StringComparison.Ordinal))
+                        .TrimStart(VERSION_PREFIX);
+
+                    return new RegistryInformation(serviceAddress, servicePort, version);
                 });
 
             return results.ToArray();
@@ -87,7 +92,7 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
             {
                 ID = serviceId,
                 Name = serviceName,
-                Tags = new [] { $"urlprefix-/{serviceName}" },
+                Tags = new [] { $"urlprefix-{serviceName}", $"{VERSION_PREFIX}{version}" },
                 Address = localIp,
                 Port = uri.Port,
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
