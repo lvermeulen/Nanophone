@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryConsumer.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient", "SampleClient\SampleClient.csproj", "{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy", "SampleService.Nancy\SampleService.Nancy.csproj", "{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,8 +45,20 @@ Global
 		{BACD33A7-A432-45C4-BFD2-9435F86DBF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BACD33A7-A432-45C4-BFD2-9435F86DBF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BACD33A7-A432-45C4-BFD2-9435F86DBF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 	EndGlobalSection
 EndGlobal

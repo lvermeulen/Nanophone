@@ -23,7 +23,7 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
         {
             Task.Factory.StartNew(async () =>
             {
-                await Task.Delay(_configuration.ReaperDelay);
+                await Task.Delay(_configuration.CleanupDelay);
                 s_log.Info("Starting to remove services in critical state");
 
                 while (true)
@@ -43,22 +43,22 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
                         s_log.Error(ex);
                     }
 
-                    await Task.Delay(_configuration.ReaperInterval);
+                    await Task.Delay(_configuration.CleanupInterval);
                 }
             });
         }
 
-        public ConsulRegistryProvider(ConsulRegistryProviderConfiguration configuration)
+        public ConsulRegistryProvider(ConsulRegistryProviderConfiguration configuration = null)
         {
-            _configuration = configuration;
+            _configuration = configuration ?? new ConsulRegistryProviderConfiguration();
 
-            if (_configuration.ReaperDelay == TimeSpan.MinValue)
+            if (_configuration.CleanupDelay == TimeSpan.MinValue)
             {
-                _configuration.ReaperDelay = TimeSpan.FromSeconds(10);
+                _configuration.CleanupDelay = TimeSpan.FromSeconds(10);
             }
-            if (_configuration.ReaperInterval == TimeSpan.MinValue)
+            if (_configuration.CleanupInterval == TimeSpan.MinValue)
             {
-                _configuration.ReaperInterval = TimeSpan.FromSeconds(5);
+                _configuration.CleanupInterval = TimeSpan.FromSeconds(5);
             }
 
             _consul = new ConsulClient();

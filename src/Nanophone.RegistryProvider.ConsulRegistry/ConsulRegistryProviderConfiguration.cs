@@ -8,7 +8,7 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
     {
         public string ConsulHost { get; set; }
         public int ConsulPort { get; set; }
-        public TimeSpan ReaperInterval { get; set; }
-        public TimeSpan ReaperDelay { get; set; }
+        public TimeSpan CleanupInterval { get; set; }
+        public TimeSpan CleanupDelay { get; set; }
     }
 }
