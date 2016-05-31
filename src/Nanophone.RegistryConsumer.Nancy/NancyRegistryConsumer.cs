@@ -12,6 +12,13 @@ namespace Nanophone.RegistryConsumer.Nancy
     {
         private readonly Func<INancyBootstrapper> _bootstrapperFactory;
 
+        public Uri Uri { get; }
+
+        public NancyRegistryConsumer(Uri uri)
+        {
+            Uri = uri;
+        }
+
         public NancyRegistryConsumer(Func<INancyBootstrapper> bootstrapperFactory)
         {
             _bootstrapperFactory = bootstrapperFactory;

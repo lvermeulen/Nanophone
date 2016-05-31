@@ -6,6 +6,7 @@ namespace Nanophone.Core
 {
     public interface IRegistryConsumer
     {
+        Uri Uri { get; }
         Uri Start(string serviceName, string version);
     }
 }

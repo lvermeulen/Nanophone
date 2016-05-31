@@ -10,5 +10,11 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
         public int ConsulPort { get; set; }
         public TimeSpan CleanupInterval { get; set; }
         public TimeSpan CleanupDelay { get; set; }
+
+        public static ConsulRegistryProviderConfiguration Default => new ConsulRegistryProviderConfiguration
+        {
+            CleanupInterval = TimeSpan.MinValue,
+            CleanupDelay = TimeSpan.MinValue
+        };
     }
 }

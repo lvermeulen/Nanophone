@@ -9,6 +9,16 @@ namespace Nanophone.RegistryConsumer.WebApi
 {
     public class WebApiRegistryConsumer : IRegistryConsumer
     {
+        public Uri Uri { get; }
+
+        public WebApiRegistryConsumer()
+        { }
+
+        public WebApiRegistryConsumer(Uri uri)
+        {
+            Uri = uri;
+        }
+
         public Uri Start(string serviceName, string version)
         {
             var uri = DnsHelper.GetNewLocalUri();

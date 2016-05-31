@@ -50,8 +50,7 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
 
         public ConsulRegistryProvider(ConsulRegistryProviderConfiguration configuration = null)
         {
-            _configuration = configuration ?? new ConsulRegistryProviderConfiguration();
-
+            _configuration = configuration ?? ConsulRegistryProviderConfiguration.Default;
             if (_configuration.CleanupDelay == TimeSpan.MinValue)
             {
                 _configuration.CleanupDelay = TimeSpan.FromSeconds(10);
@@ -84,16 +83,15 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
 
         public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri)
         {
-            var localIp = DnsHelper.GetLocalIpAddress();
-            var check = "http://" + localIp + ":" + uri.Port + "/status";
+            string check = $"{uri}/status";
 
-            s_log.Info($"Registering service on {localIp} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
+            s_log.Info($"Registering service on {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
             var registration = new AgentServiceRegistration
             {
                 ID = serviceId,
                 Name = serviceName,
                 Tags = new [] { $"urlprefix-{serviceName}", $"{VERSION_PREFIX}{version}" },
-                Address = localIp,
+                Address = uri.Host,
                 Port = uri.Port,
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
