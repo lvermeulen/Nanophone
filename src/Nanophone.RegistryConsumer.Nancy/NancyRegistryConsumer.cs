@@ -10,45 +10,40 @@ namespace Nanophone.RegistryConsumer.Nancy
 {
     public class NancyRegistryConsumer : IRegistryConsumer
     {
-        private readonly int _port;
         private readonly Func<INancyBootstrapper> _bootstrapperFactory;
 
-        public NancyRegistryConsumer(int port, Func<INancyBootstrapper> bootstrapperFactory)
+        public NancyRegistryConsumer(Func<INancyBootstrapper> bootstrapperFactory)
         {
-            _port = port;
             _bootstrapperFactory = bootstrapperFactory;
         }
 
-        private HostConfiguration GetHostConfiguration()
-        {
-            return new HostConfiguration
-            {
-                UrlReservations = { CreateAutomatically = true }
-            };
-        }
-
-        private void StartHost(Uri uri, HostConfiguration hostConfiguration)
+        private void StartHost(Uri uri)
         {
             while (true)
             {
                 try
                 {
+                    var hostConfiguration = new HostConfiguration
+                    {
+                        RewriteLocalhost = true,
+                        UrlReservations = { CreateAutomatically = true }
+                    };
+
                     var host = new NancyHost(uri, _bootstrapperFactory(), hostConfiguration);
                     host.Start();
                 }
                 catch (Exception ex)
                 {
                     Task.Delay(TimeSpan.FromSeconds(1)).Wait();
-                    Console.WriteLine($"{typeof(NancyRegistryConsumer).Name}: unable to allocate port\n{ex.Message}");
+                    Console.WriteLine($"{typeof(NancyRegistryConsumer).Name}: unable to allocate port{Environment.NewLine}{ex.Message}");
                 }
             }
         }
 
         public Uri Start(string serviceName, string version)
         {
-            var uri = DnsHelper.GetNewLocalUri(_port);
-            var hostConfiguration = GetHostConfiguration();
-            StartHost(uri, hostConfiguration);
+            var uri = DnsHelper.GetNewLocalUri();
+            StartHost(uri);
 
             return uri;
         }

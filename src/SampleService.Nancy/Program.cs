@@ -14,7 +14,7 @@ namespace SampleService.Nancy
 
         static void Main()
         {
-            s_serviceRegistry.Bootstrap(new NancyRegistryConsumer(8081, () => new DefaultNancyBootstrapper()), new ConsulRegistryProvider(), "customers", "v1");
+            s_serviceRegistry.Bootstrap(new NancyRegistryConsumer(() => new DefaultNancyBootstrapper()), new ConsulRegistryProvider(), "customers", "v1");
             Console.ReadLine();
         }
     }
