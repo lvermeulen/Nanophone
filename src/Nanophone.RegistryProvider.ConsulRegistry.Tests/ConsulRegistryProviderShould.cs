@@ -39,5 +39,16 @@ namespace Nanophone.RegistryProvider.ConsulRegistry.Tests
             var value = await _registry.KeyValueGetAsync<DateTime>("hello");
             Assert.AreEqual(dateValue, value);
         }
+
+        [Test]
+        public async Task UseKeyValueStoreWithFolders()
+        {
+            const string KEY = "hello/world/date";
+            DateTime dateValue = new DateTime(2016, 5, 28);
+
+            await _registry.KeyValuePutAsync(KEY, dateValue);
+            var value = await _registry.KeyValueGetAsync<DateTime>("hello");
+            Assert.AreEqual(dateValue, value);
+        }
     }
 }
