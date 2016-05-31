@@ -9,7 +9,7 @@ namespace SampleClient
 {
     class Program
     {
-        private static ServiceRegistry s_serviceRegistry = new ServiceRegistry();
+        private static readonly ServiceRegistry s_serviceRegistry = new ServiceRegistry();
 
         private static RegistryInformation FindInstance(string serviceName)
         {
@@ -41,6 +41,7 @@ namespace SampleClient
                 while (!Console.KeyAvailable)
                 {
                     CheckService("customers");
+                    CheckService("names");
 
                     Task.Delay(TimeSpan.FromSeconds(1)).Wait();
                 }

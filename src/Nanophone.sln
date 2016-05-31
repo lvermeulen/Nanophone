@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient", "SampleClien
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy", "SampleService.Nancy\SampleService.Nancy.csproj", "{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.WebApi.SelfHost", "SampleService.WebApi.SelfHost\SampleService.WebApi.SelfHost.csproj", "{91943620-673A-4FC0-8B60-BBFB9E7E73AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +63,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 	EndGlobalSection
 EndGlobal
