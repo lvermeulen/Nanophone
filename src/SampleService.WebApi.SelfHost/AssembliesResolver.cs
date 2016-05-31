@@ -10,14 +10,6 @@ namespace SampleService.WebApi.SelfHost
 {
     public class AssembliesResolver : DefaultAssembliesResolver
     {
-        //public override ICollection<Assembly> GetAssemblies()
-        //{
-        //    var assemblies = base.GetAssemblies();
-        //    var nano = Assembly.LoadFrom("Nanophone.RegistryConsumer.WebApi.dll");
-        //    assemblies.Add(nano);
-        //    return assemblies;
-        //}
-
         public override ICollection<Assembly> GetAssemblies()
         {
             var assemblies = base.GetAssemblies();
