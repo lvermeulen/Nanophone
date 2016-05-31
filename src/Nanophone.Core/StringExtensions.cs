@@ -11,7 +11,7 @@ namespace Nanophone.Core
             string s = source;
             while (s.StartsWith(trim, stringComparison))
             {
-                s = s.Substring(trim.Length - 1);
+                s = s.Substring(trim.Length);
             }
 
             return s;
