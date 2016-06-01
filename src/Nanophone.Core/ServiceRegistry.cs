@@ -34,7 +34,7 @@ namespace Nanophone.Core
             s_log.Info("Bootstrapping Nanophone");
 
             _registryConsumer = registryConsumer;
-            var uri = _registryConsumer.Uri ?? _registryConsumer.Start(serviceName, version);
+            var uri = _registryConsumer.Uri;
             var serviceId = $"{serviceName}_{uri.ToString().Replace(".", "_")}_{uri.Port}";
 
             _registryProvider = registryProvider;
