@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Nancy, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Nancy.1.4.1\lib\net40\Nancy.dll</HintPath>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
@@ -64,13 +64,13 @@
       <Project>{7b65db3f-d6f0-45b5-88b0-6691b672ca0c}</Project>
       <Name>Nanophone.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryConsumer.Nancy\Nanophone.RegistryConsumer.Nancy.csproj">
-      <Project>{5c3b0cac-c783-402b-85fb-aac52b6f8c20}</Project>
-      <Name>Nanophone.RegistryConsumer.Nancy</Name>
+    <ProjectReference Include="..\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.csproj">
+      <Project>{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}</Project>
+      <Name>Nanophone.RegistryHost.ConsulRegistry</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryProvider.ConsulRegistry\Nanophone.RegistryProvider.ConsulRegistry.csproj">
-      <Project>{02488857-3c88-4227-8524-62b463b62744}</Project>
-      <Name>Nanophone.RegistryProvider.ConsulRegistry</Name>
+    <ProjectReference Include="..\Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.csproj">
+      <Project>{4A96C26D-750A-4108-AB33-29B1255722F7}</Project>
+      <Name>Nanophone.RegistryTenant.Nancy</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

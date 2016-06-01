@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Nanophone.Core;
 using NUnit.Framework;
+using Nanophone.Core;
 
-namespace Nanophone.RegistryProvider.ConsulRegistry.Tests
+namespace Nanophone.RegistryHost.ConsulRegistry.Tests
 {
     [TestFixture]
-    public class ConsulRegistryProviderShould
+    public class ConsulRegistryHostShould
     {
         private IRegistryHost _registry;
 
         [TestFixtureSetUp]
         public void TestFixtureSetup()
         {
-            var configuration = new ConsulRegistryProviderConfiguration();
+            var configuration = new ConsulRegistryHostConfiguration();
             _registry = new ConsulRegistryHost(configuration);
         }
 

@@ -10,52 +10,52 @@ namespace Nanophone.Core
     {
         private static readonly ILog s_log = LogManager.GetLogger<ServiceRegistry>();
 
-        private IRegistryProvider _registryProvider;
-        private IRegistryConsumer _registryConsumer;
+        private IRegistryHost _registryHost;
+        private IRegistryTenant _registryTenant;
 
         public Task<RegistryInformation[]> FindServiceInstancesAsync(string name)
         {
-            return _registryProvider.FindServiceInstancesAsync(name);
+            return _registryHost.FindServiceInstancesAsync(name);
         }
 
         public Task<RegistryInformation> FindServiceInstanceAsync(string name)
         {
-            return _registryProvider.FindServiceInstanceAsync(name);
+            return _registryHost.FindServiceInstanceAsync(name);
         }
 
-        public void BootstrapClient(IRegistryProvider registryProvider)
+        public void BootstrapClient(IRegistryHost registryHost)
         {
-            _registryProvider = registryProvider;
-            _registryProvider.BootstrapClientAsync().Wait();
+            _registryHost = registryHost;
+            _registryHost.BootstrapClientAsync().Wait();
         }
 
-        public void Bootstrap(IRegistryConsumer registryConsumer, IRegistryProvider registryProvider, string serviceName, string version)
+        public void Bootstrap(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version)
         {
             s_log.Info("Bootstrapping Nanophone");
 
-            _registryConsumer = registryConsumer;
-            var uri = _registryConsumer.Uri;
+            _registryTenant = registryTenant;
+            var uri = _registryTenant.Uri;
             var serviceId = $"{serviceName}_{uri.ToString().Replace(".", "_")}_{uri.Port}";
 
-            _registryProvider = registryProvider;
+            _registryHost = registryHost;
             try
             {
-                _registryProvider.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
+                _registryHost.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
             }
             catch (Exception ex)
             {
-                s_log.Error($"{registryConsumer.GetType().Name}: unable to register service {serviceId}", ex);
+                s_log.Error($"{registryTenant.GetType().Name}: unable to register service {serviceId}", ex);
             }
         }
 
         public Task KeyValuePutAsync(string key, object value)
         {
-            return _registryProvider.KeyValuePutAsync(key, value);
+            return _registryHost.KeyValuePutAsync(key, value);
         }
 
         public Task<T> KeyValueGetAsync<T>(string key)
         {
-            return _registryProvider.KeyValueGetAsync<T>(key);
+            return _registryHost.KeyValueGetAsync<T>(key);
         }
     }
 }

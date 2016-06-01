@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
-using Nanophone.RegistryProvider.ConsulRegistry;
+using Nanophone.RegistryHost.ConsulRegistry;
 
 namespace SampleClient
 {
@@ -33,7 +33,7 @@ namespace SampleClient
 
         static void Main()
         {
-            s_serviceRegistry.BootstrapClient(new ConsulRegistryProvider());
+            s_serviceRegistry.BootstrapClient(new ConsulRegistryHost());
 
             Console.WriteLine("Press ESC to stop");
             do

@@ -8,7 +8,7 @@ using Consul;
 using Nanophone.Core;
 using Newtonsoft.Json;
 
-namespace Nanophone.RegistryProvider.ConsulRegistry
+namespace Nanophone.RegistryHost.ConsulRegistry
 {
     public class ConsulRegistryHost : IRegistryHost
     {
@@ -16,7 +16,7 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
 
         private static readonly ILog s_log = LogManager.GetLogger<ConsulRegistryHost>();
 
-        private readonly ConsulRegistryProviderConfiguration _configuration;
+        private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
 
         private void StartRemovingCriticalServices()
@@ -48,9 +48,9 @@ namespace Nanophone.RegistryProvider.ConsulRegistry
             });
         }
 
-        public ConsulRegistryHost(ConsulRegistryProviderConfiguration configuration = null)
+        public ConsulRegistryHost(ConsulRegistryHostConfiguration configuration = null)
         {
-            _configuration = configuration ?? ConsulRegistryProviderConfiguration.Default;
+            _configuration = configuration ?? ConsulRegistryHostConfiguration.Default;
             if (_configuration.CleanupDelay == TimeSpan.MinValue)
             {
                 _configuration.CleanupDelay = TimeSpan.FromSeconds(10);

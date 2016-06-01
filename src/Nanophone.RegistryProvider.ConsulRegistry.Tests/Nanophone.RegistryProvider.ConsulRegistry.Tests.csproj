@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Consul, Version=0.6.4.5, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
-      <HintPath>..\packages\Consul.0.6.4.5\lib\net45\Consul.dll</HintPath>
+    <Reference Include="Consul, Version=0.6.4.6, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\packages\Consul.0.6.4.6\lib\net45\Consul.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
@@ -52,17 +52,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Nanophone.Core\Nanophone.Core.csproj">
       <Project>{7b65db3f-d6f0-45b5-88b0-6691b672ca0c}</Project>
       <Name>Nanophone.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryProvider.ConsulRegistry\Nanophone.RegistryProvider.ConsulRegistry.csproj">
-      <Project>{02488857-3c88-4227-8524-62b463b62744}</Project>
-      <Name>Nanophone.RegistryProvider.ConsulRegistry</Name>
-    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

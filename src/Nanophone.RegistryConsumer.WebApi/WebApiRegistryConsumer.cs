@@ -5,7 +5,7 @@ using Nanophone.Core;
 
 namespace Nanophone.RegistryConsumer.WebApi
 {
-    public class WebApiRegistryConsumer : IRegistryConsumer
+    public class WebApiRegistryConsumer : IRegistryTenant
     {
         public Uri Uri { get; }
 

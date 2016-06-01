@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Nanophone.Core
 {
-    public interface IRegistryProvider
+    public interface IRegistryHost
     {
         Task<RegistryInformation[]> FindServiceInstancesAsync(string name);
         Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri);

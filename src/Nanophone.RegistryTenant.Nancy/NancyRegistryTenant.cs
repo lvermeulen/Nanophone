@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Nanophone.Core;
 
-namespace Nanophone.RegistryConsumer.Nancy
+namespace Nanophone.RegistryTenant.Nancy
 {
-    public class NancyRegistryConsumer : IRegistryTenant
+    public class NancyRegistryTenant : IRegistryTenant
     {
         public Uri Uri { get; }
 
-        public NancyRegistryConsumer(Uri uri)
+        public NancyRegistryTenant(Uri uri)
         {
             Uri = uri;
         }
