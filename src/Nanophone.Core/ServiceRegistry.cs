@@ -13,25 +13,35 @@ namespace Nanophone.Core
         private IRegistryHost _registryHost;
         private IRegistryTenant _registryTenant;
 
-        public Task<RegistryInformation[]> FindServiceInstancesAsync(string name)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            return _registryHost.FindServiceInstancesAsync(name);
+            return await _registryHost.FindServiceInstancesAsync(name);
         }
 
-        public Task<RegistryInformation> FindServiceInstanceAsync(string name)
+        public async Task<RegistryInformation> FindServiceInstanceAsync(string name)
         {
-            return _registryHost.FindServiceInstanceAsync(name);
+            return await _registryHost.FindServiceInstanceAsync(name);
         }
 
-        public void BootstrapClient(IRegistryHost registryHost)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
+        {
+            return await _registryHost.FindServiceInstancesWithVersionAsync(name, version);
+        }
+
+        public async Task<RegistryInformation> FindServiceInstanceWithVersionAsync(string name, string version)
+        {
+            return await _registryHost.FindServiceInstanceWithVersionAsync(name, version);
+        }
+
+        public void StartClient(IRegistryHost registryHost)
         {
             _registryHost = registryHost;
-            _registryHost.BootstrapClientAsync().Wait();
+            _registryHost.StartClientAsync().Wait();
         }
 
-        public void Bootstrap(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version)
+        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version)
         {
-            s_log.Info("Bootstrapping Nanophone");
+            s_log.Info("Starting Nanophone");
 
             _registryTenant = registryTenant;
             var uri = _registryTenant.Uri;

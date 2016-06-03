@@ -9,39 +9,24 @@ namespace SampleClient
 {
     class Program
     {
-        private static readonly ServiceRegistry s_serviceRegistry = new ServiceRegistry();
-
-        private static RegistryInformation FindInstance(string serviceName)
-        {
-            try
-            {
-                return s_serviceRegistry.FindServiceInstanceAsync(serviceName).Result;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        private static void CheckService(string serviceName)
-        {
-            var instance = FindInstance(serviceName);
-            Console.WriteLine(instance != null
-                ? $"Instance of \"{serviceName}\" found at {instance.Address}:{instance.Port} with version {instance.Version}"
-                : $"No instance of \"{serviceName}\" found");
-        }
-
         static void Main()
         {
-            s_serviceRegistry.BootstrapClient(new ConsulRegistryHost());
+            var serviceRegistry = new ServiceRegistry();
+            serviceRegistry.StartClient(new ConsulRegistryHost());
 
             Console.WriteLine("Press ESC to stop");
             do
             {
                 while (!Console.KeyAvailable)
                 {
-                    CheckService("customers");
-                    CheckService("names");
+                    var instances = serviceRegistry.FindServiceInstancesWithVersionAsync("my-service-name", "1.2").Result;
+
+                    Console.WriteLine($"{instances.Count} instances found:");
+                    foreach (var instance in instances)
+                    {
+                        Console.WriteLine($"    Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
+                    }
+                    Console.WriteLine();
 
                     Task.Delay(TimeSpan.FromSeconds(1)).Wait();
                 }

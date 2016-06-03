@@ -63,10 +63,10 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             _consul = new ConsulClient();
         }
 
-        public async Task<RegistryInformation[]> FindServiceInstancesAsync(string name)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
             var queryResult = await _consul.Health.Service(name);
-            var results = queryResult.Response
+            var instances = queryResult.Response
                 .Select(serviceEntry =>
                 {
                     string serviceAddress = serviceEntry.Service.Address;
@@ -78,14 +78,20 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                     return new RegistryInformation(serviceAddress, servicePort, version);
                 });
 
-            return results.ToArray();
+            return instances.ToList();
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
-            string check = $"{uri}/status";
+            var instances = await FindServiceInstancesAsync(name);
+            return instances.Where(x => x.Version == version).ToArray();
+        }
 
-            s_log.Info($"Registering service on {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
+        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, Uri healthCheckUri = null)
+        {
+            string check = healthCheckUri?.ToString() ?? $"{uri}/status";
+
+            s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
             var registration = new AgentServiceRegistration
             {
                 ID = serviceId,
@@ -96,12 +102,12 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
             await _consul.Agent.ServiceRegister(registration);
-            s_log.Info($"Registration succeeded");
+            s_log.Info($"Registration of {serviceName} succeeded");
 
             StartRemovingCriticalServices();
         }
 
-        public Task BootstrapClientAsync()
+        public Task StartClientAsync()
         {
             StartRemovingCriticalServices();
             return Task.FromResult(0);
