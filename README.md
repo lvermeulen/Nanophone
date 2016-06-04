@@ -49,8 +49,8 @@ using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
 
 var serviceRegistry = new ServiceRegistry();
-serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9001")), 
-    new ConsulRegistryHost(), "customers", "v1");
+serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9001")), new ConsulRegistryHost(),
+    "customers", "v1");
 ~~~~
 
 * Start Web Api service:
@@ -70,4 +70,4 @@ WebApp.Start<Startup>(url);
 ~~~~
 
 ##Thanks
-* [SIM Card](https://thenounproject.com/term/sim-card/15160) by misirlou from [The Noun Project](https://thenounproject.com)
+* [SIM Card](https://thenounproject.com/term/sim-card/15160) icon by misirlou from [The Noun Project](https://thenounproject.com)
