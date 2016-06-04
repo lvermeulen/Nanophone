@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Common.Logging;
 using Consul;
 using Nanophone.Core;
+using Nanophone.RegistryHost.ConsulRegistry.Logging;
 using Newtonsoft.Json;
 
 namespace Nanophone.RegistryHost.ConsulRegistry
@@ -14,7 +14,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
     {
         private const string VERSION_PREFIX = "version-";
 
-        private static readonly ILog s_log = LogManager.GetLogger<ConsulRegistryHost>();
+        private static readonly ILog s_log = LogProvider.For<ConsulRegistryHost>();
 
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
@@ -40,7 +40,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                     }
                     catch (Exception ex)
                     {
-                        s_log.Error(ex);
+                        s_log.ErrorException("Error while removing critical services", ex);
                     }
 
                     await Task.Delay(_configuration.CleanupInterval);

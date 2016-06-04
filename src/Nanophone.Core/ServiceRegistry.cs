@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Common.Logging;
+using Nanophone.Core.Logging;
 
 namespace Nanophone.Core
 {
     public class ServiceRegistry
     {
-        private static readonly ILog s_log = LogManager.GetLogger<ServiceRegistry>();
+        private static readonly ILog s_log = LogProvider.For<ServiceRegistry>();
 
         private IRegistryHost _registryHost;
         private IRegistryTenant _registryTenant;
@@ -54,7 +54,7 @@ namespace Nanophone.Core
             }
             catch (Exception ex)
             {
-                s_log.Error($"{registryTenant.GetType().Name}: unable to register service {serviceId}", ex);
+                s_log.ErrorException($"{registryTenant.GetType().Name}: unable to register service {serviceId}", ex);
             }
         }
 

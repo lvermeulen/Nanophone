@@ -13,9 +13,6 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <copyright>Copyright 2016</copyright>
     <tags>Service Discovery ServiceDiscovery Consul Nancy WebApi Healing Autohealing Microservices</tags>
-    <dependencies>
-        <dependency id="Common.Logging" version="3.3.1" />
-    </dependencies>
   </metadata>
   <files>
       <file src="..\Nanophone.Core\bin\Release\Nanophone.Core.dll" target="lib\net45" />

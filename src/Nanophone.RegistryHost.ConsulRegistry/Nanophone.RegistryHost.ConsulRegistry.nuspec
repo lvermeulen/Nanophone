@@ -17,7 +17,6 @@
         <dependency id="Nanophone.Core" />
         <dependency id="Consul" version="0.6.4.6" />
         <dependency id="Newtonsoft.Json" version="8.0.3" />
-        <dependency id="Common.Logging" version="3.3.1" />
     </dependencies>
   </metadata>
   <files>
