@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DnsHelper.cs" />
     <Compile Include="IRegistryTenant.cs" />
     <Compile Include="IRegistryHost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="ThreadLocalRandom.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Nanophone.Core.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

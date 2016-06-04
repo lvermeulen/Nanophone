@@ -54,6 +54,7 @@
     <Compile Include="StatusModule.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Nanophone.RegistryTenant.Nancy.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

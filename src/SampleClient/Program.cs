@@ -19,7 +19,7 @@ namespace SampleClient
             {
                 while (!Console.KeyAvailable)
                 {
-                    var instances = serviceRegistry.FindServiceInstancesWithVersionAsync("my-service-name", "1.2").Result;
+                    var instances = serviceRegistry.FindServiceInstancesAsync("date").Result;
 
                     Console.WriteLine($"{instances.Count} instances found:");
                     foreach (var instance in instances)

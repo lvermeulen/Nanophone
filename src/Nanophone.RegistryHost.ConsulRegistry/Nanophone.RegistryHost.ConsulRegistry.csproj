@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Nanophone.RegistryHost.ConsulRegistry.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

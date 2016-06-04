@@ -1,0 +1,23 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>Nanophone.Core</id>
+    <version>1.0.0</version>
+    <title>Nanophone Core</title>
+    <description>Nanophone core component</description>
+    <authors>Luk Vermeulen</authors>
+    <owners>Luk Vermeulen</owners>
+    <licenseUrl>https://github.com/lvermeulen/Nanophone/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/lvermeulen/Nanophone</projectUrl>
+    <iconUrl>http://i.imgur.com/WnKfKOC.png?1</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <copyright>Copyright 2016</copyright>
+    <tags>Service Discovery ServiceDiscovery Consul Nancy WebApi Healing Autohealing Microservices</tags>
+    <dependencies>
+        <dependency id="Common.Logging" version="3.3.1" />
+    </dependencies>
+  </metadata>
+  <files>
+      <file src="..\Nanophone.Core\bin\Release\Nanophone.Core.dll" target="lib\net45" />
+  </files>
+</package>
