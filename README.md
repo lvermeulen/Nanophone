@@ -71,3 +71,4 @@ WebApp.Start<Startup>(url);
 
 ##Thanks
 * [SIM Card](https://thenounproject.com/term/sim-card/15160) icon by misirlou from [The Noun Project](https://thenounproject.com)
+* Look, up in the sky. It's a bird. It's a plane. It's [LibLog](https://www.nuget.org/packages/LibLog/)!
