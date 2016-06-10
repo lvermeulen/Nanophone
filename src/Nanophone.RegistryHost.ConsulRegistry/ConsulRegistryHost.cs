@@ -65,7 +65,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            var queryResult = await _consul.Health.Service(name);
+            var queryResult = await _consul.Health.Service(name, string.Empty, passingOnly: true);
             var instances = queryResult.Response
                 .Select(serviceEntry =>
                 {
