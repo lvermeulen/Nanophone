@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Nanophone.RegistryTenant.WebApi</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>Nanophone Web Api registry tenant</title>
     <description>Nanophone Web Api registry tenant</description>
     <authors>Luk Vermeulen</authors>

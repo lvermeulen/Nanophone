@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Nanophone.RegistryHost.ConsulRegistry</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>Nanophone Consul registry host</title>
     <description>Nanophone Consul registry host</description>
     <authors>Luk Vermeulen</authors>

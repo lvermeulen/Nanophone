@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Nanophone.Core</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>Nanophone Core</title>
     <description>Nanophone core component</description>
     <authors>Luk Vermeulen</authors>
