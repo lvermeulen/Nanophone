@@ -21,7 +21,7 @@ namespace SampleService.WebApi.SelfHost
             string url = "http://localhost:9000/";
             var serviceRegistry = new ServiceRegistry();
             serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(), 
-                "date", "1.7-pre");
+                "date", "1.7-pre", relativePaths: new [] { "/date" });
 
             WebApp.Start<Startup>(url);
 

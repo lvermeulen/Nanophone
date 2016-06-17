@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.Na
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.WebApi", "Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.csproj", "{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core.Tests", "Nanophone.Core.Tests\Nanophone.Core.Tests.csproj", "{795154EC-E723-47FB-A301-AC8FBE24218E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,9 @@ Global
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

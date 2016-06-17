@@ -87,16 +87,24 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return instances.Where(x => x.Version == version).ToArray();
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, Uri healthCheckUri = null)
+        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
         {
             string check = healthCheckUri?.ToString() ?? $"{uri}/status";
-
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
+
+            // create urlprefix from uri host + relative path
+            var urlPrefixes = (relativePaths ?? Enumerable.Empty<string>())
+                .Select(x => new Uri(uri, x).GetHostAndPath());
+
+            // create tags from version & url prefixes
+            string versionTag = $"{VERSION_PREFIX}{version}";
+            var tags = new List<string>(urlPrefixes) { versionTag };
+
             var registration = new AgentServiceRegistration
             {
                 ID = serviceId,
                 Name = serviceName,
-                Tags = new [] { $"urlprefix-{serviceName}", $"{VERSION_PREFIX}{version}" },
+                Tags = tags.ToArray(),
                 Address = uri.Host,
                 Port = uri.Port,
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }

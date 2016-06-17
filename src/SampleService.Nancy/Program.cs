@@ -19,7 +19,7 @@ namespace SampleService.Nancy
 
             var serviceRegistry = new ServiceRegistry();
             serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9001")), new ConsulRegistryHost(), 
-                "customers", "v1");
+                "customers", "v1", relativePaths: new [] { "/"} );
 
             Console.ReadLine();
         }

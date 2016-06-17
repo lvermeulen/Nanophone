@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using Nanophone.Core;
 
-namespace Nanophone.RegistryHost.ConsulRegistry.Tests
+namespace Nanophone.Core.Tests
 {
     [TestFixture]
     public class StringExtensionsShould

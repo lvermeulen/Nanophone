@@ -39,7 +39,7 @@ namespace Nanophone.Core
             _registryHost.StartClientAsync().Wait();
         }
 
-        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version)
+        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
         {
             s_log.Info("Starting Nanophone");
 
@@ -50,7 +50,8 @@ namespace Nanophone.Core
             _registryHost = registryHost;
             try
             {
-                _registryHost.RegisterServiceAsync(serviceName, serviceId, version, uri).Wait();
+                _registryHost.RegisterServiceAsync(serviceName, serviceId, version, uri, healthCheckUri, relativePaths)
+                    .Wait();
             }
             catch (Exception ex)
             {
