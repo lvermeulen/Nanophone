@@ -7,6 +7,7 @@ Nanophone is a minimalistic library for Service Registration and Discovery, heav
 * Find available service instances by service name and version
 * Extensible service registry host - includes [Consul](https://www.consul.io/) host
 * Extensible service registry tenants - includes [Nancy](https://github.com/NancyFx/Nancy) and Web Api tenants
+* Supports [eBay Fabio](https://github.com/eBay/fabio) (experimental)
 
 ##Usage:
 
