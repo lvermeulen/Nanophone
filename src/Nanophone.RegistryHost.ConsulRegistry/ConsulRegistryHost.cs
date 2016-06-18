@@ -22,6 +22,11 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private void StartRemovingCriticalServices()
         {
+            if (_configuration.IgnoreCriticalServices)
+            {
+                return;
+            }
+
             Task.Factory.StartNew(async () =>
             {
                 await Task.Delay(_configuration.CleanupDelay);
