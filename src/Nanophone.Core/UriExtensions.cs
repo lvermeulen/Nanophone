@@ -10,5 +10,10 @@ namespace Nanophone.Core
         {
             return uri.GetComponents(UriComponents.Host | UriComponents.Path, UriFormat.Unescaped);
         }
+
+        public static string GetSchemeAndHost(this Uri uri)
+        {
+            return uri.GetComponents(UriComponents.Scheme | UriComponents.Host, UriFormat.Unescaped);
+        }
     }
 }

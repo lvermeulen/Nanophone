@@ -39,13 +39,18 @@ namespace Nanophone.Core
             _registryHost.StartClientAsync().Wait();
         }
 
+        private string GetServiceId(string serviceName, Uri uri)
+        {
+            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
+        }
+
         public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
         {
             s_log.Info("Starting Nanophone");
 
             _registryTenant = registryTenant;
             var uri = _registryTenant.Uri;
-            var serviceId = $"{serviceName}_{uri.ToString().Replace(".", "_")}_{uri.Port}";
+            var serviceId = GetServiceId(serviceName, uri);
 
             _registryHost = registryHost;
             try

@@ -14,5 +14,12 @@ namespace Nanophone.Core.Tests
             var uri = new Uri("http://host.name:9234/path?param=0");
             Assert.AreEqual("host.name/path", uri.GetHostAndPath());
         }
+
+        [Test]
+        public void GetSchemeAndHost()
+        {
+            var uri = new Uri("http://host.name:9234/path?param=0");
+            Assert.AreEqual("http://host.name", uri.GetSchemeAndHost());
+        }
     }
 }

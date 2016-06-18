@@ -18,6 +18,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
+        private readonly bool _usingFabio;
 
         private void StartRemovingCriticalServices()
         {
@@ -35,7 +36,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                         var criticalServiceIds = queryResult.Response.Select(x => x.ServiceID);
                         foreach (var serviceId in criticalServiceIds)
                         {
-                            await _consul.Agent.ServiceDeregister(serviceId);
+                            await DeregisterServiceAsync(serviceId);
                         }
                     }
                     catch (Exception ex)
@@ -60,11 +61,19 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 _configuration.CleanupInterval = TimeSpan.FromSeconds(5);
             }
 
+            // Fabio support
+            _usingFabio = _configuration.FabioUri != null;
+
             _consul = new ConsulClient();
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
+            if (_usingFabio)
+            {
+                return new[] { new RegistryInformation(_configuration.FabioUri.GetSchemeAndHost(), _configuration.FabioUri.Port) };
+            }
+
             var queryResult = await _consul.Health.Service(name, string.Empty, passingOnly: true);
             var instances = queryResult.Response
                 .Select(serviceEntry =>
@@ -110,9 +119,15 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
             await _consul.Agent.ServiceRegister(registration);
-            s_log.Info($"Registration of {serviceName} succeeded");
+            s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
 
             StartRemovingCriticalServices();
+        }
+
+        public async Task DeregisterServiceAsync(string serviceId)
+        {
+            var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
+            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
         public Task StartClientAsync()
@@ -135,6 +150,16 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             var result = JsonConvert.DeserializeObject<T>(serialized);
 
             return result;
+        }
+
+        public async Task KeyValueDeleteAsync(string key)
+        {
+            await _consul.KV.Delete(key);
+        }
+
+        public async Task KeyValueDeleteTreeAsync(string prefix)
+        {
+            await _consul.KV.DeleteTree(prefix);
         }
     }
 }

@@ -10,8 +10,11 @@ namespace Nanophone.Core
         Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name);
         Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version);
         Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null);
+        Task DeregisterServiceAsync(string serviceId);
         Task StartClientAsync();
         Task KeyValuePutAsync(string key, object value);
         Task<T> KeyValueGetAsync<T>(string key);
+        Task KeyValueDeleteAsync(string key);
+        Task KeyValueDeleteTreeAsync(string prefix);
     }
 }

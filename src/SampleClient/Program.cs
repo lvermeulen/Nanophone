@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
@@ -13,11 +12,16 @@ namespace SampleClient
     {
         static void Main()
         {
+            const bool USING_FABIO = false;
+             
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
             var serviceRegistry = new ServiceRegistry();
-            serviceRegistry.StartClient(new ConsulRegistryHost());
+            var consulConfiguration = USING_FABIO
+                ? new ConsulRegistryHostConfiguration { FabioUri = new Uri("http://my.fabio.host:1234") }
+                : null;
+            serviceRegistry.StartClient(new ConsulRegistryHost(consulConfiguration));
 
             Console.WriteLine("Press ESC to stop");
             do

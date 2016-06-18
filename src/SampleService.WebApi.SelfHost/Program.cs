@@ -13,6 +13,8 @@ namespace SampleService.WebApi.SelfHost
     {
         static void Main(string[] args)
         {
+            const bool USING_FABIO = false;
+
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
@@ -20,7 +22,10 @@ namespace SampleService.WebApi.SelfHost
 
             string url = "http://localhost:9000/";
             var serviceRegistry = new ServiceRegistry();
-            serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(), 
+            var consulConfiguration = USING_FABIO
+                ? new ConsulRegistryHostConfiguration { FabioUri = new Uri("http://my.fabio.host:1234") }
+                : null;
+            serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(consulConfiguration), 
                 "date", "1.7-pre", relativePaths: new [] { "/date" });
 
             WebApp.Start<Startup>(url);

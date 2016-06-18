@@ -10,6 +10,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public int ConsulPort { get; set; }
         public TimeSpan CleanupInterval { get; set; }
         public TimeSpan CleanupDelay { get; set; }
+        public Uri FabioUri { get; set; }
 
         public static ConsulRegistryHostConfiguration Default => new ConsulRegistryHostConfiguration
         {
