@@ -67,6 +67,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             _consul = new ConsulClient();
         }
 
+        private string GetVersionFromStrings(IEnumerable<string> strings)
+        {
+            return strings
+                ?.FirstOrDefault(x => x.StartsWith(VERSION_PREFIX, StringComparison.Ordinal))
+                .TrimStart(VERSION_PREFIX);
+        }
+
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
             if (_usingFabio)
@@ -74,15 +81,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 return new[] { new RegistryInformation(_configuration.FabioUri.GetSchemeAndHost(), _configuration.FabioUri.Port) };
             }
 
-            var queryResult = await _consul.Health.Service(name, string.Empty, passingOnly: true);
+            var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true);
             var instances = queryResult.Response
                 .Select(serviceEntry =>
                 {
                     string serviceAddress = serviceEntry.Service.Address;
                     int servicePort = serviceEntry.Service.Port;
-                    string version = serviceEntry.Service.Tags
-                        ?.FirstOrDefault(x => x.StartsWith(VERSION_PREFIX, StringComparison.Ordinal))
-                        .TrimStart(VERSION_PREFIX);
+                    string version = GetVersionFromStrings(serviceEntry.Service.Tags);
 
                     return new RegistryInformation(serviceAddress, servicePort, version);
                 });
@@ -96,8 +101,14 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return instances.Where(x => x.Version == version).ToArray();
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string serviceId, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
+        private string GetServiceId(string serviceName, Uri uri)
         {
+            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
+        }
+
+        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
+        {
+            var serviceId = GetServiceId(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
@@ -105,9 +116,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             var urlPrefixes = (relativePaths ?? Enumerable.Empty<string>())
                 .Select(x => new Uri(uri, x).GetHostAndPath());
 
-            // create tags from version & url prefixes
-            string versionTag = $"{VERSION_PREFIX}{version}";
-            var tags = new List<string>(urlPrefixes) { versionTag };
+            string versionLabel = $"{VERSION_PREFIX}{version}";
+            var tags = new List<string>(urlPrefixes) { versionLabel };
 
             var registration = new AgentServiceRegistration
             {

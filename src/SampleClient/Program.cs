@@ -30,12 +30,13 @@ namespace SampleClient
                 {
                     try
                     {
-                        var instances = serviceRegistry.FindServiceInstancesAsync("date").Result;
+                        string serviceName = USING_FABIO ? "date v1.7-pre" : "date";
+                        var instances = serviceRegistry.FindServiceInstancesAsync(serviceName).Result;
 
-                        Console.WriteLine($"{instances.Count} instances found:");
+                        Console.WriteLine($"{instances.Count} instance{(instances.Count == 1 ? "" : "s")} found");
                         foreach (var instance in instances)
                         {
-                            Console.WriteLine($"    Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
+                            Console.WriteLine($"    Name: {serviceName}, Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
                         }
                         Console.WriteLine();
 
@@ -43,7 +44,7 @@ namespace SampleClient
                     }
                     catch (AggregateException ex)
                     {
-                        Console.WriteLine("Could not connect to service registry");
+                        Console.WriteLine($"Could not connect to service registry: {ex.Message}");
                     }
                 }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);

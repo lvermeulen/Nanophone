@@ -26,7 +26,7 @@ namespace SampleService.WebApi.SelfHost
                 ? new ConsulRegistryHostConfiguration { FabioUri = new Uri("http://my.fabio.host:1234") }
                 : null;
             serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(consulConfiguration), 
-                "date", "1.7-pre", relativePaths: new [] { "/date" });
+                USING_FABIO ? "date v1.7-pre" : "date", "1.7-pre", relativePaths: new [] { "/date" });
 
             WebApp.Start<Startup>(url);
 

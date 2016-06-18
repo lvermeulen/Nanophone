@@ -36,12 +36,8 @@ namespace Nanophone.Core
         public void StartClient(IRegistryHost registryHost)
         {
             _registryHost = registryHost;
-            _registryHost.StartClientAsync().Wait();
-        }
-
-        private string GetServiceId(string serviceName, Uri uri)
-        {
-            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
+            _registryHost.StartClientAsync()
+                .Wait();
         }
 
         public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
@@ -50,17 +46,16 @@ namespace Nanophone.Core
 
             _registryTenant = registryTenant;
             var uri = _registryTenant.Uri;
-            var serviceId = GetServiceId(serviceName, uri);
 
             _registryHost = registryHost;
             try
             {
-                _registryHost.RegisterServiceAsync(serviceName, serviceId, version, uri, healthCheckUri, relativePaths)
+                _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, relativePaths)
                     .Wait();
             }
             catch (Exception ex)
             {
-                s_log.ErrorException($"{registryTenant.GetType().Name}: unable to register service {serviceId}", ex);
+                s_log.ErrorException($"{registryTenant.GetType().Name}: unable to register service {serviceName}", ex);
             }
         }
 
@@ -72,6 +67,16 @@ namespace Nanophone.Core
         public Task<T> KeyValueGetAsync<T>(string key)
         {
             return _registryHost.KeyValueGetAsync<T>(key);
+        }
+
+        public Task KeyValueDeleteAsync(string key)
+        {
+            return _registryHost.KeyValueDeleteAsync(key);
+        }
+
+        public Task KeyValueDeleteTreeAsync(string prefix)
+        {
+            return _registryHost.KeyValueDeleteTreeAsync(prefix);
         }
     }
 }
