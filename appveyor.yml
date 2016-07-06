@@ -20,7 +20,7 @@ before_build:
 
     cd ..
 build:
-  publish_nuget: true
+  publish_nuget: false
   verbosity: minimal
 deploy:
 - provider: NuGet
