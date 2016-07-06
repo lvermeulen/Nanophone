@@ -13,20 +13,21 @@ namespace SampleService.WebApi.SelfHost
     {
         static void Main(string[] args)
         {
-            const bool USING_FABIO = false;
+            const bool USING_FABIO = true;
+            const bool IGNORE_CRITICAL_SERVICES = true;
 
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
             Console.WriteLine("Press ENTER to exit");
 
-            string url = "http://localhost:9000/";
+            string url = "http://localhost:9101/";
             var serviceRegistry = new ServiceRegistry();
             var consulConfiguration = USING_FABIO
-                ? new ConsulRegistryHostConfiguration { FabioUri = new Uri("http://my.fabio.host:1234") }
-                : null;
+                ? new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES, FabioUri = new Uri("http://localhost:9999") }
+                : new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
             serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(consulConfiguration), 
-                USING_FABIO ? "date v1.7-pre" : "date", "1.7-pre", relativePaths: new [] { "/date" });
+                USING_FABIO ? "date_v17pre" : "date", "1.7-pre", relativePaths: new [] { "/date" });
 
             WebApp.Start<Startup>(url);
 
