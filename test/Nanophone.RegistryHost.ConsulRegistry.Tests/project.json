@@ -1,0 +1,30 @@
+﻿{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+  "buildOptions": {
+    "compile": {
+      "include": [
+        "../../src/Nanophone.Core.Shared/**/*.cs",
+        "../../src/Nanophone.RegistryHost.ConsulRegistry.Shared/**/*.cs"
+      ]
+    },
+    "define": [ "LIBLOG_PORTABLE" ]
+  },
+  "dependencies": {
+    "NETStandard.Library": "1.6.0",
+    "xunit": "2.2.0-beta2-build3300",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Consul": "0.6.4.7-alpha"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    }
+  }
+}

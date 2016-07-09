@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core", "Nanophone.Core\Nanophone.Core.csproj", "{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient", "SampleClient\SampleClient.csproj", "{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}"
@@ -13,25 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy", "Samp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.WebApi.SelfHost", "SampleService.WebApi.SelfHost\SampleService.WebApi.SelfHost.csproj", "{91943620-673A-4FC0-8B60-BBFB9E7E73AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry", "Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.csproj", "{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.csproj", "{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.Nancy", "Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.csproj", "{4A96C26D-750A-4108-AB33-29B1255722F7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.WebApi", "Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.csproj", "{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core.Tests", "Nanophone.Core.Tests\Nanophone.Core.Tests.csproj", "{795154EC-E723-47FB-A301-AC8FBE24218E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core.Library", "Nanophone.Core.Library\Nanophone.Core.Library.xproj", "{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nanophone.Core.Shared", "Nanophone.Core.Shared\Nanophone.Core.Shared.shproj", "{41D722B4-D901-41F2-A431-FB0CD756100E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "net452", "net452", "{08386170-D88A-4F78-A3F8-8747D4AE5F7B}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nanophone.RegistryHost.ConsulRegistry.Shared", "Nanophone.RegistryHost.ConsulRegistry.Shared\Nanophone.RegistryHost.ConsulRegistry.Shared.shproj", "{E087128B-2735-41F1-B770-D69B47F7629A}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry.Library", "Nanophone.RegistryHost.ConsulRegistry.Library\Nanophone.RegistryHost.ConsulRegistry.Library.xproj", "{EA667313-9505-4C96-A0A3-A7E3CDF7B453}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{755AAD0E-ACA3-482E-8325-9C22929CC984}"
 	ProjectSection(SolutionItems) = preProject
@@ -43,6 +27,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pre", "Pre", "{A33327FF-CE4
 		Consul.0.6.4.7-alpha.nupkg = Consul.0.6.4.7-alpha.nupkg
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core.Net4", "Nanophone.Core.Net4\Nanophone.Core.Net4.csproj", "{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry.Net4", "Nanophone.RegistryHost.ConsulRegistry.Net4\Nanophone.RegistryHost.ConsulRegistry.Net4.csproj", "{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.Nancy.Net4", "Nanophone.RegistryTenant.Nancy.Net4\Nanophone.RegistryTenant.Nancy.Net4.csproj", "{4A96C26D-750A-4108-AB33-29B1255722F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.WebApi.Net4", "Nanophone.RegistryTenant.WebApi.Net4\Nanophone.RegistryTenant.WebApi.Net4.csproj", "{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core", "Nanophone.Core\Nanophone.Core.xproj", "{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry", "Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.xproj", "{EA667313-9505-4C96-A0A3-A7E3CDF7B453}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core.Tests.Net4", "Nanophone.Core.Tests.Net4\Nanophone.Core.Tests.Net4.csproj", "{795154EC-E723-47FB-A301-AC8FBE24218E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry.Tests.Net4", "Nanophone.RegistryHost.ConsulRegistry.Tests.Net4\Nanophone.RegistryHost.ConsulRegistry.Tests.Net4.csproj", "{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core.Tests", "..\test\Nanophone.Core.Tests\Nanophone.Core.Tests.xproj", "{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{119F7828-4CCA-4F2F-84B1-AA134E7C004A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "..\test\Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.xproj", "{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Nanophone.Core.Shared\Nanophone.Core.Shared.projitems*{41d722b4-d901-41f2-a431-fb0cd756100e}*SharedItemsImports = 13
@@ -53,10 +59,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,13 +68,14 @@ Global
 		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -81,9 +84,6 @@ Global
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -92,17 +92,37 @@ Global
 		{EA667313-9505-4C96-A0A3-A7E3CDF7B453}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA667313-9505-4C96-A0A3-A7E3CDF7B453}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA667313-9505-4C96-A0A3-A7E3CDF7B453}.Release|Any CPU.Build.0 = Release|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 		{91943620-673A-4FC0-8B60-BBFB9E7E73AB} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
+		{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
 		{4A96C26D-750A-4108-AB33-29B1255722F7} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
 		{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
+		{795154EC-E723-47FB-A301-AC8FBE24218E} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3} = {08386170-D88A-4F78-A3F8-8747D4AE5F7B}
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 	EndGlobalSection
 EndGlobal
