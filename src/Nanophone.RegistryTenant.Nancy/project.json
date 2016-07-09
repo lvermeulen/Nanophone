@@ -8,14 +8,14 @@
         "../Nanophone.RegistryTenant.Nancy.Shared/**/*.cs"
       ]
     },
-    "define": [ "LIBLOG_PORTABLE", "NETSTANDARD1_5" ],
+    "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
     "outputName": "Nanophone.RegistryTenant.Nancy",
     "xmlDoc": false
   },
 
   "dependencies": {
-    "Nanophone.Core": "1.0.0-*",
+    "Nanophone.Core": "1.0.0-*"
     //"Nancy": "2.0.0-alpha",
     //"Nancy.Hosting.Self": "2.0.0-alpha"
   },
@@ -34,7 +34,7 @@
         "System.Runtime.InteropServices.RuntimeInformation": "4.0.0",
         "System.Diagnostics.Tools": "4.0.1",
         "System.Linq.Expressions": "4.1.0",
-        "System.Text.RegularExpressions": "4.1.0",
+        "System.Text.RegularExpressions": "4.1.0"
       }
     },
     "netcoreapp1.0": {
