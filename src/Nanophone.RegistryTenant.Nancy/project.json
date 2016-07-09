@@ -16,8 +16,8 @@
 
   "dependencies": {
     "Nanophone.Core": "1.0.0-*",
-    "Nancy": "2.0.0-alpha",
-    "Nancy.Hosting.Self": "2.0.0-alpha"
+    //"Nancy": "2.0.0-alpha",
+    //"Nancy.Hosting.Self": "2.0.0-alpha"
   },
 
   "frameworks": {
