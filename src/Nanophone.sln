@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core", "Nanophone.Core\Nanophone.Core.csproj", "{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}"
 EndProject
@@ -15,13 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.WebApi.SelfHo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry", "Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.csproj", "{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.csproj", "{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.Nancy", "Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.csproj", "{4A96C26D-750A-4108-AB33-29B1255722F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryTenant.WebApi", "Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.csproj", "{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core.Tests", "Nanophone.Core.Tests\Nanophone.Core.Tests.csproj", "{795154EC-E723-47FB-A301-AC8FBE24218E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.csproj", "{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,9 +46,6 @@ Global
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A96C26D-750A-4108-AB33-29B1255722F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -60,6 +57,11 @@ Global
 		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{795154EC-E723-47FB-A301-AC8FBE24218E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{795154EC-E723-47FB-A301-AC8FBE24218E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0E8EFC-7E6F-4B10-BF58-E03E0767BFC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
