@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Nancy;
 
 namespace SampleService.Nancy
@@ -9,7 +10,7 @@ namespace SampleService.Nancy
     {
         public CustomersModule()
         {
-            Get["/"] = param => "Hello, customers";
+            Get["/"] = (parameters, cancellationToken) => Task.FromResult("Hello, customers");
         }
     }
 }

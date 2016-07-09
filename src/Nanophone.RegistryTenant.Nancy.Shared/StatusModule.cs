@@ -12,10 +12,10 @@ namespace Nanophone.RegistryTenant.Nancy
 
         public StatusModule()
         {
-            Get["/status"] = param =>
+            Get["/status"] = (parameters, cancellationToken) =>
             {
                 s_log.Info("Status: OK");
-                return "OK";
+                return Task.FromResult("OK");
             };
         }
     }
