@@ -1,12 +1,4 @@
 {
-  "projects": [ "src", "test"
-    //"Nanophone.Core",
-    //"Nanophone.Core.Tests",
-    //"Nanophone.RegistryHost.ConsulRegistry",
-    //"Nanophone.RegistryHost.ConsulRegistry.Tests",
-    //"SampleClient",
-    //"SampleService.Nancy",
-    //"SampleService.WebApi.SelfHost"
-  ],
+  "projects": [ "src", "test" ],
   "sdk": { "version": "1.0.0-preview2-003121" }
 }
