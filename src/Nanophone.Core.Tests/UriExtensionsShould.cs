@@ -9,6 +9,13 @@ namespace Nanophone.Core.Tests
     public class UriExtensionsShould
     {
         [Test]
+        public void GetPath()
+        {
+            var uri = new Uri("http://host.name:9234/path?param=0");
+            Assert.AreEqual("path", uri.GetPath());
+        }
+
+        [Test]
         public void GetHostAndPath()
         {
             var uri = new Uri("http://host.name:9234/path?param=0");

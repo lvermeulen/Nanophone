@@ -114,12 +114,12 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
         {
             var serviceId = GetServiceId(serviceName, uri);
-            string check = healthCheckUri?.ToString() ?? $"{uri}/status";
+            string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
             // create urlprefix from uri host + relative path
             var urlPrefixes = (relativePaths ?? Enumerable.Empty<string>())
-                .Select(x => new Uri(uri, x).GetHostAndPath());
+                .Select(x => "urlprefix-" + new Uri(uri, x).GetHostAndPath());
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
             var tags = new List<string>(urlPrefixes) { versionLabel };
