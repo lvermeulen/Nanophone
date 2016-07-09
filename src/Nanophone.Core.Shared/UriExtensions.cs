@@ -6,6 +6,11 @@ namespace Nanophone.Core
 {
     public static class UriExtensions
     {
+        public static string GetPath(this Uri uri)
+        {
+            return uri.GetComponents(UriComponents.Path, UriFormat.Unescaped);
+        }
+
         public static string GetHostAndPath(this Uri uri)
         {
             return uri.GetComponents(UriComponents.Host | UriComponents.Path, UriFormat.Unescaped);
