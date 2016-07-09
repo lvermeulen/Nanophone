@@ -36,7 +36,7 @@
         "System.Diagnostics.Tools": "4.0.1",
         "System.Linq.Expressions": "4.1.0",
         "System.Text.RegularExpressions": "4.1.0",
-        "Consul": "0.6.4.7-alpha"
+        "Consul": "0.6.4.8-alpha1"
       }
     },
     "netcoreapp1.0": {
