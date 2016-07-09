@@ -95,20 +95,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nanophone.Core\Nanophone.Core.csproj">
-      <Project>{7b65db3f-d6f0-45b5-88b0-6691b672ca0c}</Project>
-      <Name>Nanophone.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.csproj">
-      <Project>{1734B9D0-B55C-4E1C-A5B8-3EC234388E40}</Project>
-      <Name>Nanophone.RegistryHost.ConsulRegistry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.csproj">
-      <Project>{0FF76FE4-D61D-40F1-88E7-B4EC059FF2E7}</Project>
-      <Name>Nanophone.RegistryTenant.WebApi</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

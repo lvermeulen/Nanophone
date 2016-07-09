@@ -1,0 +1,52 @@
+﻿{
+  "title": "Nanophone.RegistryHost.ConsulRegistry",
+  "version": "1.0.0-*",
+
+  "buildOptions": {
+    "compile": {
+      "include": "../Nanophone.RegistryHost.ConsulRegistry.Shared/**/*.cs"
+    },
+    "define": [ "LIBLOG_PORTABLE" ],
+    "optimize": true,
+    "outputName": "Nanophone.RegistryHost.ConsulRegistry",
+    "xmlDoc": false
+  },
+
+  "dependencies": {
+    "Nanophone.Core": "1.0.0-*"
+  },
+
+  "frameworks": {
+    "net451": {
+      "dependencies": {
+        "Consul": "0.6.4.7",
+        "Newtonsoft.Json": "9.0.1"
+      }
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Diagnostics.StackTrace": "4.0.1",
+        "System.Linq.Queryable": "4.0.1",
+        "System.Collections.Specialized": "4.0.1",
+        "System.ComponentModel.TypeConverter": "4.1.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "Microsoft.CSharp": "4.0.1",
+        "System.Runtime.InteropServices.RuntimeInformation": "4.0.0",
+        "System.Diagnostics.Tools": "4.0.1",
+        "System.Linq.Expressions": "4.1.0",
+        "System.Text.RegularExpressions": "4.1.0",
+        "Consul": "0.6.4.7-alpha"
+      }
+    },
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Consul": "0.6.4.7-alpha",
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    }
+  }
+}
