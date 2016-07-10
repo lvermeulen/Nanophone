@@ -13,14 +13,15 @@ namespace SampleClient
         static void Main()
         {
             const bool USING_FABIO = false;
-             
+            const bool IGNORE_CRITICAL_SERVICES = true;
+
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
             var serviceRegistry = new ServiceRegistry();
             var consulConfiguration = USING_FABIO
-                ? new ConsulRegistryHostConfiguration { FabioUri = new Uri("http://my.fabio.host:1234") }
-                : null;
+                ? new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES, FabioUri = new Uri("http://localhost:9999") }
+                : new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
             serviceRegistry.StartClient(new ConsulRegistryHost(consulConfiguration));
 
             Console.WriteLine("Press ESC to stop");
