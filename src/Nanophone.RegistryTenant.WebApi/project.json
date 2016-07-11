@@ -33,8 +33,7 @@
         "System.Linq.Expressions": "4.1.0",
         "System.Text.RegularExpressions": "4.1.0",
         "Microsoft.AspNetCore.Mvc": "1.0.0",
-        "Microsoft.AspNetCore.Mvc.Core": "1.0.0",
-        "Microsoft.AspNet.Mvc.WebApiCompatShim": "6.0.0-rc1-final" 
+        "Microsoft.AspNetCore.Mvc.Core": "1.0.0"
       }
     }
   }
