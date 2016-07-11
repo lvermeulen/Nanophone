@@ -3,11 +3,6 @@
   "version": "1.0.0-*",
 
   "buildOptions": {
-    "compile": {
-      "include": [
-        "../Nanophone.RegistryTenant.Nancy.Shared/**/*.cs"
-      ]
-    },
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
     "outputName": "Nanophone.RegistryTenant.Nancy",
@@ -21,8 +16,8 @@
   },
 
   "frameworks": {
-    "net451": { },
-    "netstandard1.3": {
+    "net451": {},
+    "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "System.Diagnostics.StackTrace": "4.0.1",
@@ -35,14 +30,6 @@
         "System.Diagnostics.Tools": "4.0.1",
         "System.Linq.Expressions": "4.1.0",
         "System.Text.RegularExpressions": "4.1.0"
-      }
-    },
-    "netcoreapp1.0": {
-      "dependencies": {
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
       }
     }
   }

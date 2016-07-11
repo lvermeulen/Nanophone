@@ -3,9 +3,6 @@
   "version": "1.0.0-*",
 
   "buildOptions": {
-    "compile": {
-      "include": "../Nanophone.RegistryHost.ConsulRegistry.Shared/**/*.cs"
-    },
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
     "outputName": "Nanophone.RegistryHost.ConsulRegistry",
@@ -23,7 +20,7 @@
         "Newtonsoft.Json": "9.0.1"
       }
     },
-    "netstandard1.3": {
+    "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "System.Diagnostics.StackTrace": "4.0.1",
@@ -37,15 +34,6 @@
         "System.Linq.Expressions": "4.1.0",
         "System.Text.RegularExpressions": "4.1.0",
         "Consul": "0.6.4.8-alpha1"
-      }
-    },
-    "netcoreapp1.0": {
-      "dependencies": {
-        "Consul": "0.6.4.7-alpha",
-        "Microsoft.NETCore.App": {
-          "type": "platform",
-          "version": "1.0.0"
-        }
       }
     }
   }

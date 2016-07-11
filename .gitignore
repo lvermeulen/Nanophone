@@ -42,6 +42,7 @@ dlldata.c
 # DNX
 project.lock.json
 artifacts/
+restore.dg
 
 *_i.c
 *_p.c
@@ -234,3 +235,5 @@ _Pvt_Extensions
 
 # FAKE - F# Make
 .fake/
+*.db
+/build/1
