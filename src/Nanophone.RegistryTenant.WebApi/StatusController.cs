@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
+//using Microsoft.AspNetCore.Mvc;
 using Nanophone.RegistryTenant.WebApi.Logging;
 
 namespace Nanophone.RegistryTenant.WebApi
 {
-    public class StatusController : Controller
+    public class StatusController : ApiController
     {
         private static readonly ILog s_log = LogProvider.For<StatusController>();
 
