@@ -27,18 +27,21 @@
   },
 
   "dependencies": {
-    "Nanophone.Core": "1.0.0-*"
-    //"Nancy": "2.0.0-alpha",
-    //"Nancy.Hosting.Self": "2.0.0-alpha"
+    "Nanophone.Core": { "target": "project" }
   },
 
   "frameworks": {
-    "net451": {},
+    "net452": {
+      "dependencies": {
+        "Nancy": "2.0.0-barneyrubble"
+      }
+    },
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "System.Dynamic.Runtime": "4.0.11",
-        "Microsoft.CSharp": "4.0.1"
+        "Microsoft.CSharp": "4.0.1",
+        "Nancy": "2.0.0-barneyrubble"
       }
     }
   }
