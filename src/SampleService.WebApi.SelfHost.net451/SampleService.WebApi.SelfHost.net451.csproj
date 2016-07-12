@@ -7,7 +7,7 @@
     <ProjectGuid>{91943620-673A-4FC0-8B60-BBFB9E7E73AB}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleService.WebApi.SelfHost</RootNamespace>
+    <RootNamespace>SampleService.WebApi.SelfHost.net451</RootNamespace>
     <AssemblyName>SampleService.WebApi.SelfHost</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

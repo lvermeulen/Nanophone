@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web.Http.Dispatcher;
 
-namespace SampleService.WebApi.SelfHost
+namespace SampleService.WebApi.SelfHost.net451
 {
     public class AssembliesResolver : DefaultAssembliesResolver
     {
