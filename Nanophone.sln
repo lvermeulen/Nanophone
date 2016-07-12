@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples.net451", "Samples.net451", "{AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{755AAD0E-ACA3-482E-8325-9C22929CC984}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,12 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{119F7828-4CCA-4F2F-84B1-AA134E7C004A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient", "src\SampleClient\SampleClient.csproj", "{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy", "src\SampleService.Nancy\SampleService.Nancy.csproj", "{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.WebApi.SelfHost", "src\SampleService.WebApi.SelfHost\SampleService.WebApi.SelfHost.csproj", "{91943620-673A-4FC0-8B60-BBFB9E7E73AB}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core.Tests", "test\Nanophone.Core.Tests\Nanophone.Core.Tests.xproj", "{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}"
 EndProject
@@ -30,24 +24,18 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.Na
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.WebApi", "src\Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.xproj", "{5023B7BA-727A-4FD3-857E-9167F96B247E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleClient.net451", "src\SampleClient.net451\SampleClient.net451.csproj", "{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy.net451", "src\SampleService.Nancy.net451\SampleService.Nancy.net451.csproj", "{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.WebApi.SelfHost.net451", "src\SampleService.WebApi.SelfHost.net451\SampleService.WebApi.SelfHost.net451.csproj", "{91943620-673A-4FC0-8B60-BBFB9E7E73AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -72,15 +60,27 @@ Global
 		{5023B7BA-727A-4FD3-857E-9167F96B247E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5023B7BA-727A-4FD3-857E-9167F96B247E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5023B7BA-727A-4FD3-857E-9167F96B247E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91943620-673A-4FC0-8B60-BBFB9E7E73AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
+		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 		{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 		{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
 		{91943620-673A-4FC0-8B60-BBFB9E7E73AB} = {AD51E920-687B-4F27-B5E3-B1A72FFB6EF6}
-		{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
-		{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 	EndGlobalSection
 EndGlobal
