@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
 using NLog;
 
-namespace SampleService.Nancy.net451
+namespace SampleService.Nancy.netcore
 {
-    class Program
+    public class Program
     {
         static void Main()
         {
@@ -18,8 +16,8 @@ namespace SampleService.Nancy.net451
             Console.WriteLine("Press ENTER to exit");
 
             var serviceRegistry = new ServiceRegistry();
-            serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9050")), new ConsulRegistryHost(), 
-                "customers", "v1", relativePaths: new [] { "/customers"} );
+            serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9060")), new ConsulRegistryHost(),
+                "orders", "v3", relativePaths: new[] { "/orders" });
 
             Console.ReadLine();
         }

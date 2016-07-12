@@ -6,11 +6,11 @@ using Nancy;
 
 namespace SampleService.Nancy.net451
 {
-    public class CustomersModule : NancyModule
+    public class OrdersModule : NancyModule
     {
-        public CustomersModule()
+        public OrdersModule()
         {
-            Get["/customers"] = parameters => "Hello, customers";
+            Get["/orders"] = parameters => "Hello, orders";
         }
     }
 }
