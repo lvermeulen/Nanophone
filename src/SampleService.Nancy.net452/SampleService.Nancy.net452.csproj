@@ -7,9 +7,9 @@
     <ProjectGuid>{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleService.Nancy</RootNamespace>
+    <RootNamespace>SampleService.Nancy.net451</RootNamespace>
     <AssemblyName>SampleService.Nancy</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
@@ -49,6 +49,10 @@
     <Reference Include="Nanophone.RegistryHost.ConsulRegistry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Nanophone.RegistryHost.ConsulRegistry\bin\Debug\net451\Nanophone.RegistryHost.ConsulRegistry.dll</HintPath>
+    </Reference>
+    <Reference Include="Nanophone.RegistryTenant.Nancy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Nanophone.RegistryTenant.Nancy\bin\Debug\net452\Nanophone.RegistryTenant.Nancy.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.4\lib\net45\NLog.dll</HintPath>

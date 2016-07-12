@@ -10,7 +10,7 @@ namespace SampleService.Nancy.net451
     {
         public CustomersModule()
         {
-            Get["/"] = (parameters, cancellationToken) => Task.FromResult("Hello, customers");
+            Get["/"] = parameters => "Hello, customers";
         }
     }
 }
