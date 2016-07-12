@@ -17,7 +17,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         private static readonly ILog s_log = LogProvider.For<ConsulRegistryHost>();
 
         private readonly ConsulRegistryHostConfiguration _configuration;
-        private readonly Consul.ConsulClient _consul;
+        private readonly ConsulClient _consul;
         private readonly bool _usingFabio;
 
         private void StartRemovingCriticalServices()
