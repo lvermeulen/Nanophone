@@ -6,7 +6,7 @@ using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
 using NLog;
 
-namespace SampleService.Nancy
+namespace SampleService.Nancy.net451
 {
     class Program
     {

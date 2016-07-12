@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using Owin;
 
-namespace SampleService.WebApi.SelfHost
+namespace SampleService.WebApi.SelfHost.net451
 {
     public class Startup
     {

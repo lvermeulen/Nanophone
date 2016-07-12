@@ -6,7 +6,7 @@ using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
 using NLog;
 
-namespace SampleClient
+namespace SampleClient.net451
 {
     class Program
     {

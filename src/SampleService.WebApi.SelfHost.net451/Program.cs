@@ -7,7 +7,7 @@ using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.WebApi;
 using NLog;
 
-namespace SampleService.WebApi.SelfHost
+namespace SampleService.WebApi.SelfHost.net451
 {
     class Program
     {

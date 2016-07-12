@@ -7,7 +7,7 @@
     <ProjectGuid>{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleService.Nancy</RootNamespace>
+    <RootNamespace>SampleService.Nancy.net451</RootNamespace>
     <AssemblyName>SampleService.Nancy</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

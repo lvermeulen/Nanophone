@@ -7,7 +7,7 @@
     <ProjectGuid>{C69703C2-EE7E-4054-8B7A-3A6C2993AD8C}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleClient</RootNamespace>
+    <RootNamespace>SampleClient.net451</RootNamespace>
     <AssemblyName>SampleClient</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
