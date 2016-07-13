@@ -38,7 +38,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                     {
                         // deregister critical services
                         var queryResult = await _consul.Health.State(CheckStatus.Critical);
-                        var criticalServiceIds = queryResult.Response.Select(x => x.ServiceID);
+                        var criticalServiceIds = queryResult.Response
+                            .Where(x => x.NeedsStatusCheck())
+                            .Select(x => x.ServiceID);
                         foreach (var serviceId in criticalServiceIds)
                         {
                             await DeregisterServiceAsync(serviceId);
