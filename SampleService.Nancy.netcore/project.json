@@ -8,13 +8,19 @@
     "Nanophone.Core": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.Nancy": { "target": "project" },
-    "NLog": "4.4.0-betaV14",
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha2",
     "Nancy": "2.0.0-barneyrubble",
-    "Nancy.Hosting.Self": "2.0.0-barneyrubble",
+    //"Nancy.Hosting.Self": "2.0.0-barneyrubble",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.0"
-    }
+    },
+    "Microsoft.AspNetCore.Hosting.Abstractions": "1.0.0",
+    "Microsoft.Extensions.Configuration": "1.0.0",
+    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.Extensions.Configuration.FileExtensions": "1.0.0",
+    "Microsoft.Extensions.Configuration.Json": "1.0.0",
+    "Microsoft.Extensions.Configuration.EnvironmentVariables": "1.0.0"
   },
 
   "frameworks": {

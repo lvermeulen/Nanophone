@@ -10,7 +10,7 @@ namespace SampleService.Nancy.net451
     {
         public OrdersModule()
         {
-            Get["/orders"] = parameters => "Hello, orders";
+            Get("/orders", parameters => "Hello, orders");
         }
     }
 }
