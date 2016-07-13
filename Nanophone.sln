@@ -36,7 +36,7 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleService.AspNetCore.Ke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy.net452", "src\SampleService.Nancy.net452\SampleService.Nancy.net452.csproj", "{FCAF9A36-E1ED-4AD2-BDDB-B2DFD0B93D2B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleService.Nancy.netcore", "SampleService.Nancy.netcore\SampleService.Nancy.netcore.xproj", "{983F09FA-409D-44AB-BBD8-4041A0143C5D}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleService.Nancy.netcore", "src\SampleService.Nancy.netcore\SampleService.Nancy.netcore.xproj", "{983F09FA-409D-44AB-BBD8-4041A0143C5D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
