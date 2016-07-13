@@ -46,18 +46,6 @@
       <HintPath>..\packages\Microsoft.Owin.Hosting.3.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nanophone.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Nanophone.Core\bin\Debug\net451\Nanophone.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Nanophone.RegistryHost.ConsulRegistry, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Nanophone.RegistryHost.ConsulRegistry\bin\Debug\net451\Nanophone.RegistryHost.ConsulRegistry.dll</HintPath>
-    </Reference>
-    <Reference Include="Nanophone.RegistryTenant.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Nanophone.RegistryTenant.WebApi\bin\Debug\net451\Nanophone.RegistryTenant.WebApi.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -106,6 +94,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nanophone.Core\Nanophone.Core.xproj">
+      <Project>{61eebbd3-db6a-4ffb-a358-d3d0482aeda2}</Project>
+      <Name>Nanophone.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.xproj">
+      <Project>{ea667313-9505-4c96-a0a3-a7e3cdf7b453}</Project>
+      <Name>Nanophone.RegistryHost.ConsulRegistry</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.xproj">
+      <Project>{5023b7ba-727a-4fd3-857e-9167f96b247e}</Project>
+      <Name>Nanophone.RegistryTenant.WebApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
