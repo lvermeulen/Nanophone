@@ -1,0 +1,48 @@
+﻿{
+  "title": "Nanophone.RegistryTenant.Nancy",
+  "version": "1.0.0",
+  "authors": [ "Luk Vermeulen" ],
+  "copyright": "Copyright 2016",
+  "description": "Nanophone Nancy registry tenant",
+
+  "buildOptions": {
+    "define": [ "LIBLOG_PORTABLE" ],
+    "optimize": true,
+    "outputName": "Nanophone.RegistryTenant.Nancy",
+    "xmlDoc": false
+  },
+
+  "packOptions": {
+    "owners": [ "Luk Vermeulen" ],
+    "requireLicenseAcceptance": true,
+    "summary": "Nanophone Nancy registry tenant",
+    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices" ],
+    "projectUrl": "https://github.com/lvermeulen/Nanophone",
+    "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
+    "iconUrl": "http://i.imgur.com/WnKfKOC.png?1",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lvermeulen/Nanophone"
+    }
+  },
+
+  "dependencies": {
+    "Nanophone.Core": { "target": "project" }
+  },
+
+  "frameworks": {
+    "net452": {
+      "dependencies": {
+        "Nancy": "2.0.0-barneyrubble"
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "Microsoft.CSharp": "4.0.1",
+        "Nancy": "2.0.0-barneyrubble"
+      }
+    }
+  }
+}

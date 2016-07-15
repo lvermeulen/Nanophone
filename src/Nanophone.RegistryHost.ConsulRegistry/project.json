@@ -1,0 +1,48 @@
+﻿{
+  "title": "Nanophone.RegistryHost.ConsulRegistry",
+  "version": "1.0.0",
+  "authors": [ "Luk Vermeulen" ],
+  "copyright": "Copyright 2016",
+  "description": "Nanophone Consul registry host",
+
+  "buildOptions": {
+    "define": [ "LIBLOG_PORTABLE" ],
+    "optimize": true,
+    "outputName": "Nanophone.RegistryHost.ConsulRegistry",
+    "xmlDoc": false
+  },
+
+  "packOptions": {
+    "owners": [ "Luk Vermeulen" ],
+    "requireLicenseAcceptance": true,
+    "summary": "Nanophone Consul registry host",
+    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices" ],
+    "projectUrl": "https://github.com/lvermeulen/Nanophone",
+    "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
+    "iconUrl": "http://i.imgur.com/WnKfKOC.png?1",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lvermeulen/Nanophone"
+    }
+  },
+
+  "dependencies": {
+    "Consul": "0.6.4.8-alpha2",
+    "Nanophone.Core": { "target": "project" }
+  },
+
+  "frameworks": {
+    "net451": {
+      "dependencies": {
+        "Newtonsoft.Json": "9.0.1"
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "Microsoft.CSharp": "4.0.1"
+      }
+    }
+  }
+}

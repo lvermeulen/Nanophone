@@ -1,5 +1,5 @@
 ![Icon](http://i.imgur.com/WnKfKOC.png?1) 
-# Nanophone [![Build status](https://ci.appveyor.com/api/projects/status/hwk6g88wm7orvcog?svg=true)](https://ci.appveyor.com/project/lvermeulen/nanophone) [![license](https://img.shields.io/github/license/lvermeulen/Nanophone.svg?maxAge=2592000)](https://github.com/lvermeulen/Nanophone/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/Nanophone.Core.svg?maxAge=2592000)](https://www.nuget.org/packages/Nanophone.Core/)
+# Nanophone [![Build status](https://ci.appveyor.com/api/projects/status/hwk6g88wm7orvcog?svg=true)](https://ci.appveyor.com/project/lvermeulen/nanophone) [![license](https://img.shields.io/github/license/lvermeulen/Nanophone.svg?maxAge=2592000)](https://github.com/lvermeulen/Nanophone/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/v/Nanophone.Core.svg?maxAge=2592000)](https://www.nuget.org/packages/Nanophone.Core/)  ![](https://img.shields.io/badge/.net-4.5.1-yellowgreen.svg) ![](https://img.shields.io/badge/netstandard-1.6-yellowgreen.svg)
 Nanophone is a minimalistic library for Service Registration and Discovery, heavily inspired by Roger Johansson's [Microphone](https://github.com/rogeralsing/Microphone) library.
 
 ##Features:

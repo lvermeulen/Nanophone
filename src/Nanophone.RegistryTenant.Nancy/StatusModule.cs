@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Nancy;
 using Nanophone.RegistryTenant.Nancy.Logging;
 
@@ -12,11 +13,11 @@ namespace Nanophone.RegistryTenant.Nancy
 
         public StatusModule()
         {
-            Get["/status"] = param =>
+            Get("/status", parameters =>
             {
                 s_log.Info("Status: OK");
-                return "OK";
-            };
+                return Task.FromResult("OK");
+            });
         }
     }
 }
