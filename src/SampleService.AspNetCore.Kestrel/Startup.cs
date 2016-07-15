@@ -32,12 +32,17 @@ namespace SampleService.AspNetCore.Owin
             loggerFactory.AddNLog();
 
             //needed for non-NETSTANDARD platforms: configure nlog.config in your project root
-            env.ConfigureNLog("NLog.config");
+            //env.ConfigureNLog("NLog.config");
 
             //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             //loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
         }
     }
 }

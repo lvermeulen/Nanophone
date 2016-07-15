@@ -34,6 +34,7 @@ namespace SampleService.AspNetCore.Owin
                 .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
+
             host.Run();
         }
     }

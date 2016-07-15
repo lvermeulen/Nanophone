@@ -53,7 +53,7 @@
       "Areas/**/Views",
       "appsettings.json",
       "web.config",
-      "NLog.config"
+      "nlog.config"
     ]
   },
 
