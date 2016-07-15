@@ -8,6 +8,10 @@ install:
   - ps: .\build\install.ps1
 build_script:
 - ps: .\build\build.ps1 $env:APPVEYOR_BUILD_VERSION $env:APPVEYOR_REPO_TAG_NAME
+before_test:
+- ps: .\build\beforeTest.ps1
+after_test:
+- ps: .\build\afterTest.ps1
 test_script:
 - ps: .\build\test.ps1
 artifacts:
