@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Nancy;
 
-namespace SampleService.Nancy.net451
+namespace SampleService.Nancy.Kestrel
 {
     public class OrdersModule : NancyModule
     {
