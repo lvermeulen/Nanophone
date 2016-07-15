@@ -12,6 +12,9 @@ namespace SampleService.Nancy.net451
     {
         static void Main()
         {
+            const bool USING_FABIO = true;
+            const bool IGNORE_CRITICAL_SERVICES = true;
+
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 

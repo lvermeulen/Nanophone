@@ -122,6 +122,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             // create urlprefix from uri host + relative path
             var urlPrefixes = (relativePaths ?? Enumerable.Empty<string>())
                 .Select(x => "urlprefix-/" + new Uri(uri, x).GetPath());
+                .Select(x => "urlprefix-" + new Uri(uri, x).GetHostAndPath());
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
             var tags = new List<string>(urlPrefixes) { versionLabel };

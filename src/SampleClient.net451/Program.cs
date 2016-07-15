@@ -31,7 +31,7 @@ namespace SampleClient.net451
                 {
                     try
                     {
-                        string serviceName = USING_FABIO ? "date v1.7-pre" : "date";
+                        string serviceName = USING_FABIO ? "date_v17pre" : "date";
                         var instances = serviceRegistry.FindServiceInstancesAsync(serviceName).Result;
 
                         Console.WriteLine($"{instances.Count} instance{(instances.Count == 1 ? "" : "s")} found");
