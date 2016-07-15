@@ -42,6 +42,15 @@
       <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Nanophone.Core">
+      <HintPath>..\Nanophone.Core\bin\Debug\net451\Nanophone.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Nanophone.RegistryHost.ConsulRegistry">
+      <HintPath>..\Nanophone.RegistryHost.ConsulRegistry\bin\Debug\net451\Nanophone.RegistryHost.ConsulRegistry.dll</HintPath>
+    </Reference>
+    <Reference Include="Nanophone.RegistryTenant.Nancy">
+      <HintPath>..\Nanophone.RegistryTenant.Nancy\bin\Debug\net452\Nanophone.RegistryTenant.Nancy.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.4\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
@@ -68,20 +77,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nanophone.Core\Nanophone.Core.xproj">
-      <Project>{61eebbd3-db6a-4ffb-a358-d3d0482aeda2}</Project>
-      <Name>Nanophone.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.xproj">
-      <Project>{ea667313-9505-4c96-a0a3-a7e3cdf7b453}</Project>
-      <Name>Nanophone.RegistryHost.ConsulRegistry</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.xproj">
-      <Project>{c1d8398f-dc85-4fab-a495-458737f2b26e}</Project>
-      <Name>Nanophone.RegistryTenant.Nancy</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
