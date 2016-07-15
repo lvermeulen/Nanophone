@@ -1,4 +1,4 @@
-$consulJob = Start-Job {C:\consul\Consul.Test\consul.exe agent -dev
+$consulJob = Start-Job {C:\consul\Consul.Test\consul.exe agent -dev}
 $running = $false
 do {
     Receive-Job -Job $consulJob
