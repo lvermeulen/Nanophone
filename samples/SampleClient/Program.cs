@@ -7,7 +7,7 @@ using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
 using NLog;
 
-namespace SampleClient.netcore
+namespace SampleClient
 {
     class Program
     {

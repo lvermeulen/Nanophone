@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Nanophone.Core;
+using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.WebApi;
 using NLog;
@@ -21,11 +23,19 @@ namespace SampleService.AspNetCore.Owin
             const int PORT = 9030;
             string url = $"http://localhost:{PORT}/";
             var serviceRegistry = new ServiceRegistry();
-            var consulConfiguration = USING_FABIO
-                ? new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES, FabioUri = new Uri("http://localhost:9999") }
-                : new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
-            serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(consulConfiguration),
-                USING_FABIO ? "values v1.7-pre" : "values", "1.7-pre", relativePaths: new[] { "/values" });
+            var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
+            var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
+
+            // XXX
+            if (USING_FABIO)
+            {
+                var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
+                serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
+                consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
+            }
+
+            serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), consulRegistryHost,
+                "values", "1.7-pre", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/values") });
 
             var host = new WebHostBuilder()
                 .UseKestrel()

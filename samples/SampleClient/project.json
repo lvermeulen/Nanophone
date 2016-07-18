@@ -5,8 +5,9 @@
   },
 
   "dependencies": {
+    "NETStandard.Library": "1.6.0",
     "Nanophone.Core": { "target": "project" },
-    "Nanophone.Fabio": {"target": "project" },
+    "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "NLog": "4.4.0-betaV14",
     "Microsoft.NETCore.App": {
