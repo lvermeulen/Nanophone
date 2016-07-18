@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
+using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
 using NLog;
 
@@ -19,10 +20,18 @@ namespace SampleClient.netcore
             log.Debug($"Starting {typeof(Program).Namespace}");
 
             var serviceRegistry = new ServiceRegistry();
-            var consulConfiguration = USING_FABIO
-                ? new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES, FabioUri = new Uri("http://localhost:9999") }
-                : new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
-            serviceRegistry.StartClient(new ConsulRegistryHost(consulConfiguration));
+            var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
+            var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
+
+            // XXX
+            if (USING_FABIO)
+            {
+                var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
+                serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
+                consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
+            }
+
+            serviceRegistry.StartClient(consulRegistryHost);
 
             Console.WriteLine("Press ESC to stop");
             do
@@ -31,7 +40,7 @@ namespace SampleClient.netcore
                 {
                     try
                     {
-                        string serviceName = USING_FABIO ? "date v1.7-pre" : "date";
+                        string serviceName = "date";
                         var instances = serviceRegistry.FindServiceInstancesAsync(serviceName).Result;
 
                         Console.WriteLine($"{instances.Count} instance{(instances.Count == 1 ? "" : "s")} found");
