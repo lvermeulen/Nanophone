@@ -12,10 +12,13 @@ namespace Nanophone.Core
 
         private IRegistryHost _registryHost;
         private IRegistryTenant _registryTenant;
+        private IResolveServiceInstances _serviceInstancesResolver;
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            return await _registryHost.FindServiceInstancesAsync(name);
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesAsync(name)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(name);
         }
 
         public async Task<RegistryInformation> FindServiceInstanceAsync(string name)
@@ -25,7 +28,9 @@ namespace Nanophone.Core
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
-            return await _registryHost.FindServiceInstancesWithVersionAsync(name, version);
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version)
+                : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version);
         }
 
         public async Task<RegistryInformation> FindServiceInstanceWithVersionAsync(string name, string version)
@@ -40,7 +45,7 @@ namespace Nanophone.Core
                 .Wait();
         }
 
-        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
+        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
             s_log.Info("Starting Nanophone");
 
@@ -50,7 +55,7 @@ namespace Nanophone.Core
             _registryHost = registryHost;
             try
             {
-                _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, relativePaths)
+                _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs)
                     .Wait();
             }
             catch (Exception ex)
@@ -77,6 +82,12 @@ namespace Nanophone.Core
         public Task KeyValueDeleteTreeAsync(string prefix)
         {
             return _registryHost.KeyValueDeleteTreeAsync(prefix);
+        }
+
+        public void ResolveServiceInstancesWith<T>(T serviceInstancesResolver)
+            where T : IResolveServiceInstances
+        {
+            _serviceInstancesResolver = serviceInstancesResolver;
         }
     }
 }
