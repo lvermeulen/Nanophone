@@ -18,7 +18,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
-        private readonly bool _usingFabio;
+        private readonly List<IHandleServiceRegistration> _serviceRegistrationHandlers = new List<IHandleServiceRegistration>();
+
 
         private void StartRemovingCriticalServices()
         {
@@ -68,9 +69,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 _configuration.CleanupInterval = TimeSpan.FromSeconds(5);
             }
 
-            // Fabio support
-            _usingFabio = _configuration.FabioUri != null;
-
             _consul = new ConsulClient();
         }
 
@@ -83,11 +81,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            if (_usingFabio)
-            {
-                return new[] { new RegistryInformation(_configuration.FabioUri.GetSchemeAndHost(), _configuration.FabioUri.Port) };
-            }
-
             var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true);
             var instances = queryResult.Response
                 .Select(serviceEntry =>
@@ -113,18 +106,14 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> relativePaths = null)
+        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
             var serviceId = GetServiceId(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
-            // create urlprefix from uri host + relative path
-            var urlPrefixes = (relativePaths ?? Enumerable.Empty<string>())
-                .Select(x => "urlprefix-/" + new Uri(uri, x).GetPath());
-
             string versionLabel = $"{VERSION_PREFIX}{version}";
-            var tags = new List<string>(urlPrefixes) { versionLabel };
+            var tags = new List<string> { versionLabel };
 
             var registration = new AgentServiceRegistration
             {
@@ -135,6 +124,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Port = uri.Port,
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
+
+            // call registered handlers
+            foreach (var serviceRegistrationHandler in _serviceRegistrationHandlers)
+            {
+                registration = serviceRegistrationHandler.Handle(registration, uri, keyValuePairs);
+            }
+
             await _consul.Agent.ServiceRegister(registration);
             s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
 
@@ -177,6 +173,16 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
             await _consul.KV.DeleteTree(prefix);
+        }
+
+        public void AddBeforeRegistrationHandler(IHandleServiceRegistration handler)
+        {
+            _serviceRegistrationHandlers.Add(handler);
+        }
+
+        public void RemoveBeforeRegistrationHandler(IHandleServiceRegistration handler)
+        {
+            _serviceRegistrationHandlers.Remove(handler);
         }
     }
 }
