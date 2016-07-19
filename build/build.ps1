@@ -3,7 +3,7 @@ param (
 	[string]$TagVersionNumber
 )
 
-# Set the version number in package.json
+# set version number in package.json
 Get-ChildItem -Path $PSScriptRoot\..\src -Filter project.json -Recurse | ForEach-Object{ 
     $ProjectJsonPath =  $_.FullName
     if ($TagVersionNumber){

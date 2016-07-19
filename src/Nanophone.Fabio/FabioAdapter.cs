@@ -1,51 +1,62 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Consul;
 using Nanophone.Core;
-using Nanophone.RegistryHost.ConsulRegistry;
+using Nanophone.Fabio.Logging;
 
 namespace Nanophone.Fabio
 {
-    public class FabioAdapter : IResolveServiceInstances, 
-        IHandleServiceRegistration
+    public class FabioAdapter : IResolveServiceInstances
     {
+        private static readonly ILog s_log = LogProvider.For<FabioAdapter>();
+
         private readonly Uri _fabioUri;
-        private readonly string _prefixName;
 
         public FabioAdapter(Uri fabioUri, string prefixName = "urlprefix-")
         {
+            s_log.Info($"Starting fabio adapter with address {fabioUri}, prefix {prefixName}");
             _fabioUri = fabioUri;
-            _prefixName = prefixName;
+        }
+
+        private Task<IList<RegistryInformation>> GetFabioResult(string name = "")
+        {
+            return Task.FromResult<IList<RegistryInformation>>(new[] { new RegistryInformation(name, _fabioUri.GetSchemeAndHost(), _fabioUri.Port) });
+        }
+
+        public Task<IList<RegistryInformation>> FindServiceInstancesAsync()
+        {
+            s_log.Info("Finding service instances with fabio adapter");
+            return GetFabioResult();
         }
 
         public Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            return Task.FromResult<IList<RegistryInformation>>(new[] { new RegistryInformation(_fabioUri.GetSchemeAndHost(), _fabioUri.Port) });
+            s_log.Info($"Finding service instances with fabio adapter: service {name}");
+            return GetFabioResult(name);
         }
 
         public Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
-            return FindServiceInstancesAsync(name);
+            s_log.Info($"Finding service instances with fabio adapter: service {name}, version {version}");
+            return GetFabioResult(name);
         }
 
-        public AgentServiceRegistration Handle(AgentServiceRegistration registration, Uri uri, IEnumerable<KeyValuePair<string, string>> keyValuePairs)
+        public Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate, Predicate<RegistryInformation> registryInformationPredicate)
         {
-            if (registration != null)
-            {
-                // create urlprefix from uri host + relative path
-                var urlPrefixes = keyValuePairs?
-                    .Where(kvp => kvp.Key.Equals(_prefixName, StringComparison.OrdinalIgnoreCase))
-                    .Select(kvp => $"{_prefixName}/" + new Uri(uri, kvp.Value).GetPath()) ?? Enumerable.Empty<string>();
+            s_log.Info("Finding service instances with fabio adapter");
+            return GetFabioResult();
+        }
 
-                // copy urlprefixes to tags
-                var tags = new List<string>(registration.Tags);
-                tags.AddRange(urlPrefixes);
-                registration.Tags = tags.ToArray();
-            }
+        public Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
+        {
+            s_log.Info("Finding service instances with fabio adapter");
+            return GetFabioResult();
+        }
 
-            return registration;
+        public Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
+        {
+            s_log.Info("Finding service instances with fabio adapter");
+            return GetFabioResult();
         }
     }
 }

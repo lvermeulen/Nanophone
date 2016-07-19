@@ -23,12 +23,11 @@ namespace SampleClient
             var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
             var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
 
-            // XXX
             if (USING_FABIO)
             {
                 var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
                 serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
-                consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
+                //consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
             }
 
             serviceRegistry.StartClient(consulRegistryHost);
@@ -40,13 +39,23 @@ namespace SampleClient
                 {
                     try
                     {
-                        string serviceName = "date";
-                        var instances = serviceRegistry.FindServiceInstancesAsync(serviceName).Result;
+                        var instances = serviceRegistry.FindServiceInstancesAsync().Result;
+                        var groupedByName = instances
+                            .GroupBy(x => x.Name, x => x)
+                            .ToList();
 
-                        Console.WriteLine($"{instances.Count} instance{(instances.Count == 1 ? "" : "s")} found");
-                        foreach (var instance in instances)
+                        if (!groupedByName.Any())
                         {
-                            Console.WriteLine($"    Name: {serviceName}, Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
+                            Console.WriteLine("No service instances found");
+                            Console.WriteLine();
+                            continue;
+                        }
+
+                        foreach (var group in groupedByName)
+                        {
+                            string name = group.Key;
+                            int count = group.Count();
+                            Console.WriteLine($"    Name: {name}, instances found: {count}");
                         }
                         Console.WriteLine();
 
