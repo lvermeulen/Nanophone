@@ -28,21 +28,11 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindServiceInstancesAsync(name);
         }
 
-        public async Task<RegistryInformation> FindServiceInstanceAsync(string name)
-        {
-            return await _registryHost.FindServiceInstanceAsync(name);
-        }
-
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
             return _serviceInstancesResolver == null
                 ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version)
                 : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version);
-        }
-
-        public async Task<RegistryInformation> FindServiceInstanceWithVersionAsync(string name, string version)
-        {
-            return await _registryHost.FindServiceInstanceWithVersionAsync(name, version);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate,
