@@ -18,7 +18,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
-        private readonly List<IHandleServiceRegistration> _serviceRegistrationHandlers = new List<IHandleServiceRegistration>();
 
         private void StartRemovingCriticalServices()
         {
@@ -160,12 +159,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
 
-            // call registered handlers
-            foreach (var serviceRegistrationHandler in _serviceRegistrationHandlers)
-            {
-                registration = serviceRegistrationHandler.Handle(registration, uri, keyValuePairs);
-            }
-
             await _consul.Agent.ServiceRegister(registration);
             s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
 
@@ -208,16 +201,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
             await _consul.KV.DeleteTree(prefix);
-        }
-
-        public void AddBeforeRegistrationHandler(IHandleServiceRegistration handler)
-        {
-            _serviceRegistrationHandlers.Add(handler);
-        }
-
-        public void RemoveBeforeRegistrationHandler(IHandleServiceRegistration handler)
-        {
-            _serviceRegistrationHandlers.Remove(handler);
         }
     }
 }
