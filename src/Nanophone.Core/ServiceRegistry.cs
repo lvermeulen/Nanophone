@@ -6,13 +6,20 @@ using Nanophone.Core.Logging;
 
 namespace Nanophone.Core
 {
-    public class ServiceRegistry
+    public class ServiceRegistry : IResolveServiceInstances
     {
         private static readonly ILog s_log = LogProvider.For<ServiceRegistry>();
 
         private IRegistryHost _registryHost;
         private IRegistryTenant _registryTenant;
         private IResolveServiceInstances _serviceInstancesResolver;
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
+        {
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesAsync()
+                : await _serviceInstancesResolver.FindServiceInstancesAsync();
+        }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
@@ -36,6 +43,28 @@ namespace Nanophone.Core
         public async Task<RegistryInformation> FindServiceInstanceWithVersionAsync(string name, string version)
         {
             return await _registryHost.FindServiceInstanceWithVersionAsync(name, version);
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate,
+            Predicate<RegistryInformation> registryInformationPredicate)
+        {
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate);
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
+        {
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesAsync(predicate)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
+        {
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindServiceInstancesAsync(predicate)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
         }
 
         public void StartClient(IRegistryHost registryHost)

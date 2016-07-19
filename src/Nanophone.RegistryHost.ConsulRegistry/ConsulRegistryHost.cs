@@ -20,7 +20,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         private readonly ConsulClient _consul;
         private readonly List<IHandleServiceRegistration> _serviceRegistrationHandlers = new List<IHandleServiceRegistration>();
 
-
         private void StartRemovingCriticalServices()
         {
             if (_configuration.IgnoreCriticalServices)
@@ -79,17 +78,23 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 .TrimStart(VERSION_PREFIX);
         }
 
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
+        {
+            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: x => true);
+        }
+
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
             var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true);
             var instances = queryResult.Response
                 .Select(serviceEntry =>
                 {
+                    string serviceName = serviceEntry.Service.Service;
                     string serviceAddress = serviceEntry.Service.Address;
                     int servicePort = serviceEntry.Service.Port;
                     string version = GetVersionFromStrings(serviceEntry.Service.Tags);
 
-                    return new RegistryInformation(serviceAddress, servicePort, version);
+                    return new RegistryInformation(serviceName, serviceAddress, servicePort, version);
                 });
 
             return instances.ToList();
@@ -99,6 +104,35 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         {
             var instances = await FindServiceInstancesAsync(name);
             return instances.Where(x => x.Version == version).ToArray();
+        }
+
+        private async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
+        {
+            var queryResult = await _consul.Catalog.Services(); // local agent datacenter is implied
+            var services = queryResult.Response;
+
+            return services;
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate, Predicate<RegistryInformation> registryInformationPredicate)
+        {
+            return (await GetServicesCatalogAsync())
+                .Where(kvp => nameTagsPredicate(kvp))
+                .Select(kvp => kvp.Key)
+                .Select(FindServiceInstancesAsync)
+                .SelectMany(task => task.Result)
+                .Where(x => registryInformationPredicate(x))
+                .ToList();
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
+        {
+            return await FindServiceInstancesAsync(nameTagsPredicate: predicate, registryInformationPredicate: x => true);
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
+        {
+            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate);
         }
 
         private string GetServiceId(string serviceName, Uri uri)
@@ -113,7 +147,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
-            var tags = new List<string> { versionLabel };
+            var keyValueTags = keyValuePairs.Select(kvp => $"{kvp.Key}{kvp.Value}");
+            var tags = new List<string>(keyValueTags) { versionLabel };
 
             var registration = new AgentServiceRegistration
             {
