@@ -42,7 +42,8 @@
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "copyToOutput": { "include": "nlog.config" }
   },
 
   "runtimeOptions": {

@@ -26,12 +26,11 @@ namespace SampleService.AspNetCore.Owin
             var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
             var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
 
-            // XXX
             if (USING_FABIO)
             {
                 var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
                 serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
-                consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
+                //consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
             }
 
             serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), consulRegistryHost,
@@ -41,7 +40,6 @@ namespace SampleService.AspNetCore.Owin
                 .UseKestrel()
                 .UseUrls($"http://*:{PORT}")
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .Build();
 

@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SampleService.AspNetCore.Kestrel": {
+    "SampleService.Nancy.Kestrel": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "http://localhost:9060/orders",

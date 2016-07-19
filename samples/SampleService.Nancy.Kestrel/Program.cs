@@ -27,16 +27,15 @@ namespace SampleService.Nancy.Kestrel
             var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
             var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
 
-            // XXX
             if (USING_FABIO)
             {
                 var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
                 serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
-                consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
+                //consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
             }
 
             serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), consulRegistryHost,
-                "values", "1.7-pre", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/values") });
+                "orders", "1.3", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/orders") });
 
             var host = new WebHostBuilder()
                 .UseKestrel()
