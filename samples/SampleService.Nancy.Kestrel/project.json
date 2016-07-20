@@ -43,7 +43,8 @@
   "buildOptions": {
     "emitEntryPoint": true,
     "preserveCompilationContext": true,
-    "copyToOutput": { "include": "nlog.config" }
+    "copyToOutput": { "include": "nlog.config" },
+    "nowarn": [ "CS0162" ]
   },
 
   "runtimeOptions": {
