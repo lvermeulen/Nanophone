@@ -2,7 +2,8 @@
   "version": "1.0.0-*",
   "buildOptions": {
     "emitEntryPoint": true,
-    "copyToOutput": { "include": "nlog.config" }
+    "copyToOutput": { "include": "nlog.config" },
+    "nowarn": [ "CS0162" ]
   },
 
   "dependencies": {
