@@ -3,19 +3,19 @@
   "version": "1.3.1-alpha",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
-  "description": "Nanophone test registry host",
+  "description": "Nanophone in-memory registry host",
 
   "buildOptions": {
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
-    "outputName": "Nanophone.RegistryHost.Test",
+    "outputName": "Nanophone.RegistryHost.InMemoryRegistry",
     "xmlDoc": false
   },
 
   "packOptions": {
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
-    "summary": "Nanophone test registry host",
+    "summary": "Nanophone in-memory registry host",
     "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices" ],
     "projectUrl": "https://github.com/lvermeulen/Nanophone",
     "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
