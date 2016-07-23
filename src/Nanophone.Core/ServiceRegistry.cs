@@ -5,13 +5,35 @@ using Nanophone.Core.Logging;
 
 namespace Nanophone.Core
 {
-    public class ServiceRegistry : IResolveServiceInstances
+    public class ServiceRegistry : IManageServiceInstances, IResolveServiceInstances, IHaveKeyValues
     {
         private static readonly ILog s_log = LogProvider.For<ServiceRegistry>();
 
-        private IRegistryHost _registryHost;
-        private IRegistryTenant _registryTenant;
+        private readonly IRegistryHost _registryHost;
         private IResolveServiceInstances _serviceInstancesResolver;
+
+        public ServiceRegistry(IRegistryHost registryHost)
+        {
+            s_log.Info("Starting Nanophone");
+            _registryHost = registryHost;
+        }
+
+        public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
+            IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        {
+            _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs)
+                .Wait();
+
+            return Task.FromResult(0);
+        }
+
+        public Task DeregisterServiceAsync(string serviceId)
+        {
+            _registryHost.DeregisterServiceAsync(serviceId)
+                .Wait();
+
+            return Task.FromResult(0);
+        }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
         {
@@ -56,23 +78,10 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
         }
 
-        public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public async Task AddTenant(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
-            s_log.Info("Starting Nanophone");
-
-            _registryTenant = registryTenant;
-            var uri = _registryTenant.Uri;
-
-            _registryHost = registryHost;
-            try
-            {
-                _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs)
-                    .Wait();
-            }
-            catch (Exception ex)
-            {
-                s_log.ErrorException($"{registryTenant.GetType().Name}: unable to register service {serviceName}", ex);
-            }
+            var uri = registryTenant.Uri;
+            await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs);
         }
 
         public Task KeyValuePutAsync(string key, object value)

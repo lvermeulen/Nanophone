@@ -13,20 +13,17 @@ namespace SampleClient
         static void Main()
         {
             const bool USING_FABIO = false;
-            const bool IGNORE_CRITICAL_SERVICES = true;
 
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
-            var serviceRegistry = new ServiceRegistry();
-            var consulConfiguration = new ConsulRegistryHostConfiguration { IgnoreCriticalServices = IGNORE_CRITICAL_SERVICES };
-            var consulRegistryHost = new ConsulRegistryHost(consulConfiguration);
+            var consulRegistryHost = new ConsulRegistryHost();
+            var serviceRegistry = new ServiceRegistry(consulRegistryHost);
 
             if (USING_FABIO)
             {
                 var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
                 serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
-                //consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
             }
 
             Console.WriteLine("Press ESC to stop");
