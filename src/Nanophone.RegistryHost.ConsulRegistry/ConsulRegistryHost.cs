@@ -19,54 +19,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
 
-        private void StartRemovingCriticalServices()
-        {
-            if (_configuration.IgnoreCriticalServices)
-            {
-                return;
-            }
-
-            Task.Factory.StartNew(async () =>
-            {
-                await Task.Delay(_configuration.CleanupDelay);
-                s_log.Info("Starting to remove services in critical state");
-
-                while (true)
-                {
-                    try
-                    {
-                        // deregister critical services
-                        var queryResult = await _consul.Health.State(CheckStatus.Critical);
-                        var criticalServiceIds = queryResult.Response
-                            .Where(x => x.NeedsStatusCheck())
-                            .Select(x => x.ServiceID);
-                        foreach (var serviceId in criticalServiceIds)
-                        {
-                            await DeregisterServiceAsync(serviceId);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        s_log.ErrorException("Error while removing critical services", ex);
-                    }
-
-                    await Task.Delay(_configuration.CleanupInterval);
-                }
-            });
-        }
-
         public ConsulRegistryHost(ConsulRegistryHostConfiguration configuration = null)
         {
-            _configuration = configuration ?? ConsulRegistryHostConfiguration.Default;
-            if (_configuration.CleanupDelay == TimeSpan.MinValue)
-            {
-                _configuration.CleanupDelay = TimeSpan.FromSeconds(10);
-            }
-            if (_configuration.CleanupInterval == TimeSpan.MinValue)
-            {
-                _configuration.CleanupInterval = TimeSpan.FromSeconds(5);
-            }
-
+            _configuration = configuration ?? new ConsulRegistryHostConfiguration { ConsulHost = "localhost", ConsulPort = 8500 };
             _consul = new ConsulClient();
         }
 
@@ -161,8 +116,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
             await _consul.Agent.ServiceRegister(registration);
             s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
-
-            StartRemovingCriticalServices();
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
