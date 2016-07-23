@@ -171,12 +171,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
-        public Task StartClientAsync()
-        {
-            StartRemovingCriticalServices();
-            return Task.FromResult(0);
-        }
-
         public async Task KeyValuePutAsync(string key, object value)
         {
             var serialized = JsonConvert.SerializeObject(value);

@@ -74,9 +74,13 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(0);
         }
 
-        public Task StartClientAsync()
+        public async Task DeregisterServiceAsync(string serviceId)
         {
-            return Task.FromResult(0);
+            var instance = (await FindServiceInstancesAsync()).FirstOrDefault(x => x.Name == serviceId);
+            if (instance != null)
+            {
+                ServiceInstances.Remove(instance);
+            }
         }
 
         public Task KeyValuePutAsync(string key, object value)

@@ -29,8 +29,6 @@ namespace SampleClient
                 //consulRegistryHost.AddBeforeRegistrationHandler(fabioHandler);
             }
 
-            serviceRegistry.StartClient(consulRegistryHost);
-
             Console.WriteLine("Press ESC to stop");
             do
             {

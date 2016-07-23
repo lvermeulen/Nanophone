@@ -56,13 +56,6 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
         }
 
-        public void StartClient(IRegistryHost registryHost)
-        {
-            _registryHost = registryHost;
-            _registryHost.StartClientAsync()
-                .Wait();
-        }
-
         public void Start(IRegistryTenant registryTenant, IRegistryHost registryHost, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
             s_log.Info("Starting Nanophone");
