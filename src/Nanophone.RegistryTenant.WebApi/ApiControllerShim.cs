@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-#if NETSTANDARD1_6
+﻿#if NETSTANDARD1_6
 using Microsoft.AspNetCore.Mvc;
 #else
 using System.Web.Http;

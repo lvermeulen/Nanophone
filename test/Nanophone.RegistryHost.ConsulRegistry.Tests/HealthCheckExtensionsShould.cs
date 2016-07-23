@@ -1,5 +1,4 @@
-﻿using System;
-using Consul;
+﻿using Consul;
 using Xunit;
 
 namespace Nanophone.RegistryHost.ConsulRegistry.Tests
