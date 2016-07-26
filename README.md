@@ -50,7 +50,7 @@ using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
 
 var serviceRegistry = new ServiceRegistry();
-serviceRegistry.Start(new NancyRegistryTenant(new Uri("http://localhost:9001")), new ConsulRegistryHost(),
+serviceRegistry.AddTenant(new NancyRegistryTenant(new Uri("http://localhost:9001")), new ConsulRegistryHost(),
     "customers", "v1");
 ~~~~
 
@@ -64,7 +64,7 @@ using Nanophone.RegistryTenant.WebApi;
 string url = "http://localhost:9000/";
 
 var serviceRegistry = new ServiceRegistry();
-serviceRegistry.Start(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(), 
+serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(), 
     "date", "1.7-pre");
 
 WebApp.Start<Startup>(url);
