@@ -110,7 +110,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public Task KeyValueDeleteTreeAsync(string prefix)
         {
-            var deletes = KeyValues.Where(x => x.Key.StartsWith(prefix)).ToArray();
+            var deletes = KeyValues.Where(x => x.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)).ToArray();
             for (int i = deletes.Length - 1; i >= 0; i--)
             {
                 KeyValues.Remove(deletes[i]);
