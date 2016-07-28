@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Nanophone.Core;
 using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
-using Nanophone.RegistryTenant.Nancy;
+using Nanophone.RegistryTenant.WebApi;
 using NLog;
 
 namespace SampleService.Nancy.Kestrel
@@ -30,7 +30,7 @@ namespace SampleService.Nancy.Kestrel
                 serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
             }
 
-            serviceRegistry.AddTenant(new NancyRegistryTenant(new Uri(url)),
+            serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)),
                 "orders", "1.3", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/orders") })
                 .Wait();
 

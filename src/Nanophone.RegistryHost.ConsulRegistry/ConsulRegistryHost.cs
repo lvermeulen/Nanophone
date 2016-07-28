@@ -60,7 +60,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return instances.Where(x => x.Version == version).ToArray();
         }
 
-        public async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
+        private async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
         {
             var queryResult = await _consul.Catalog.Services(); // local agent datacenter is implied
             var services = queryResult.Response;

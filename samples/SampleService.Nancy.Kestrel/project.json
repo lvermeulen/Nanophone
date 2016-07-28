@@ -19,7 +19,7 @@
     "Nanophone.Core": { "target": "project" },
     "Nanophone.Fabio": {"target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
-    "Nanophone.RegistryTenant.Nancy": { "target": "project" },
+    "Nanophone.RegistryTenant.WebApi": { "target": "project" },
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
   },
 
