@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Nanophone.RegistryHost.ConsulRegistry
+﻿namespace Nanophone.RegistryHost.ConsulRegistry
 {
     public class ConsulRegistryHostConfiguration
     {

@@ -4,24 +4,11 @@ namespace Nanophone.Core
 {
     public class RegistryInformation
     {
-        public string Name { get; }
-        public string Address { get; }
-        public int Port { get; }
-        public string Version { get; }
-        public IEnumerable<KeyValuePair<string, string>> KeyValuePairs { get; }
-
-        public RegistryInformation(string name, string serviceAddress, int servicePort)
-        {
-            Name = name;
-            Address = serviceAddress;
-            Port = servicePort;
-        }
-
-        public RegistryInformation(string name, string serviceAddress, int servicePort, string version, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
-            : this(name, serviceAddress, servicePort)
-        {
-            Version = version;
-            KeyValuePairs = keyValuePairs;
-        }
+        public string Name { get; set; }
+        public string Id { get; set; }
+        public string Address { get; set; }
+        public int Port { get; set; }
+        public string Version { get; set; }
+        public IEnumerable<KeyValuePair<string, string>> KeyValuePairs { get; set; }
     }
 }
