@@ -40,16 +40,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
             var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true);
-            var instances = queryResult.Response
-                .Select(serviceEntry =>
-                {
-                    string serviceName = serviceEntry.Service.Service;
-                    string serviceAddress = serviceEntry.Service.Address;
-                    int servicePort = serviceEntry.Service.Port;
-                    string version = GetVersionFromStrings(serviceEntry.Service.Tags);
-
-                    return new RegistryInformation(serviceName, serviceAddress, servicePort, version);
-                });
+            var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
+            {
+                Name = serviceEntry.Service.Service,
+                Address = serviceEntry.Service.Address,
+                Port = serviceEntry.Service.Port,
+                Version = GetVersionFromStrings(serviceEntry.Service.Tags)
+            });
 
             return instances.ToList();
         }

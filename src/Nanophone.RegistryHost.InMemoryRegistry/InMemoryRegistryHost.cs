@@ -70,13 +70,21 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
             IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
-            ServiceInstances.Add(new RegistryInformation(serviceName, uri.Host, uri.Port, version, keyValuePairs));
+            ServiceInstances.Add(new RegistryInformation
+            {
+                Name = serviceName,
+                Id = Guid.NewGuid().ToString(),
+                Address = uri.Host,
+                Port = uri.Port,
+                Version = version,
+                KeyValuePairs = keyValuePairs ?? Enumerable.Empty<KeyValuePair<string, string>>()
+            });
             return Task.FromResult(0);
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
         {
-            var instance = (await FindServiceInstancesAsync()).FirstOrDefault(x => x.Name == serviceId);
+            var instance = (await FindServiceInstancesAsync()).FirstOrDefault(x => x.Id == serviceId);
             if (instance != null)
             {
                 ServiceInstances.Remove(instance);

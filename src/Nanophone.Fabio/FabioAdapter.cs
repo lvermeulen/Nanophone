@@ -20,7 +20,15 @@ namespace Nanophone.Fabio
 
         private Task<IList<RegistryInformation>> GetFabioResult(string name = "")
         {
-            return Task.FromResult<IList<RegistryInformation>>(new[] { new RegistryInformation(name, _fabioUri.GetSchemeAndHost(), _fabioUri.Port) });
+            return Task.FromResult<IList<RegistryInformation>>(new[]
+            {
+                new RegistryInformation
+                {
+                    Name = name,
+                    Address = _fabioUri.GetSchemeAndHost(),
+                    Port = _fabioUri.Port
+                }
+            });
         }
 
         public Task<IList<RegistryInformation>> FindServiceInstancesAsync()

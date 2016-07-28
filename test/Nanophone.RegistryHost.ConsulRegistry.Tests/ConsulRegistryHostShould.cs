@@ -8,18 +8,18 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
 {
     public class ConsulRegistryHostShould
     {
-        private readonly IRegistryHost _registry;
+        private readonly IRegistryHost _registryHost;
 
         public ConsulRegistryHostShould()
         {
             var configuration = new ConsulRegistryHostConfiguration();
-            _registry = new ConsulRegistryHost(configuration);
+            _registryHost = new ConsulRegistryHost(configuration);
         }
 
         [Fact]
         public async Task FindServices()
         {
-            var services = await _registry.FindServiceInstancesAsync("consul");
+            var services = await _registryHost.FindServiceInstancesAsync("consul");
 
             Assert.NotNull(services);
             Assert.True(services.Any());
@@ -31,11 +31,11 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
             const string KEY = "hello";
             DateTime dateValue = new DateTime(2016, 5, 28);
 
-            await _registry.KeyValuePutAsync(KEY, dateValue);
-            var value = await _registry.KeyValueGetAsync<DateTime>("hello");
+            await _registryHost.KeyValuePutAsync(KEY, dateValue);
+            var value = await _registryHost.KeyValueGetAsync<DateTime>("hello");
             Assert.Equal(dateValue, value);
 
-            await _registry.KeyValueDeleteAsync(KEY);
+            await _registryHost.KeyValueDeleteAsync(KEY);
         }
 
         [Fact]
@@ -45,11 +45,11 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
             const string KEY = "date";
             DateTime dateValue = new DateTime(2016, 5, 28);
 
-            await _registry.KeyValuePutAsync(FOLDER + KEY, dateValue);
-            var value = await _registry.KeyValueGetAsync<DateTime>(FOLDER + KEY);
+            await _registryHost.KeyValuePutAsync(FOLDER + KEY, dateValue);
+            var value = await _registryHost.KeyValueGetAsync<DateTime>(FOLDER + KEY);
             Assert.Equal(dateValue, value);
 
-            await _registry.KeyValueDeleteTreeAsync(FOLDER);
+            await _registryHost.KeyValueDeleteTreeAsync(FOLDER);
         }
     }
 }
