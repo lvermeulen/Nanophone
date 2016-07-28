@@ -101,8 +101,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
-            var keyValueTags = keyValuePairs.Select(kvp => $"{kvp.Key}{kvp.Value}");
-            var tags = new List<string>(keyValueTags) { versionLabel };
+            var keyValueTags = keyValuePairs?.Select(kvp => $"{kvp.Key}{kvp.Value}");
+            var tags = new List<string>(keyValueTags ?? Enumerable.Empty<string>()) { versionLabel };
 
             var registration = new AgentServiceRegistration
             {
