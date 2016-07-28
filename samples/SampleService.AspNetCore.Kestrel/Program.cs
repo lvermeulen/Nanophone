@@ -14,8 +14,6 @@ namespace SampleService.AspNetCore.Owin
     {
         public static void Main()
         {
-            const bool USING_FABIO = false;
-
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
@@ -24,11 +22,8 @@ namespace SampleService.AspNetCore.Owin
             var consulRegistryHost = new ConsulRegistryHost();
             var serviceRegistry = new ServiceRegistry(consulRegistryHost);
 
-            if (USING_FABIO)
-            {
-                var fabioHandler = new FabioAdapter(new Uri("http://localhost:9999"));
-                serviceRegistry.ResolveServiceInstancesWith(fabioHandler);
-            }
+            // uncomment for fabio
+            //serviceRegistry.ResolveServiceInstancesWith(new FabioAdapter(new Uri("http://localhost:9999")));
 
             serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)),
                 "values", "1.7-pre", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/values") })
