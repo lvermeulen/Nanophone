@@ -86,6 +86,22 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate);
         }
 
+        public async Task<IList<RegistryInformation>> FindAllServicesAsync()
+        {
+            var queryResult = await _consul.Agent.Services();
+            var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
+            {
+                Name = serviceEntry.Value.Service,
+                Id = serviceEntry.Value.ID,
+                Address = serviceEntry.Value.Address,
+                Port = serviceEntry.Value.Port,
+                Version = GetVersionFromStrings(serviceEntry.Value.Tags)
+                // TODO: KeyValuePairs = serviceEntry.Value.Tags.Select(prefix)
+            });
+
+            return instances.ToList();
+        }
+
         private string GetServiceId(string serviceName, Uri uri)
         {
             return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";

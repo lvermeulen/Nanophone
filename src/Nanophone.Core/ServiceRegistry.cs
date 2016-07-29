@@ -78,6 +78,13 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
         }
 
+        public async Task<IList<RegistryInformation>> FindAllServicesAsync()
+        {
+            return _serviceInstancesResolver == null
+                ? await _registryHost.FindAllServicesAsync()
+                : await _serviceInstancesResolver.FindAllServicesAsync();
+        }
+
         public async Task AddTenant(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
             var uri = registryTenant.Uri;

@@ -66,5 +66,11 @@ namespace Nanophone.Fabio
             s_log.Info("Finding service instances with fabio adapter");
             return GetFabioResult();
         }
+
+        public Task<IList<RegistryInformation>> FindAllServicesAsync()
+        {
+            s_log.Info("Finding all services with fabio adapter");
+            return GetFabioResult();
+        }
     }
 }
