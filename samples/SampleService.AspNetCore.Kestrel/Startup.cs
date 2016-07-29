@@ -27,15 +27,9 @@ namespace SampleService.AspNetCore.Owin
             services.AddMvc();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
-
-            //needed for non-NETSTANDARD platforms: configure nlog.config in your project root
-            //env.ConfigureNLog("NLog.config");
-
-            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            //loggerFactory.AddDebug();
 
             app.UseMvc(routes =>
             {
