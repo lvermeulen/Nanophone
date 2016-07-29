@@ -13,5 +13,6 @@ namespace Nanophone.Core
             Predicate<RegistryInformation> registryInformationPredicate);
         Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate);
         Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate);
+        Task<IList<RegistryInformation>> FindAllServicesAsync();
     }
 }

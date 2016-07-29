@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xunit;
 using Nanophone.Core;
+using Xunit;
 
 namespace Nanophone.RegistryHost.ConsulRegistry.Tests
 {

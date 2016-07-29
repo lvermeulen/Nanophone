@@ -67,6 +67,11 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate);
         }
 
+        public Task<IList<RegistryInformation>> FindAllServicesAsync()
+        {
+            return Task.FromResult(ServiceInstances);
+        }
+
         public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
             IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
         {
