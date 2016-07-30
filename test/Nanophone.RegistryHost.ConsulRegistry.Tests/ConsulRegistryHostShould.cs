@@ -26,6 +26,22 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
+        public async Task RegisterService()
+        {
+            var serviceName = nameof(ConsulRegistryHostShould);
+            _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"))
+                .Wait();
+
+            Func<string, Task<RegistryInformation>> findTenant = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
+                .FirstOrDefault(x => x.Name == s);
+
+            var tenant = findTenant(serviceName).Result;
+            Assert.NotNull(tenant);
+            await _registryHost.DeregisterServiceAsync(tenant.Id);
+            Assert.Null(findTenant(serviceName).Result);
+        }
+
+        [Fact]
         public async Task UseKeyValueStore()
         {
             const string KEY = "hello";
