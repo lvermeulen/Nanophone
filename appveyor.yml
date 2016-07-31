@@ -4,6 +4,10 @@ branches:
   - master
 pull_requests:
   do_not_increment_build_number: true
+environment:
+  COVERALLS_REPO_TOKEN:
+    secure: o8re+GWYBl4Tq1RvoEclgFF8iGL4ovJp7B2dHwfyvlIMFLhLeViza8PeIIg4ZMfN
+  COVER_FILTER: +[Nano*]* -[*]*.Logging.* -[Nano*Tests]*
 install:
   - ps: .\build\install.ps1
 build_script:
@@ -13,7 +17,12 @@ before_test:
 after_test:
 - ps: .\build\afterTest.ps1
 test_script:
-- ps: .\build\test.ps1
+- ps: |
+    if ($true)
+    {
+        Invoke-Expression ".\build\test.ps1"
+        Invoke-Expression ".\build\cover.ps1 $env:COVERALLS_REPO_TOKEN COVER_FILTER"
+    }
 artifacts:
 - path: '**\*.nupkg'
 deploy:
