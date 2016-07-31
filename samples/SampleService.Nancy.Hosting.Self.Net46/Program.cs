@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Nancy.Hosting.Self;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
@@ -21,7 +20,7 @@ namespace SampleService.Nancy.Hosting.Self.Net46
                 var consulRegistryHost = new ConsulRegistryHost();
                 var serviceRegistry = new ServiceRegistry(consulRegistryHost);
 
-                serviceRegistry.AddTenant(new NancyRegistryTenant(uri), "price", "1.3", keyValuePairs: new List<KeyValuePair<string, string>> { new KeyValuePair<string, string>("key", "value") })
+                serviceRegistry.AddTenant(new NancyRegistryTenant(uri), "price", "1.3")
                     .Wait();
 
                 Console.WriteLine($"Now listening on {uri}/price. Press enter to stop");
