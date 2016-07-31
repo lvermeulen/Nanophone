@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
+﻿using Xunit;
 
 namespace Nanophone.RegistryTenant.WebApi.Tests
 {
     public class StatusControllerShould
     {
+        [Fact]
+        public void ReturnSuccess()
+        {
+            var controller = new StatusController();
+            var result = controller.GetStatus();
+
+            Assert.Equal("OK", result);
+        }
     }
 }
