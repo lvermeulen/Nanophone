@@ -3,8 +3,8 @@
     [string]$CoverFilter=$(throw "-CoverFilter is required.")
 )
 
-Add-AppveyorMessage -Message "Code coverage started"
-Add-AppveyorCompilationMessage -Message "Code coverage filter: " $CoverFilter 
+Add-AppveyorCompilationMessage -Message "Code coverage started"
+Add-AppveyorCompilationMessage -Message "Code coverage filter: $CoverFilter" 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
 #Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
@@ -62,9 +62,13 @@ Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
 <#
 
 # upload to coveralls.io
+Add-AppveyorCompilationMessage -Message "Sending code coverage results to coveralls.io"
+
 & $coverallsPath `
     --opencover $tempCoverageFileName `
     --full-sources `
     --repo-token $CoverallsRepoToken
 
 #>
+
+Add-AppveyorCompilationMessage -Message "Code coverage ended"
