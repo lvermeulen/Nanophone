@@ -16,13 +16,28 @@ $filter = "$CoverFilter $alwaysFilter"
 $packagesPath = "\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
 $coverallsPath = $packagesPath + "\coveralls.io\1.3.4\tools\coveralls.net.exe"
-$tempPath = "\temp"
+$tempPath = "\codecoverage"
 $tempCoveragePath = $tempPath + "\coverage\"
 $tempCoverageFileName = $tempCoveragePath + "coverage.xml"
 
+# check existence of tools
+if (test-path $opencoverPath) {
+    Add-AppveyorCompilationMessage -Message "OpenCover is present"
+}
+else {
+    Add-AppveyorCompilationMessage -Message "OpenCover is not present"
+}
+
+if (test-path $coverallsPath) {
+    Add-AppveyorCompilationMessage -Message "coveralls is present"
+}
+else {
+    Add-AppveyorCompilationMessage -Message "coveralls is not present"
+}
+
 # create temp path
 if (-not (test-path $tempPath) ) {
-    md $tempPath | Out-Null
+    md $tempPath # | Out-Null
 }
 
 # remove temp subfolders
