@@ -1,7 +1,10 @@
 ﻿param (
-	[string]$CoverallsRepoToken=$(throw "-CoverallsRepoToken is required."),
+    [string]$CoverallsRepoToken=$(throw "-CoverallsRepoToken is required."),
     [string]$CoverFilter=$(throw "-CoverFilter is required.")
 )
+
+Add-AppveyorMessage -Message "Code coverage started"
+Add-AppveyorCompilationMessage -Message "Code coverage filter: " $CoverFilter 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
 #Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
