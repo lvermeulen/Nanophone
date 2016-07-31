@@ -7,7 +7,7 @@ Add-AppveyorCompilationMessage -Message "Code coverage started"
 Add-AppveyorCompilationMessage -Message "Code coverage filter: $($CoverFilter)" 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
-#Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
+Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore --verbosity Debug $_.FullName 2>&1 }
 
 $alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]* -[Consul*]* -[Nancy*]* -[csc]* -[Anonymously*]*"
 $filter = "$CoverFilter $alwaysFilter"
@@ -19,19 +19,27 @@ $tempPath = "\codecoverage"
 $tempCoveragePath = $tempPath + "\coverage\"
 $tempCoverageFileName = $tempCoveragePath + "coverage.xml"
 
+# check existence of packages
+if (test-path $packagesPath) {
+    Add-AppveyorCompilationMessage -Message "Packages path found: $packagesPath"
+}
+else {
+    Add-AppveyorCompilationMessage -Message "Packages path not found: $packagesPath"
+}
+
 # check existence of tools
 if (test-path $opencoverPath) {
     Add-AppveyorCompilationMessage -Message "OpenCover is present"
 }
 else {
-    Add-AppveyorCompilationMessage -Message "OpenCover is not present"
+    Add-AppveyorCompilationMessage -Message "OpenCover is not present: $opencoverPath"
 }
 
 if (test-path $coverallsPath) {
     Add-AppveyorCompilationMessage -Message "coveralls is present"
 }
 else {
-    Add-AppveyorCompilationMessage -Message "coveralls is not present"
+    Add-AppveyorCompilationMessage -Message "coveralls is not present: $coverallsPath"
 }
 
 # create temp path
