@@ -4,7 +4,7 @@
 )
 
 Add-AppveyorCompilationMessage -Message "Code coverage started"
-Add-AppveyorCompilationMessage -Message "Code coverage filter: $CoverFilter" 
+Add-AppveyorCompilationMessage -Message "Code coverage filter: $($CoverFilter)" 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
 #Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
@@ -17,6 +17,8 @@ $packagesPath = "\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
 $coverallsPath = $packagesPath + "\coveralls.io\1.3.4\tools\coveralls.net.exe"
 $tempPath = "\temp"
+$tempCoveragePath = $tempPath + "\coverage\"
+$tempCoverageFileName = $tempCoveragePath + "coverage.xml"
 
 # create temp path
 if (-not (test-path $tempPath) ) {
@@ -33,8 +35,6 @@ Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
     md $path | Out-Null
 
     $tempBinPath = $path + "\bin\"
-    $tempCoveragePath = $tempPath + "\coverage\"
-    $tempCoverageFileName = $tempCoveragePath + "coverage.xml"
     $targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
 
     md $tempBinPath | Out-Null
@@ -58,6 +58,8 @@ Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
         -oldstyle 
 
 }
+
+Get-ChildItem -Path $tempCoveragePath -Filter coverage.xml | ForEach-Object { Add-AppveyorCompilationMessage -Message $_.FullName }
 
 <#
 
