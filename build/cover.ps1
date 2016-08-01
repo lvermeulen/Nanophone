@@ -55,7 +55,7 @@ if (-not (test-path $tempPath) ) {
 #Get-ChildItem -Path $tempPath -Directory | ForEach-Object { Remove-Item -Recurse $_.FullName }
 
 # run opencover
-Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
+Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object {
     Write-Output "Running OpenCover on every test project"
     $path = "$tempPath\$($_.Directory.BaseName)"
     if (-not (test-path $path) ) {
