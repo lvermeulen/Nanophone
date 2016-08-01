@@ -56,7 +56,6 @@ if (-not (test-path $tempPath) ) {
 
 # run opencover
 Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
-
     Write-Output "Running OpenCover on every test project"
     $path = "$tempPath\$($_.Directory.BaseName)"
     if (-not (test-path $path) ) {
@@ -97,10 +96,9 @@ Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
         -filter:$filter `
         -hideskipped:Filter `
         -oldstyle 
-
 }
 
-Get-ChildItem -Path $tempCoveragePath -Filter coverage.xml | ForEach-Object { Write-Output $_.FullName }
+#Get-ChildItem -Path $tempCoveragePath -Filter coverage.xml | ForEach-Object { Write-Output $_.FullName }
 
 <#
 
