@@ -7,12 +7,12 @@ Add-AppveyorCompilationMessage -Message "Code coverage started"
 Add-AppveyorCompilationMessage -Message "Code coverage filter: $($CoverFilter)" 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
-Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore --verbosity Debug $_.FullName 2>&1 }
+Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
 
 $alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]* -[Consul*]* -[Nancy*]* -[csc]* -[Anonymously*]*"
 $filter = "$CoverFilter $alwaysFilter"
 
-$packagesPath = "%HOMEPATH%\.nuget\packages"
+$packagesPath = $env:USERPROFILE + "\.nuget\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
 $coverallsPath = $packagesPath + "\coveralls.io\1.3.4\tools\coveralls.net.exe"
 $tempPath = "\codecoverage"
