@@ -7,7 +7,7 @@ pull_requests:
 environment:
   COVERALLS_REPO_TOKEN:
     secure: o8re+GWYBl4Tq1RvoEclgFF8iGL4ovJp7B2dHwfyvlIMFLhLeViza8PeIIg4ZMfN
-  COVER_FILTER: +[Nano*]* -[*]*.Logging.* -[Nano*Tests]*
+  COVER_FILTER: "+[Nano*]* -[*]*.Logging.* -[*Tests]*"
 install:
   - ps: .\build\install.ps1
 build_script:
