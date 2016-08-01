@@ -54,15 +54,17 @@ Get-ChildItem -Path $tempPath -Directory | ForEach-Object { Remove-Item -Recurse
 Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
 
     $path = "$tempPath\$($_.Directory.BaseName)"
-    md $path | Out-Null
+    md $path # | Out-Null
 
     $tempBinPath = $path + "\bin\"
     $targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
 
-    md $tempBinPath | Out-Null
+    if (-not (test-path $tempBinPath) ) {
+        md $tempBinPath # | Out-Null
+    }
 
     if (-not (test-path $tempCoveragePath) ) {
-        md $tempCoveragePath | Out-Null
+        md $tempCoveragePath # | Out-Null
     }
 
     & $opencoverPath `
