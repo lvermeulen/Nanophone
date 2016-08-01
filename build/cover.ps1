@@ -5,7 +5,7 @@
 
 Write-Output "Starting code coverage with filter: $CoverFilter"
 
-$alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]* -[Consul*]* -[Nancy*]* -[csc]* -[Anonymously*]*"
+$alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]* -[Consul*]* -[Nancy*]* -[AngleSharp]* -[csc]* -[Anonymously*]*"
 $actualFilter = "+[Nano*]* -[*]*.Logging.* -[*Tests]*" # while appveyor doesn't correctly give the entire filter string in environment, use this actual filter
 Write-Output "Actually using filter: $actualFilter"
 #$filter = "$CoverFilter $alwaysFilter"
