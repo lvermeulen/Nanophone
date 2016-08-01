@@ -3,8 +3,8 @@
     [string]$CoverFilter=$(throw "-CoverFilter is required.")
 )
 
-Add-AppveyorCompilationMessage -Message "Code coverage started"
-Add-AppveyorCompilationMessage -Message "Code coverage filter: $($CoverFilter)" 
+Write-Output "Code coverage started"
+Write-Output "Code coverage filter: $($CoverFilter)" 
 
 # run restore on all project.json files in the src folder including 2>1 to redirect stderr to stdout for badly behaved tools
 Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object { & dotnet restore $_.FullName 2>&1 }
@@ -15,58 +15,75 @@ $filter = "$CoverFilter $alwaysFilter"
 $packagesPath = $env:USERPROFILE + "\.nuget\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
 $coverallsPath = $packagesPath + "\coveralls.io\1.3.4\tools\coveralls.net.exe"
-$tempPath = "\codecoverage"
+$tempPath = "c:\codecoverage"
 $tempCoveragePath = $tempPath + "\coverage\"
 $tempCoverageFileName = $tempCoveragePath + "coverage.xml"
 
 # check existence of packages
 if (test-path $packagesPath) {
-    Add-AppveyorCompilationMessage -Message "Packages path found: $packagesPath"
+    Write-Output "Packages path found: $packagesPath"
 }
 else {
-    Add-AppveyorCompilationMessage -Message "Packages path not found: $packagesPath"
+    Write-Output "Packages path not found: $packagesPath"
 }
 
 # check existence of tools
 if (test-path $opencoverPath) {
-    Add-AppveyorCompilationMessage -Message "OpenCover is present"
+    Write-Output "OpenCover is present"
 }
 else {
-    Add-AppveyorCompilationMessage -Message "OpenCover is not present: $opencoverPath"
+    Write-Output "OpenCover is not present: $opencoverPath"
 }
 
 if (test-path $coverallsPath) {
-    Add-AppveyorCompilationMessage -Message "coveralls is present"
+    Write-Output "coveralls is present"
 }
 else {
-    Add-AppveyorCompilationMessage -Message "coveralls is not present: $coverallsPath"
+    Write-Output "coveralls is not present: $coverallsPath"
 }
 
 # create temp path
+Write-Output "Creating $tempPath"
 if (-not (test-path $tempPath) ) {
-    md $tempPath # | Out-Null
+    mkdir $tempPath # | Out-Null
+}
+if (-not (test-path $tempPath) ) {
+    Write-Output "$tempPath doesn't exist after mkdir"
 }
 
 # remove temp subfolders
-Get-ChildItem -Path $tempPath -Directory | ForEach-Object { Remove-Item -Recurse $_.FullName }
+#Get-ChildItem -Path $tempPath -Directory | ForEach-Object { Remove-Item -Recurse $_.FullName }
 
 # run opencover
 Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
 
+    Write-Output "Running OpenCover on every test project"
     $path = "$tempPath\$($_.Directory.BaseName)"
-    md $path # | Out-Null
+    if (-not (test-path $path) ) {
+        mkdir $path # | Out-Null
+    }
+    if (-not (test-path $path) ) {
+        Write-Output "$path doesn't exist after mkdir"
+    }
 
     $tempBinPath = $path + "\bin\"
     $targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
 
     if (-not (test-path $tempBinPath) ) {
-        md $tempBinPath # | Out-Null
+        mkdir $tempBinPath # | Out-Null
+    }
+    if (-not (test-path $tempBinPath) ) {
+        Write-Output "$tempBinPath doesn't exist after mkdir"
     }
 
     if (-not (test-path $tempCoveragePath) ) {
-        md $tempCoveragePath # | Out-Null
+        mkdir $tempCoveragePath # | Out-Null
+    }
+    if (-not (test-path $tempCoveragePath) ) {
+        Write-Output "$tempCoveragePath doesn't exist after mkdir"
     }
 
+    Write-Output "Running OpenCover on "
     & $opencoverPath `
         -register:user `
         -target:"dotnet.exe" `
@@ -83,12 +100,12 @@ Get-ChildItem -Path ..\test -Filter project.json -Recurse | ForEach-Object {
 
 }
 
-Get-ChildItem -Path $tempCoveragePath -Filter coverage.xml | ForEach-Object { Add-AppveyorCompilationMessage -Message $_.FullName }
+Get-ChildItem -Path $tempCoveragePath -Filter coverage.xml | ForEach-Object { Write-Output $_.FullName }
 
 <#
 
 # upload to coveralls.io
-Add-AppveyorCompilationMessage -Message "Sending code coverage results to coveralls.io"
+Write-Output "Sending code coverage results to coveralls.io"
 
 & $coverallsPath `
     --opencover $tempCoverageFileName `
@@ -97,4 +114,4 @@ Add-AppveyorCompilationMessage -Message "Sending code coverage results to covera
 
 #>
 
-Add-AppveyorCompilationMessage -Message "Code coverage ended"
+Write-Output "Code coverage ended"
