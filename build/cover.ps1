@@ -65,6 +65,6 @@ Write-Output "Sending code coverage results to coveralls.io"
     --repo-token $CoverallsRepoToken
 
 7z a codecoverage.zip $tempCoverageFileName
-Push-AppveyorArtifact $tempCoverageFileName
+Push-AppveyorArtifact codecoverage.zip
 
 
