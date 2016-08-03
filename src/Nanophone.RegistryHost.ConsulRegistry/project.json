@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Nanophone.RegistryHost.ConsulRegistry",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
@@ -28,7 +28,8 @@
 
   "dependencies": {
     "Consul": "0.6.4.8-alpha2",
-    "Nanophone.Core": { "target": "project" }
+    "Nanophone.Core": { "target": "project" },
+    "SemVer": "0.6.2"
   },
 
   "frameworks": {

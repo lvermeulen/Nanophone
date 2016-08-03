@@ -26,6 +26,10 @@
     }
   },
 
+  "dependencies": {
+    "SemVer": "0.6.2"
+  },
+
   "frameworks": {
     "net451": {},
     "netstandard1.6": {
