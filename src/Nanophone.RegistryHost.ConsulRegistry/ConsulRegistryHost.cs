@@ -7,6 +7,7 @@ using Consul;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry.Logging;
 using Newtonsoft.Json;
+using SemVer;
 
 namespace Nanophone.RegistryHost.ConsulRegistry
 {
@@ -54,7 +55,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
             var instances = await FindServiceInstancesAsync(name);
-            return instances.Where(x => x.Version == version).ToArray();
+            var range = new Range(version);
+
+            return instances.Where(x => range.IsSatisfied(x.Version)).ToArray();
         }
 
         private async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()

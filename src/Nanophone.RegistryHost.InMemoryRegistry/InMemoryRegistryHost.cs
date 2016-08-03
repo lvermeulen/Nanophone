@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry.Logging;
+using SemVer;
 
 namespace Nanophone.RegistryHost.InMemoryRegistry
 {
@@ -43,7 +44,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
             var instances = await FindServiceInstancesAsync(name);
-            return instances.Where(x => x.Version == version).ToList();
+            var range = new Range(version);
+            
+            return instances.Where(x => range.IsSatisfied(x.Version)).ToList();
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate, Predicate<RegistryInformation> registryInformationPredicate)
