@@ -15,12 +15,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
 
         public InMemoryRegistryHostShould()
         {
-            var oneDotOne = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "1.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
-            var oneDotTwo = new RegistryInformation { Name = "One", Address = "1", Port = 1235, Version = "1.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
-            var twoDotOne = new RegistryInformation { Name = "Two", Address = "2", Port = 1236, Version = "2.1", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/path" }) };
-            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1237, Version = "2.2", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
-            var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1238, Version = "3.1", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
-            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1239, Version = "3.2", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "1.1.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "1", Port = 1235, Version = "1.2.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "key2", "value2" }) };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "2", Port = 1236, Version = "2.1.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/path" }) };
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1237, Version = "2.2.0", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1238, Version = "3.1.0", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1239, Version = "3.2.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
             _instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
@@ -79,9 +79,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         [Fact]
         public async Task FindServiceInstancesWithNameAndVersion()
         {
-            var instances = await _host.FindServiceInstancesWithVersionAsync("Three", "3.2");
+            var instances = await _host.FindServiceInstancesWithVersionAsync("Three", "3.2.0");
             Assert.Equal(1, instances.Count);
-            Assert.Equal("3.2", instances.First().Version);
+            Assert.Equal("3.2.0", instances.First().Version);
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         [Fact]
         public async Task FindServiceInstancesWithRegistryInformation()
         {
-            var instances = await _host.FindServiceInstancesAsync(x => x.Version == "2.1");
+            var instances = await _host.FindServiceInstancesAsync(x => x.Version == "2.1.0");
             Assert.Equal(1, instances.Count);
         }
 
