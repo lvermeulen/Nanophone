@@ -20,7 +20,7 @@ namespace SampleService.Nancy.Hosting.Self.Net46
                 var consulRegistryHost = new ConsulRegistryHost();
                 var serviceRegistry = new ServiceRegistry(consulRegistryHost);
 
-                serviceRegistry.AddTenant(new NancyRegistryTenant(uri), "price", "1.3")
+                serviceRegistry.AddTenant(new NancyRegistryTenant(uri), "price", "1.3.2")
                     .Wait();
 
                 Console.WriteLine($"Now listening on {uri}/price. Press enter to stop");

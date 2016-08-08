@@ -45,7 +45,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         public async Task UseKeyValueStore()
         {
             const string KEY = "hello";
-            DateTime dateValue = new DateTime(2016, 5, 28);
+            var dateValue = new DateTime(2016, 5, 28);
 
             await _registryHost.KeyValuePutAsync(KEY, dateValue);
             var value = await _registryHost.KeyValueGetAsync<DateTime>("hello");
@@ -59,7 +59,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         {
             const string FOLDER = "folder/hello/world/";
             const string KEY = "date";
-            DateTime dateValue = new DateTime(2016, 5, 28);
+            var dateValue = new DateTime(2016, 5, 28);
 
             await _registryHost.KeyValuePutAsync(FOLDER + KEY, dateValue);
             var value = await _registryHost.KeyValueGetAsync<DateTime>(FOLDER + KEY);
