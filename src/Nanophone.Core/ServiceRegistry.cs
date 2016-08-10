@@ -111,6 +111,11 @@ namespace Nanophone.Core
             return _registryHost.KeyValueDeleteTreeAsync(prefix);
         }
 
+        public Task<string[]> KeyValuesGetKeysAsync(string prefix)
+        {
+            return _registryHost.KeyValuesGetKeysAsync(prefix);
+        }
+
         public void ResolveServiceInstancesWith<T>(T serviceInstancesResolver)
             where T : IResolveServiceInstances
         {

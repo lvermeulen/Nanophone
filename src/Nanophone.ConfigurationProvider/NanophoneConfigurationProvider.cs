@@ -27,7 +27,7 @@ namespace Nanophone.ConfigurationProvider
         {
             value = _serviceRegistry.KeyValueGetAsync<string>(key)
                 .Result;
-            return true;
+            return value != null;
         }
 
         public void Set(string key, string value)
@@ -45,8 +45,7 @@ namespace Nanophone.ConfigurationProvider
 
         public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
         {
-            // TODO: add Keys & List to IHaveKeyValues
-            return Enumerable.Empty<string>();
+            return _serviceRegistry.KeyValuesGetKeysAsync(parentPath).Result ?? Enumerable.Empty<string>();
         }
     }
 }
