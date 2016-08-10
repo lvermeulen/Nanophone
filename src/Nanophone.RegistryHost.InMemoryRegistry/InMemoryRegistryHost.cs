@@ -133,5 +133,15 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             }
             return Task.FromResult(0);
         }
+
+        public Task<string[]> KeyValuesGetKeysAsync(string prefix)
+        {
+            var result = KeyValues
+                .Where(kvp => string.IsNullOrEmpty(prefix) || kvp.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                .Select(kvp => kvp.Key)
+                .ToArray();
+
+            return Task.FromResult(result);
+        }
     }
 }

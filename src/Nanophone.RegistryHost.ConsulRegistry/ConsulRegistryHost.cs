@@ -150,6 +150,10 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task<T> KeyValueGetAsync<T>(string key)
         {
             var queryResult = await _consul.KV.Get(key);
+            if (queryResult.Response == null)
+            {
+                return default(T);
+            }
             var serialized = Encoding.UTF8.GetString(queryResult.Response.Value, 0, queryResult.Response.Value.Length);
             var result = JsonConvert.DeserializeObject<T>(serialized);
 
@@ -164,6 +168,12 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
             await _consul.KV.DeleteTree(prefix);
+        }
+
+        public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
+        {
+            var queryResult = await _consul.KV.Keys(prefix);
+            return queryResult.Response;
         }
     }
 }
