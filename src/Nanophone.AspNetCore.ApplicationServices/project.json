@@ -1,9 +1,9 @@
 {
-  "title": "Nanophone.Middleware",
+  "title": "Nanophone.AspNetCore.ApplicationServices",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
-  "description": "Nanophone aspnetcore middleware",
+  "description": "Nanophone aspnetcore application services",
 
   "buildOptions": {
     "define": [ "LIBLOG_PORTABLE" ],
@@ -15,8 +15,8 @@
   "packOptions": {
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
-    "summary": "Nanophone aspnetcore middleware",
-    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices", "aspnetcore", "middleware" ],
+    "summary": "Nanophone aspnetcore application services",
+    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices", "aspnetcore", "application services" ],
     "projectUrl": "https://github.com/lvermeulen/Nanophone",
     "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
     "iconUrl": "http://i.imgur.com/WnKfKOC.png?1",

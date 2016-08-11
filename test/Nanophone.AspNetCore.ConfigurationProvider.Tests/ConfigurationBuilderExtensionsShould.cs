@@ -6,7 +6,7 @@ using Nanophone.RegistryHost.InMemoryRegistry;
 using Xunit;
 using Nanophone.RegistryHost.ConsulRegistry;
 
-namespace Nanophone.ConfigurationProvider.Tests
+namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
 {
     public class ConfigurationBuilderExtensionsShould
     {
