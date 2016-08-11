@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using Nanophone.Core;
 
-namespace Nanophone.ConfigurationProvider
+namespace Nanophone.AspNetCore.ConfigurationProvider
 {
     public class NanophoneConfigurationProvider : IConfigurationProvider
     {
