@@ -17,6 +17,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
             string serviceName = string.IsNullOrWhiteSpace(healthCheck.ServiceName) ? "" : $" {healthCheck.ServiceName}";
 
+            // don't check consul
+            if (healthCheck.ServiceName == "consul")
+            {
+                s_log.Debug($"Not checking service${serviceName}");
+                return false;
+            }
+
             // don't check services without service ID
             if (healthCheck.ServiceID == "")
             {
@@ -24,18 +31,21 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 return false;
             }
 
+            // don't check serfHealth
             if (healthCheck.CheckID.Equals("serfHealth", StringComparison.OrdinalIgnoreCase))
             {
                 s_log.Debug($"Not checking service${serviceName}: service is system health check");
                 return false;
             }
 
+            // don't check nodes in maintenance
             if (healthCheck.CheckID.Equals("_node_maintenance", StringComparison.OrdinalIgnoreCase))
             {
                 s_log.Debug($"Not checking service${serviceName}: service node is in maintenance");
                 return false;
             }
 
+            // don't check services in maintenance
             if (healthCheck.CheckID.StartsWith("_service_maintenance:", StringComparison.OrdinalIgnoreCase))
             {
                 s_log.Debug($"Not checking service${serviceName}: service is in maintenance");
