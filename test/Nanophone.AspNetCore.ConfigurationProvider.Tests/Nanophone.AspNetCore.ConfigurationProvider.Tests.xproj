@@ -6,7 +6,7 @@
   </PropertyGroup>
   <Import Project="$(VSToolsPath)\DotNet\Microsoft.DotNet.Props" Condition="'$(VSToolsPath)' != ''" />
   <PropertyGroup Label="Globals">
-    <ProjectGuid>1170e15b-4126-4e24-897b-f6aaeab4e083</ProjectGuid>
+    <ProjectGuid>35b0b09e-8598-4b82-adde-1cf20cc1a632</ProjectGuid>
     <RootNamespace>Nanophone.AspNetCore.ConfigurationProvider.Tests</RootNamespace>
     <BaseIntermediateOutputPath Condition="'$(BaseIntermediateOutputPath)'=='' ">.\obj</BaseIntermediateOutputPath>
     <OutputPath Condition="'$(OutputPath)'=='' ">.\bin\</OutputPath>

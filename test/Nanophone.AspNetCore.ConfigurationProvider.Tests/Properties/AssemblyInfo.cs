@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Nanophone.ConfigurationProvider.Tests")]
+[assembly: AssemblyProduct("Nanophone.AspNetCore.ConfigurationProvider.Tests")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -16,4 +16,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1170e15b-4126-4e24-897b-f6aaeab4e083")]
+[assembly: Guid("35b0b09e-8598-4b82-adde-1cf20cc1a632")]
