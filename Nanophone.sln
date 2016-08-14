@@ -66,7 +66,15 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.Applic
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.ConfigurationProvider.Tests", "test\Nanophone.AspNetCore.ConfigurationProvider.Tests\Nanophone.AspNetCore.ConfigurationProvider.Tests.xproj", "{1170E15B-4126-4E24-897B-F6AAEAB4E083}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nanophone.SemVer", "src\Nanophone.SemVer\Nanophone.SemVer.shproj", "{A1EE6F36-6DBC-4EED-946A-3511DEEF07CA}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nanophone.SemVer.Tests", "test\Nanophone.SemVer.Tests\Nanophone.SemVer.Tests.shproj", "{09EEEBCB-0A4A-430B-A1B9-24AA3B84A53B}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		test\Nanophone.SemVer.Tests\Nanophone.SemVer.Tests.projitems*{09eeebcb-0a4a-430b-a1b9-24aa3b84a53b}*SharedItemsImports = 13
+		src\Nanophone.SemVer\Nanophone.SemVer.projitems*{a1ee6f36-6dbc-4eed-946a-3511deef07ca}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -155,5 +163,6 @@ Global
 		{C32A2818-BDE0-45BF-936D-E61CC9BF4EE0} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 		{D6B8516B-952F-4E59-AC3A-46CD31C3D04B} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 		{1170E15B-4126-4E24-897B-F6AAEAB4E083} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
+		{09EEEBCB-0A4A-430B-A1B9-24AA3B84A53B} = {119F7828-4CCA-4F2F-84B1-AA134E7C004A}
 	EndGlobalSection
 EndGlobal
