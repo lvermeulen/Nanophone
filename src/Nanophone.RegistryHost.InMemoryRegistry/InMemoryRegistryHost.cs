@@ -24,8 +24,8 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
         {
             IDictionary<string, string[]> results = ServiceInstances
-                .GroupBy(x => x.Name, x => x.KeyValuePairs.Select(kvp => kvp.Key + kvp.Value))
-                .ToDictionary(g => g.Key, g => g.SelectMany(x => x).ToArray());
+                .GroupBy(x => x.Name, x => x.KeyValuePairs?.Select(kvp => kvp.Key + kvp.Value))
+                .ToDictionary(g => g.Key, g => g.SelectMany(x => x ?? Enumerable.Empty<string>()).ToArray());
 
             return Task.FromResult(results);
         }
