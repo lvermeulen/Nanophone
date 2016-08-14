@@ -16,7 +16,7 @@ namespace Nanophone.Middleware.Tests
     public class NanophoneMiddlewareShould
     {
         [Fact(Skip="Test not ready")]
-        public async Task BeRegistered()
+        public void BeRegistered()
         {
             var hostBuilder = new WebHostBuilder()
                 .UseStartup<Startup>()

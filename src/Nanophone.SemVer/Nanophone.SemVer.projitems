@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a1ee6f36-6dbc-4eed-946a-3511deef07ca</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Nanophone.SemVer</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Comparator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ComparatorSet.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Desugarer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PartialVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreReleaseVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Range.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Version.cs" />
+  </ItemGroup>
+</Project>
