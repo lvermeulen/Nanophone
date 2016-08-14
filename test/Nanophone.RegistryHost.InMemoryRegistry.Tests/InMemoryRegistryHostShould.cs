@@ -21,11 +21,17 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1237, Version = "2.2.0", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
             var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1238, Version = "3.1.0", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
             var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1239, Version = "3.2.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
+            var FourDotOne = new RegistryInformation { Name = "Four", Address = "4", Port = 1240, Version = "1.1.0" };
+            var FourDotTwo = new RegistryInformation { Name = "Four", Address = "4", Port = 1241, Version = "1.2.0" };
+            var FourDotThree = new RegistryInformation { Name = "Four", Address = "4", Port = 1242, Version = "2.1.0" };
+            var FourDotFour = new RegistryInformation { Name = "Four", Address = "4", Port = 1243, Version = "2.2.0" };
+            var FourDotFive = new RegistryInformation { Name = "Four", Address = "4", Port = 1244, Version = "3.2.0" };
             _instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
                 twoDotOne, twoDotTwo,
-                threeDotOne, threeDotTwo
+                threeDotOne, threeDotTwo,
+                FourDotOne, FourDotTwo, FourDotThree, FourDotFour, FourDotFive
             };
 
             _keyValues = new List<KeyValuePair<string, object>>
@@ -85,6 +91,15 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
+        public async Task FindServiceInstancesWithNameAndSemVerRange()
+        {
+            var instances = await _host.FindServiceInstancesWithVersionAsync("Four", ">=1.2.0 <3.2.0");
+            Assert.Equal(3, instances.Count);
+            Assert.Equal("1.2.0", instances.First().Version);
+            Assert.Equal("2.2.0", instances.Last().Version);
+        }
+
+        [Fact]
         public async Task FindServiceInstancesWithNameTags()
         {
             var instances = await _host.FindServiceInstancesAsync(kvp => kvp.Value.Any(x => x.Equals("prefix/path")));
@@ -95,7 +110,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         public async Task FindServiceInstancesWithRegistryInformation()
         {
             var instances = await _host.FindServiceInstancesAsync(x => x.Version == "2.1.0");
-            Assert.Equal(1, instances.Count);
+            Assert.Equal(2, instances.Count);
         }
 
         [Fact]
