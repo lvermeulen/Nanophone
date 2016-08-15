@@ -62,7 +62,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         public void TryGet()
         {
             TryGet(_inMemoryProvider);
-            TryGet(_consulProvider);
+            //TryGet(_consulProvider);
         }
 
         private void Set(IConfigurationProvider provider)
@@ -77,7 +77,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         public void Set()
         {
             Set(_inMemoryProvider);
-            Set(_consulProvider);
+            //Set(_consulProvider);
         }
 
         private void GetChildKeys(IConfigurationProvider provider)
@@ -90,7 +90,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         public void GetChildKeys()
         {
             GetChildKeys(_inMemoryProvider);
-            GetChildKeys(_consulProvider);
+            //GetChildKeys(_consulProvider);
         }
     }
 }

@@ -69,7 +69,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         public void MakeKeyValuesAvailable(string key, string expectedValue)
         {
             MakeKeyValuesAvailable(_inMemoryRegistryHost, key, expectedValue);
-            MakeKeyValuesAvailable(_consulRegistryHost, key, expectedValue);
+            //MakeKeyValuesAvailable(_consulRegistryHost, key, expectedValue);
         }
     }
 }
