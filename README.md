@@ -54,7 +54,7 @@ using Nanophone.RegistryTenant.Nancy;
 
 var serviceRegistry = new ServiceRegistry();
 serviceRegistry.AddTenant(new NancyRegistryTenant(new Uri("http://localhost:9001")), new ConsulRegistryHost(),
-    "customers", "v1");
+    "customers", "1.3.3");
 ~~~~
 
 * Start Web Api service:
@@ -68,7 +68,7 @@ string url = "http://localhost:9000/";
 
 var serviceRegistry = new ServiceRegistry();
 serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)), new ConsulRegistryHost(), 
-    "date", "1.7-pre");
+    "date", "1.7.0-pre");
 
 WebApp.Start<Startup>(url);
 ~~~~
