@@ -4,7 +4,7 @@ Nanophone is a minimalistic library for Service Registration and Discovery and i
 
 ##Features:
 * Find available service instances by service name
-* Find available service instances by service name and version (semver 2.0)
+* Find available service instances by service name and version (**strict semver 2.0**)
 * Extensible service registry host - includes [Consul](https://www.consul.io/) host
 * Extensible service registry tenants - includes [Nancy](https://github.com/NancyFx/Nancy) and Web Api tenants
 * Supports [eBay Fabio](https://github.com/eBay/fabio) (experimental)
@@ -29,7 +29,7 @@ foreach (var instance in instances)
 }
 ~~~~
 
-* Find available service instances by service name and version (semver 2.0):
+* Find available service instances by service name and version (**strict semver 2.0**):
 ~~~~
 using System.Threading.Tasks;
 using Nanophone.Core;
@@ -44,7 +44,7 @@ foreach (var instance in instances)
     Console.WriteLine($"Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
 }
 ~~~~
-NOTE: A full semver-compliant version is **required**. This means that e.g. "2.1" is not a valid version, and "2.1.0" or "2.1.1-beta2" are valid versions.
+**NOTE**: A full semver-compliant version is **required**. This means that e.g. "2.1" is not a valid version, and "2.1.0" or "2.1.1-beta2" are valid versions.
 
 * Start Nancy service:
 ~~~~
