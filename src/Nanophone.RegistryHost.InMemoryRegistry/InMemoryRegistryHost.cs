@@ -13,12 +13,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
         public IList<RegistryInformation> ServiceInstances { get; set; }
-        public IList<KeyValuePair<string, object>> KeyValues { get; set; }
+        public IList<KeyValuePair<string, string>> KeyValues { get; set; }
 
         public InMemoryRegistryHost()
         {
             ServiceInstances = new List<RegistryInformation>();
-            KeyValues = new List<KeyValuePair<string, object>>();
+            KeyValues = new List<KeyValuePair<string, string>>();
         }
 
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
@@ -99,19 +99,19 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             }
         }
 
-        public Task KeyValuePutAsync(string key, object value)
+        public Task KeyValuePutAsync(string key, string value)
         {
-            KeyValues.Add(new KeyValuePair<string, object>(key, value));
+            KeyValues.Add(new KeyValuePair<string, string>(key, value));
             return Task.FromResult(0);
         }
 
-        public Task<T> KeyValueGetAsync<T>(string key)
+        public Task<string> KeyValueGetAsync(string key)
         {
             var result = KeyValues.FirstOrDefault(x => x.Key == key);
-            var value = result.Equals(default(KeyValuePair<string, object>))
+            var value = result.Equals(default(KeyValuePair<string, string>))
                 ? null
                 : result.Value;
-            return Task.FromResult((T)value);
+            return Task.FromResult(value);
         }
 
         public Task KeyValueDeleteAsync(string key)

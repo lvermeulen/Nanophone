@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
@@ -10,7 +11,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
     public class InMemoryRegistryHostShould
     {
         private readonly List<RegistryInformation> _instances;
-        private readonly List<KeyValuePair<string, object>> _keyValues;
+        private readonly List<KeyValuePair<string, string>> _keyValues;
         private readonly IRegistryHost _host;
 
         public InMemoryRegistryHostShould()
@@ -21,25 +22,25 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1237, Version = "2.2.0", KeyValuePairs = KeyValues(new[] { "prefix", "/path", "key2", "value2" }) };
             var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1238, Version = "3.1.0", KeyValuePairs = KeyValues(new[] { "prefix", "/orders", "key2", "value2" }) };
             var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1239, Version = "3.2.0", KeyValuePairs = KeyValues(new[] { "key1", "value1", "prefix", "/customers" }) };
-            var FourDotOne = new RegistryInformation { Name = "Four", Address = "4", Port = 1240, Version = "1.1.0" };
-            var FourDotTwo = new RegistryInformation { Name = "Four", Address = "4", Port = 1241, Version = "1.2.0" };
-            var FourDotThree = new RegistryInformation { Name = "Four", Address = "4", Port = 1242, Version = "2.1.0" };
-            var FourDotFour = new RegistryInformation { Name = "Four", Address = "4", Port = 1243, Version = "2.2.0" };
-            var FourDotFive = new RegistryInformation { Name = "Four", Address = "4", Port = 1244, Version = "3.2.0" };
+            var fourDotOne = new RegistryInformation { Name = "Four", Address = "4", Port = 1240, Version = "1.1.0" };
+            var fourDotTwo = new RegistryInformation { Name = "Four", Address = "4", Port = 1241, Version = "1.2.0" };
+            var fourDotThree = new RegistryInformation { Name = "Four", Address = "4", Port = 1242, Version = "2.1.0" };
+            var fourDotFour = new RegistryInformation { Name = "Four", Address = "4", Port = 1243, Version = "2.2.0" };
+            var fourDotFive = new RegistryInformation { Name = "Four", Address = "4", Port = 1244, Version = "3.2.0" };
             _instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
                 twoDotOne, twoDotTwo,
                 threeDotOne, threeDotTwo,
-                FourDotOne, FourDotTwo, FourDotThree, FourDotFour, FourDotFive
+                fourDotOne, fourDotTwo, fourDotThree, fourDotFour, fourDotFive
             };
 
-            _keyValues = new List<KeyValuePair<string, object>>
+            _keyValues = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, object>("1", "One"),
-                new KeyValuePair<string, object>("1.1", "One.1"),
-                new KeyValuePair<string, object>("2", 2.0),
-                new KeyValuePair<string, object>("3", 3M)
+                new KeyValuePair<string, string>("1", "One"),
+                new KeyValuePair<string, string>("1.1", "One.1"),
+                new KeyValuePair<string, string>("2", 2.0.ToString(CultureInfo.InvariantCulture)),
+                new KeyValuePair<string, string>("3", 3M.ToString(CultureInfo.InvariantCulture))
             };
 
             _host = new InMemoryRegistryHost
@@ -138,12 +139,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         {
             // add key/value
             await _host.KeyValuePutAsync("4", "Four");
-            var value = await _host.KeyValueGetAsync<string>("4");
+            var value = await _host.KeyValueGetAsync("4");
             Assert.Equal("Four", value);
 
             // remove key/value
             await _host.KeyValueDeleteAsync("4");
-            value = await _host.KeyValueGetAsync<string>("4");
+            value = await _host.KeyValueGetAsync("4");
             Assert.Equal(null, value);
         }
 
