@@ -4,10 +4,12 @@ Nanophone is a minimalistic library for Service Registration and Discovery and i
 
 ##Features:
 * Find available service instances by service name
-* Find available service instances by service name and version
+* Find available service instances by service name and version (semver 2.0)
 * Extensible service registry host - includes [Consul](https://www.consul.io/) host
 * Extensible service registry tenants - includes [Nancy](https://github.com/NancyFx/Nancy) and Web Api tenants
 * Supports [eBay Fabio](https://github.com/eBay/fabio) (experimental)
+* Configuration provider for aspnetcore (uses Consul key/value store)
+* Application services for aspnetcore
 
 ##Usage:
 
@@ -27,7 +29,7 @@ foreach (var instance in instances)
 }
 ~~~~
 
-* Find available service instances by service name and version:
+* Find available service instances by service name and version (semver 2.0):
 ~~~~
 using System.Threading.Tasks;
 using Nanophone.Core;
@@ -36,12 +38,13 @@ using Nanophone.RegistryHost.ConsulRegistry;
 var serviceRegistry = new ServiceRegistry();
 serviceRegistry.StartClient(new ConsulRegistryHost());
 
-var instances = serviceRegistry.FindServiceInstancesWithVersionAsync("my-service-name", "1.2").Result;
+var instances = serviceRegistry.FindServiceInstancesWithVersionAsync("my-service-name", ">=1.2.0 <3.2.0").Result;
 foreach (var instance in instances)
 {
     Console.WriteLine($"Address: {instance.Address}:{instance.Port}, Version: {instance.Version}");
 }
 ~~~~
+NOTE: A full semver-compliant version is **required**. This means that e.g. "2.1" is not a valid version, and "2.1.0" or "2.1.1-beta2" are valid versions.
 
 * Start Nancy service:
 ~~~~
@@ -68,6 +71,33 @@ serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)), new ConsulRegi
     "date", "1.7-pre");
 
 WebApp.Start<Startup>(url);
+~~~~
+
+* Configuration provider for aspnetcore:
+~~~~
+var config = new ConfigurationBuilder()
+    .AddNanophoneKeyValues(() => new ConsulRegistryHost())
+    .Build();
+
+string value = new WebHostBuilder()
+    .UseConfiguration(config)
+    .GetSetting("my_key");
+~~~~
+
+* Application services for aspnetcore:
+~~~~
+var hostBuilder = new WebHostBuilder()
+    .ConfigureServices(services =>
+    {
+        services.AddNanophone(() => new ConsulRegistryHost());
+    })
+    .Configure(app =>
+    {
+        app.AddTenant(new WebApiRegistryTenant(new Uri("http://localhost:1234")), nameof(MyService), "1.0.0");
+
+        var serviceRegistry = app.ApplicationServices.GetService<ServiceRegistry>();
+        var instances = await serviceRegistry.FindServiceInstancesAsync(nameof(MyService));
+    });
 ~~~~
 
 ##Thanks
