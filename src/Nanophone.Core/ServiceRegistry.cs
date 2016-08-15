@@ -91,14 +91,14 @@ namespace Nanophone.Core
             await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs);
         }
 
-        public Task KeyValuePutAsync(string key, object value)
+        public Task KeyValuePutAsync(string key, string value)
         {
             return _registryHost.KeyValuePutAsync(key, value);
         }
 
-        public Task<T> KeyValueGetAsync<T>(string key)
+        public Task<string> KeyValueGetAsync(string key)
         {
-            return _registryHost.KeyValueGetAsync<T>(key);
+            return _registryHost.KeyValueGetAsync(key);
         }
 
         public Task KeyValueDeleteAsync(string key)

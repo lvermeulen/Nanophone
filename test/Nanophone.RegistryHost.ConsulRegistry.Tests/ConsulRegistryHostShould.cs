@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
@@ -47,9 +48,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
             const string KEY = "hello";
             var dateValue = new DateTime(2016, 5, 28);
 
-            await _registryHost.KeyValuePutAsync(KEY, dateValue);
-            var value = await _registryHost.KeyValueGetAsync<DateTime>("hello");
-            Assert.Equal(dateValue, value);
+            await _registryHost.KeyValuePutAsync(KEY, dateValue.ToString(CultureInfo.InvariantCulture));
+            var value = await _registryHost.KeyValueGetAsync("hello");
+            Assert.Equal(dateValue, DateTime.Parse(value, CultureInfo.InvariantCulture));
 
             await _registryHost.KeyValueDeleteAsync(KEY);
         }
@@ -61,9 +62,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
             const string KEY = "date";
             var dateValue = new DateTime(2016, 5, 28);
 
-            await _registryHost.KeyValuePutAsync(FOLDER + KEY, dateValue);
-            var value = await _registryHost.KeyValueGetAsync<DateTime>(FOLDER + KEY);
-            Assert.Equal(dateValue, value);
+            await _registryHost.KeyValuePutAsync(FOLDER + KEY, dateValue.ToString(CultureInfo.InvariantCulture));
+            var value = await _registryHost.KeyValueGetAsync(FOLDER + KEY);
+            Assert.Equal(dateValue, DateTime.Parse(value, CultureInfo.InvariantCulture));
 
             await _registryHost.KeyValueDeleteTreeAsync(FOLDER);
         }

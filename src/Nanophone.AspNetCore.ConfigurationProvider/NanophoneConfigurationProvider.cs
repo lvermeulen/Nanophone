@@ -25,7 +25,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public bool TryGet(string key, out string value)
         {
-            value = _serviceRegistry.KeyValueGetAsync<string>(key)
+            value = _serviceRegistry.KeyValueGetAsync(key)
                 .Result;
             return value != null;
         }

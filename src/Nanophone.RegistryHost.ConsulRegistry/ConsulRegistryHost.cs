@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Consul;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry.Logging;
-using Newtonsoft.Json;
 using SemVer;
 
 namespace Nanophone.RegistryHost.ConsulRegistry
@@ -140,24 +139,21 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
-        public async Task KeyValuePutAsync(string key, object value)
+        public async Task KeyValuePutAsync(string key, string value)
         {
-            var serialized = JsonConvert.SerializeObject(value);
-            var keyValuePair = new KVPair(key) { Value = Encoding.UTF8.GetBytes(serialized) };
+            var keyValuePair = new KVPair(key) { Value = Encoding.UTF8.GetBytes(value) };
             await _consul.KV.Put(keyValuePair);
         }
 
-        public async Task<T> KeyValueGetAsync<T>(string key)
+        public async Task<string> KeyValueGetAsync(string key)
         {
             var queryResult = await _consul.KV.Get(key);
             if (queryResult.Response == null)
             {
-                return default(T);
+                return null;
             }
-            var serialized = Encoding.UTF8.GetString(queryResult.Response.Value, 0, queryResult.Response.Value.Length);
-            var result = JsonConvert.DeserializeObject<T>(serialized);
 
-            return result;
+            return Encoding.UTF8.GetString(queryResult.Response.Value);
         }
 
         public async Task KeyValueDeleteAsync(string key)
