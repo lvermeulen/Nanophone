@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nanophone.Core", "Nanophone.Core\Nanophone.Core.csproj", "{7B65DB3F-D6F0-45B5-88B0-6691B672CA0C}"
 EndProject
@@ -33,10 +33,20 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Nanophone.RegistryHost.Cons
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry.Library", "Nanophone.RegistryHost.ConsulRegistry.Library\Nanophone.RegistryHost.ConsulRegistry.Library.xproj", "{EA667313-9505-4C96-A0A3-A7E3CDF7B453}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{755AAD0E-ACA3-482E-8325-9C22929CC984}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pre", "Pre", "{A33327FF-CE48-4182-A686-10EBDBC3FDA4}"
+	ProjectSection(SolutionItems) = preProject
+		Consul.0.6.4.7-alpha.nupkg = Consul.0.6.4.7-alpha.nupkg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Nanophone.RegistryHost.ConsulRegistry.Shared\Nanophone.RegistryHost.ConsulRegistry.Shared.projitems*{e087128b-2735-41f1-b770-d69b47f7629a}*SharedItemsImports = 13
 		Nanophone.Core.Shared\Nanophone.Core.Shared.projitems*{41d722b4-d901-41f2-a431-fb0cd756100e}*SharedItemsImports = 13
+		Nanophone.RegistryHost.ConsulRegistry.Shared\Nanophone.RegistryHost.ConsulRegistry.Shared.projitems*{e087128b-2735-41f1-b770-d69b47f7629a}*SharedItemsImports = 13
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
