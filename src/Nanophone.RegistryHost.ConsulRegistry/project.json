@@ -27,7 +27,7 @@
   },
 
   "dependencies": {
-    "Consul": "0.6.4.8-alpha2",
+    "Consul": "0.7.0-rc1",
     "Nanophone.Core": { "target": "project" },
     "SemVer": "0.6.2"
   },
