@@ -13,12 +13,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
         public IList<RegistryInformation> ServiceInstances { get; set; }
-        public IList<KeyValuePair<string, string>> KeyValues { get; set; }
+        public KeyValues KeyValues { get; set; }
 
         public InMemoryRegistryHost()
         {
             ServiceInstances = new List<RegistryInformation>();
-            KeyValues = new List<KeyValuePair<string, string>>();
+            KeyValues = new KeyValues();
         }
 
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
@@ -99,49 +99,29 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             }
         }
 
-        public Task KeyValuePutAsync(string key, string value)
+        public async Task KeyValuePutAsync(string key, string value)
         {
-            KeyValues.Add(new KeyValuePair<string, string>(key, value));
-            return Task.FromResult(0);
+            await KeyValues.KeyValuePutAsync(key, value);
         }
 
-        public Task<string> KeyValueGetAsync(string key)
+        public async Task<string> KeyValueGetAsync(string key)
         {
-            var result = KeyValues.FirstOrDefault(x => x.Key == key);
-            var value = result.Equals(default(KeyValuePair<string, string>))
-                ? null
-                : result.Value;
-            return Task.FromResult(value);
+            return await KeyValues.KeyValueGetAsync(key);
         }
 
-        public Task KeyValueDeleteAsync(string key)
+        public async Task KeyValueDeleteAsync(string key)
         {
-            var deletes = KeyValues.Where(x => x.Key == key).ToArray();
-            for (int i = deletes.Length-1; i >= 0; i--)
-            {
-                KeyValues.Remove(deletes[i]);
-            }
-            return Task.FromResult(0);
+            await KeyValues.KeyValueDeleteAsync(key);
         }
 
-        public Task KeyValueDeleteTreeAsync(string prefix)
+        public async Task KeyValueDeleteTreeAsync(string prefix)
         {
-            var deletes = KeyValues.Where(x => x.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)).ToArray();
-            for (int i = deletes.Length - 1; i >= 0; i--)
-            {
-                KeyValues.Remove(deletes[i]);
-            }
-            return Task.FromResult(0);
+            await KeyValues.KeyValueDeleteTreeAsync(prefix);
         }
 
-        public Task<string[]> KeyValuesGetKeysAsync(string prefix)
+        public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            var result = KeyValues
-                .Where(kvp => string.IsNullOrEmpty(prefix) || kvp.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-                .Select(kvp => kvp.Key)
-                .ToArray();
-
-            return Task.FromResult(result);
+            return await KeyValues.KeyValuesGetKeysAsync(prefix);
         }
     }
 }
