@@ -5,33 +5,37 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 {
     public class Base64Codec
     {
-        public Encoding Encoding { get; set; }
+        private readonly Encoding _encoding;
+
+        public Base64Codec(Encoding encoding)
+        {
+            _encoding = encoding; 
+        }
 
         public Base64Codec()
-        {
-            Encoding = Encoding.UTF8;    
-        }
+            : this(Encoding.UTF8)
+        { }
 
         public string Encode(string s)
         {
-            var bytes = Encoding.GetBytes(s);
+            var bytes = _encoding.GetBytes(s);
             return Convert.ToBase64String(bytes);
         }
 
         public byte[] EncodeToBytes(string s)
         {
-            return Encoding.GetBytes(Encode(s));
+            return _encoding.GetBytes(Encode(s));
         }
 
         public string Decode(string s)
         {
             var bytes = Convert.FromBase64String(s);
-            return Encoding.GetString(bytes);
+            return _encoding.GetString(bytes);
         }
 
         public string DecodeFromBytes(byte[] bytes)
         {
-            return Decode(Encoding.GetString(bytes));
+            return Decode(_encoding.GetString(bytes));
         }
     }
 }
