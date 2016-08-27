@@ -9,7 +9,10 @@
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
     "outputName": "Nanophone.RegistryHost.InMemoryRegistry",
-    "xmlDoc": false
+    "xmlDoc": false,
+    "compile": {
+      "include": "../Nanophone.SemVer/*.cs"
+    }
   },
 
   "packOptions": {
@@ -27,8 +30,7 @@
   },
 
   "dependencies": {
-    "Nanophone.Core": { "target": "project" },
-    "SemVer": "0.6.2"
+    "Nanophone.Core": { "target": "project" }
   },
 
   "frameworks": {

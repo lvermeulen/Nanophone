@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Consul;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry.Logging;
-using SemVer;
+using Nanophone.SemVer;
 
 namespace Nanophone.RegistryHost.ConsulRegistry
 {
