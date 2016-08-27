@@ -1,104 +1,96 @@
-﻿//using System.Collections.Generic;
-//using System.Linq;
-//using Microsoft.Extensions.Configuration;
-//using Nanophone.Core;
-//using Nanophone.RegistryHost.ConsulRegistry;
-//using Nanophone.RegistryHost.InMemoryRegistry;
-//using Xunit;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Nanophone.Core;
+using Nanophone.RegistryHost.ConsulRegistry;
+using Nanophone.RegistryHost.InMemoryRegistry;
+using Xunit;
 
-//namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
-//{
-//    public class NanophoneConfigurationProviderShould
-//    {
-//        private readonly NanophoneConfigurationProvider _inMemoryProvider;
-//        private readonly NanophoneConfigurationProvider _consulProvider;
+namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
+{
+    public class NanophoneConfigurationProviderShould
+    {
+        private readonly NanophoneConfigurationProvider _inMemoryProvider;
+        private readonly NanophoneConfigurationProvider _consulProvider;
 
-//        public NanophoneConfigurationProviderShould()
-//        {
-//            _inMemoryProvider = new NanophoneConfigurationProvider(GetInMemoryRegistryHost);
-//            _consulProvider = new NanophoneConfigurationProvider(GetConsulRegistryHost);
-//        }
+        public NanophoneConfigurationProviderShould()
+        {
+            _inMemoryProvider = new NanophoneConfigurationProvider(GetInMemoryRegistryHost);
+            _consulProvider = new NanophoneConfigurationProvider(GetConsulRegistryHost);
+        }
 
-//        private IRegistryHost GetInMemoryRegistryHost()
-//        {
-//            var registryHost = new InMemoryRegistryHost
-//            {
-//                KeyValues = new List<KeyValuePair<string, string>>
-//                {
-//                    new KeyValuePair<string, string>("key1", "value1"),
-//                    new KeyValuePair<string, string>("key2", "value2"),
-//                    new KeyValuePair<string, string>("folder/key3", "value3"),
-//                    new KeyValuePair<string, string>("folder/key4", "value4"),
-//                }
-//            };
-//            registryHost.KeyValueDeleteAsync("key3").Wait();
+        private IRegistryHost GetInMemoryRegistryHost()
+        {
+            var registryHost = new InMemoryRegistryHost
+            {
+                KeyValues = new KeyValues()
+                    .WithKeyValue("key1", "value1")
+                    .WithKeyValue("key2", "value2")
+                    .WithKeyValue("folder/key3", "value3")
+                    .WithKeyValue("folder/key4", "value4")
+            };
 
-//            return registryHost;
-//        }
+            return registryHost;
+        }
 
-//        private IRegistryHost GetConsulRegistryHost()
-//        {
-//            var registryHost = new ConsulRegistryHost();
-//            registryHost.KeyValuePutAsync("key1", "value1").Wait();
-//            registryHost.KeyValuePutAsync("key2", "value2").Wait();
-//            registryHost.KeyValuePutAsync("folder/key3", "value3").Wait();
-//            registryHost.KeyValuePutAsync("folder/key4", "value4").Wait();
-//            registryHost.KeyValueDeleteAsync("key3").Wait();
+        private IRegistryHost GetConsulRegistryHost()
+        {
+            var registryHost = new ConsulRegistryHost();
+            registryHost.KeyValuePutAsync("key1", "value1").Wait();
+            registryHost.KeyValuePutAsync("key2", "value2").Wait();
+            registryHost.KeyValuePutAsync("folder/key3", "value3").Wait();
+            registryHost.KeyValuePutAsync("folder/key4", "value4").Wait();
 
-//            return registryHost;
-//        }
+            return registryHost;
+        }
 
-//        private void TryGet(IConfigurationProvider provider)
-//        {
-//            string value;
-//            Assert.True(provider.TryGet("key1", out value));
-//            Assert.Equal("value1", value);
+        private void TryGet(IConfigurationProvider provider)
+        {
+            string value;
+            Assert.True(provider.TryGet("key1", out value));
+            Assert.Equal("value1", value);
 
-//            Assert.True(provider.TryGet("key2", out value));
-//            Assert.Equal("value2", value);
-//        }
+            Assert.True(provider.TryGet("key2", out value));
+            Assert.Equal("value2", value);
+        }
 
-//        [Fact]
-//        public void TryGet()
-//        {
-//            TryGet(_inMemoryProvider);
-//            TryGet(_consulProvider);
-//        }
+        [Fact]
+        public void TryGet()
+        {
+            TryGet(_inMemoryProvider);
+            TryGet(_consulProvider);
+        }
 
-//        private void Set(IConfigurationProvider provider)
-//        {
-//            provider.Set("key3", "value3");
-//            string value;
-//            Assert.True(provider.TryGet("key3", out value));
-//            Assert.Equal("value3", value);
-//        }
+        private void Set(IConfigurationProvider provider)
+        {
+            string key = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            string expectedValue = nameof(NanophoneConfigurationProviderShould.Set);
 
-//        [Fact]
-//        public void Set()
-//        {
-//            Set(_inMemoryProvider);
-//            Set(_consulProvider);
-//        }
+            provider.Set(key, expectedValue);
+            string value;
+            Assert.True(provider.TryGet(key, out value));
+            Assert.Equal(expectedValue, value);
+        }
 
-//        private void GetChildKeys(IConfigurationProvider provider)
-//        {
-//            var result = provider.GetChildKeys(Enumerable.Empty<string>(), "folder/");
-//            Assert.Equal(new[] { "folder/key3", "folder/key4" }, result);
-//        }
+        [Fact]
+        public void Set()
+        {
+            Set(_inMemoryProvider);
+            Set(_consulProvider);
+        }
 
-//        [Fact]
-//        public void GetChildKeys()
-//        {
-//            GetChildKeys(_inMemoryProvider);
-//            GetChildKeys(_consulProvider);
-//        }
+        private void GetChildKeys(IConfigurationProvider provider)
+        {
+            var result = provider.GetChildKeys(Enumerable.Empty<string>(), "folder/");
+            Assert.Equal(new[] { "folder/key3", "folder/key4" }, result);
+        }
 
-//        [Fact]
-//        public void GetHello()
-//        {
-//            string value;
-//            Assert.True(_consulProvider.TryGet("hello", out value));
-//            Assert.Equal("world", value);
-//        }
-//    }
-//}
+        [Fact]
+        public void GetChildKeys()
+        {
+            GetChildKeys(_inMemoryProvider);
+            GetChildKeys(_consulProvider);
+        }
+    }
+}
