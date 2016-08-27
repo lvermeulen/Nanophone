@@ -18,7 +18,8 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                 {
                     new RegistryInformation
                     {
-                        Name = nameof(ServiceCollectionExtensionsShould)
+                        Name = nameof(ServiceCollectionExtensionsShould),
+                        Address = "http://0.0.0.0"
                     }
                 }
             };

@@ -12,13 +12,25 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
     {
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
-        public IList<RegistryInformation> ServiceInstances { get; set; }
-        public KeyValues KeyValues { get; set; }
+        private readonly List<RegistryInformation> _serviceInstances = new List<RegistryInformation>();
 
-        public InMemoryRegistryHost()
+        public KeyValues KeyValues { get; set; } = new KeyValues();
+
+        public IList<RegistryInformation> ServiceInstances
         {
-            ServiceInstances = new List<RegistryInformation>();
-            KeyValues = new KeyValues();
+            get { return _serviceInstances; }
+            set
+            {
+                foreach (var registryInformation in value)
+                {
+                    string url = registryInformation.Address;
+                    if (registryInformation.Port >= 0)
+                    {
+                        url += $":{registryInformation.Port}";
+                    }
+                    RegisterServiceAsync(registryInformation.Name, registryInformation.Version, new Uri(url), tags: registryInformation.Tags);
+                }
+            }
         }
 
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()

@@ -16,17 +16,17 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
 
         public InMemoryRegistryHostShould()
         {
-            var oneDotOne = new RegistryInformation { Name = "One", Address = "1", Port = 1234, Version = "1.1.0", Tags = new List<string> { "key1", "value1", "key2", "value2" } };
-            var oneDotTwo = new RegistryInformation { Name = "One", Address = "1", Port = 1235, Version = "1.2.0", Tags = new List<string> { "key1", "value1", "key2", "value2" } };
-            var twoDotOne = new RegistryInformation { Name = "Two", Address = "2", Port = 1236, Version = "2.1.0", Tags = new List<string> { "key1", "value1", "prefix", "/path" } };
-            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "2", Port = 1237, Version = "2.2.0", Tags = new List<string> { "prefix", "/path", "key2", "value2" } };
-            var threeDotOne = new RegistryInformation { Name = "Three", Address = "3", Port = 1238, Version = "3.1.0", Tags = new List<string> { "prefix", "/orders", "key2", "value2" } };
-            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "3", Port = 1239, Version = "3.2.0", Tags = new List<string> { "key1", "value1", "prefix", "/customers" } };
-            var fourDotOne = new RegistryInformation { Name = "Four", Address = "4", Port = 1240, Version = "1.1.0" };
-            var fourDotTwo = new RegistryInformation { Name = "Four", Address = "4", Port = 1241, Version = "1.2.0" };
-            var fourDotThree = new RegistryInformation { Name = "Four", Address = "4", Port = 1242, Version = "2.1.0" };
-            var fourDotFour = new RegistryInformation { Name = "Four", Address = "4", Port = 1243, Version = "2.2.0" };
-            var fourDotFive = new RegistryInformation { Name = "Four", Address = "4", Port = 1244, Version = "3.2.0" };
+            var oneDotOne = new RegistryInformation { Name = "One", Address = "http://1.1.0.0", Port = 1234, Version = "1.1.0", Tags = new List<string> { "key1value1", "key2value2" } };
+            var oneDotTwo = new RegistryInformation { Name = "One", Address = "http://1.2.0.0", Port = 1235, Version = "1.2.0", Tags = new List<string> { "key1value1", "key2value2" } };
+            var twoDotOne = new RegistryInformation { Name = "Two", Address = "http://2.1.0.0", Port = 1236, Version = "2.1.0", Tags = new List<string> { "key1value1", "prefix/path" } };
+            var twoDotTwo = new RegistryInformation { Name = "Two", Address = "http://2.2.0.0", Port = 1237, Version = "2.2.0", Tags = new List<string> { "prefix/path", "key2value2" } };
+            var threeDotOne = new RegistryInformation { Name = "Three", Address = "http://3.1.0.0", Port = 1238, Version = "3.1.0", Tags = new List<string> { "prefix/orders", "key2value2" } };
+            var threeDotTwo = new RegistryInformation { Name = "Three", Address = "http://3.2.0.0", Port = 1239, Version = "3.2.0", Tags = new List<string> { "key1value1", "prefix/customers" } };
+            var fourDotOne = new RegistryInformation { Name = "Four", Address = "http://4.1.0.0", Port = 1240, Version = "1.1.0" };
+            var fourDotTwo = new RegistryInformation { Name = "Four", Address = "http://4.2.0.0", Port = 1241, Version = "1.2.0" };
+            var fourDotThree = new RegistryInformation { Name = "Four", Address = "http://4.3.0.0", Port = 1242, Version = "2.1.0" };
+            var fourDotFour = new RegistryInformation { Name = "Four", Address = "http://4.4.0.0", Port = 1243, Version = "2.2.0" };
+            var fourDotFive = new RegistryInformation { Name = "Four", Address = "http://4.5.0.0", Port = 1244, Version = "3.2.0" };
             _instances = new List<RegistryInformation>
             {
                 oneDotOne, oneDotTwo,
@@ -52,7 +52,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         public async Task FindServiceInstances()
         {
             var instances = await _host.FindServiceInstancesAsync();
-            Assert.Equal<RegistryInformation>(_instances, instances);
+            Assert.Equal(_instances.Count, instances.Count);
         }
 
         [Fact]
@@ -60,7 +60,8 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         {
             var instances = await _host.FindServiceInstancesAsync("Two");
             Assert.Equal(2, instances.Count);
-            Assert.Equal("2", instances.First().Address);
+            Assert.Equal("2.1.0.0", instances.First().Address);
+            Assert.Equal("2.2.0.0", instances.Last().Address);
         }
 
         [Fact]
