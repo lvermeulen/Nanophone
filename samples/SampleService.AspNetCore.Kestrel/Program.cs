@@ -26,7 +26,7 @@ namespace SampleService.AspNetCore.Owin
             //serviceRegistry.ResolveServiceInstancesWith(new FabioAdapter(new Uri("http://localhost:9999")));
 
             serviceRegistry.AddTenant(new WebApiRegistryTenant(new Uri(url)),
-                "values", "1.7.0-pre", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/values") })
+                "values", "1.7.0-pre", tags: new[] { "urlprefix-/values" })
                 .Wait();
 
             var host = new WebHostBuilder()

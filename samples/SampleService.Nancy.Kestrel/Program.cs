@@ -26,7 +26,7 @@ namespace SampleService.Nancy.Kestrel
             //serviceRegistry.ResolveServiceInstancesWith(new FabioAdapter(new Uri("http://localhost:9999")));
 
             serviceRegistry.AddTenant(new NancyRegistryTenant(new Uri(url)),
-                "orders", "1.3.4", keyValuePairs: new[] { new KeyValuePair<string, string>("urlprefix-", "/orders") })
+                "orders", "1.3.4", tags: new[] { "urlprefix-/orders" })
                 .Wait();
 
             var host = new WebHostBuilder()

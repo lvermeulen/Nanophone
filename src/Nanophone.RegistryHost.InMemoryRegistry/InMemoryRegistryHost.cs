@@ -24,7 +24,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
         {
             IDictionary<string, string[]> results = ServiceInstances
-                .GroupBy(x => x.Name, x => x.KeyValuePairs?.Select(kvp => kvp.Key + kvp.Value))
+                .GroupBy(x => x.Name, x => x.Tags)
                 .ToDictionary(g => g.Key, g => g.SelectMany(x => x ?? Enumerable.Empty<string>()).ToArray());
 
             return Task.FromResult(results);
@@ -75,8 +75,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(ServiceInstances);
         }
 
-        public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
-            IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             ServiceInstances.Add(new RegistryInformation
             {
@@ -85,7 +84,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 Address = uri.Host,
                 Port = uri.Port,
                 Version = version,
-                KeyValuePairs = keyValuePairs ?? Enumerable.Empty<KeyValuePair<string, string>>()
+                Tags = tags ?? Enumerable.Empty<string>()
             });
             return Task.FromResult(0);
         }

@@ -109,21 +109,21 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var serviceId = GetServiceId(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
-            var keyValueTags = keyValuePairs?.Select(kvp => $"{kvp.Key}{kvp.Value}");
-            var tags = new List<string>(keyValueTags ?? Enumerable.Empty<string>()) { versionLabel };
+            var tagList = (tags ?? Enumerable.Empty<string>()).ToList();
+            tagList.Add(versionLabel);
 
             var registration = new AgentServiceRegistration
             {
                 ID = serviceId,
                 Name = serviceName,
-                Tags = tags.ToArray(),
+                Tags = tagList.ToArray(),
                 Address = uri.Host,
                 Port = uri.Port,
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }

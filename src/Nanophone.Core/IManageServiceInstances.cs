@@ -6,7 +6,7 @@ namespace Nanophone.Core
 {
     public interface IManageServiceInstances
     {
-        Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null);
+        Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null);
         Task DeregisterServiceAsync(string serviceId);
     }
 }

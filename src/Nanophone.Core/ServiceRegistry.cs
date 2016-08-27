@@ -19,9 +19,9 @@ namespace Nanophone.Core
         }
 
         public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
-            IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+            IEnumerable<string> tags = null)
         {
-            _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs)
+            _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags)
                 .Wait();
 
             return Task.FromResult(0);
@@ -85,10 +85,10 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindAllServicesAsync();
         }
 
-        public async Task AddTenant(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public async Task AddTenant(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var uri = registryTenant.Uri;
-            await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, keyValuePairs);
+            await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags);
         }
 
         public Task KeyValuePutAsync(string key, string value)

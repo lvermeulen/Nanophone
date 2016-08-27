@@ -9,7 +9,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
     public static class ApplicationBuilderExtensions
     {
         // TODO: remove IRegistryTenant parameter
-        public static IApplicationBuilder AddTenant(this IApplicationBuilder app, IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<KeyValuePair<string, string>> keyValuePairs = null)
+        public static IApplicationBuilder AddTenant(this IApplicationBuilder app, IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             if (app == null)
             {
@@ -21,7 +21,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            serviceRegistry.AddTenant(registryTenant, serviceName, version, healthCheckUri, keyValuePairs)
+            serviceRegistry.AddTenant(registryTenant, serviceName, version, healthCheckUri, tags)
                 .Wait();
 
             return app;

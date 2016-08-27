@@ -9,6 +9,6 @@ namespace Nanophone.Core
         public string Address { get; set; }
         public int Port { get; set; }
         public string Version { get; set; }
-        public IEnumerable<KeyValuePair<string, string>> KeyValuePairs { get; set; }
+        public IEnumerable<string> Tags { get; set; }
     }
 }
