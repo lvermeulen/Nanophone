@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>5415fbe5-ddd0-4b25-ba76-235201b7ec64</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Nanophone.Semver.Tests</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AdvancedRanges.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LooseMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ParseMajorMinorPatch.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PartialVersion.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreReleaseComparisons.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PreReleaseRanges.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RangeEquals.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SimpleRanges.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StaticRangeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VersionComparison.cs" />
+  </ItemGroup>
+</Project>
