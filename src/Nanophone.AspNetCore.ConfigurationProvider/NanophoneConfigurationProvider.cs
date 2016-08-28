@@ -25,15 +25,13 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public bool TryGet(string key, out string value)
         {
-            value = _serviceRegistry.KeyValueGetAsync(key)
-                .Result;
+            value = _serviceRegistry.KeyValueGetAsync(key).Result;
             return value != null;
         }
 
         public void Set(string key, string value)
         {
-            _serviceRegistry.KeyValuePutAsync(key, value)
-                .Wait();
+            _serviceRegistry.KeyValuePutAsync(key, value);
         }
 
         public IChangeToken GetReloadToken() => _configurationReloadToken;

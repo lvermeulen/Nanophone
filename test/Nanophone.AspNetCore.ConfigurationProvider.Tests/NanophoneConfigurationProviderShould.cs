@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
@@ -16,31 +17,28 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
 
         public NanophoneConfigurationProviderShould()
         {
-            _inMemoryProvider = new NanophoneConfigurationProvider(GetInMemoryRegistryHost);
-            _consulProvider = new NanophoneConfigurationProvider(GetConsulRegistryHost);
+            _inMemoryProvider = new NanophoneConfigurationProvider(() => GetInMemoryRegistryHost().Result);
+            _consulProvider = new NanophoneConfigurationProvider(() => GetConsulRegistryHost().Result);
         }
 
-        private IRegistryHost GetInMemoryRegistryHost()
+        private async Task<IRegistryHost> GetInMemoryRegistryHost()
         {
-            var registryHost = new InMemoryRegistryHost
-            {
-                KeyValues = new KeyValues()
-                    .WithKeyValue("key1", "value1")
-                    .WithKeyValue("key2", "value2")
-                    .WithKeyValue("folder/key3", "value3")
-                    .WithKeyValue("folder/key4", "value4")
-            };
+            var registryHost = new InMemoryRegistryHost();
+            await registryHost.KeyValuePutAsync("key1", "value1");
+            await registryHost.KeyValuePutAsync("key2", "value2");
+            await registryHost.KeyValuePutAsync("folder/key3", "value3");
+            await registryHost.KeyValuePutAsync("folder/key4", "value4");
 
             return registryHost;
         }
 
-        private IRegistryHost GetConsulRegistryHost()
+        private async Task<IRegistryHost> GetConsulRegistryHost()
         {
             var registryHost = new ConsulRegistryHost();
-            registryHost.KeyValuePutAsync("key1", "value1").Wait();
-            registryHost.KeyValuePutAsync("key2", "value2").Wait();
-            registryHost.KeyValuePutAsync("folder/key3", "value3").Wait();
-            registryHost.KeyValuePutAsync("folder/key4", "value4").Wait();
+            await registryHost.KeyValuePutAsync("key1", "value1");
+            await registryHost.KeyValuePutAsync("key2", "value2");
+            await registryHost.KeyValuePutAsync("folder/key3", "value3");
+            await registryHost.KeyValuePutAsync("folder/key4", "value4");
 
             return registryHost;
         }
