@@ -1,4 +1,4 @@
-version: 1.5.0-alpha-{build}
+version: 1.6.0-alpha-{build}
 branches:
   only:
   - master
@@ -9,9 +9,13 @@ environment:
     secure: o8re+GWYBl4Tq1RvoEclgFF8iGL4ovJp7B2dHwfyvlIMFLhLeViza8PeIIg4ZMfN
   COVER_FILTER: '+[Nano*]* -[*]*.Logging.* -[*Tests]*'
 install:
-  - ps: .\build\install.ps1
+- ps: .\build\install.ps1
+#init:
+#- ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 build_script:
 - ps: .\build\build.ps1 $env:APPVEYOR_BUILD_VERSION $env:APPVEYOR_REPO_TAG_NAME
+on_finish:
+- ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 before_test:
 - ps: .\build\beforeTest.ps1
 after_test:
