@@ -57,7 +57,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         {
             var instances = await FindServiceInstancesAsync(name);
             var range = new Range(version);
-            
+
             return instances.Where(x => range.IsSatisfied(x.Version)).ToList();
         }
 
@@ -87,9 +87,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(ServiceInstances);
         }
 
-        public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        public Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
-            ServiceInstances.Add(new RegistryInformation
+            var registryInformation = new RegistryInformation
             {
                 Name = serviceName,
                 Id = Guid.NewGuid().ToString(),
@@ -97,8 +97,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 Port = uri.Port,
                 Version = version,
                 Tags = tags ?? Enumerable.Empty<string>()
-            });
-            return Task.FromResult(0);
+            };
+            ServiceInstances.Add(registryInformation);
+            return Task.FromResult(registryInformation);
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
@@ -108,6 +109,16 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             {
                 ServiceInstances.Remove(instance);
             }
+        }
+
+        public Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        {
+            return null;
+        }
+
+        public Task<bool> DeregisterHealthCheckAsync(string checkId)
+        {
+            return Task.FromResult(false);
         }
 
         public async Task KeyValuePutAsync(string key, string value)

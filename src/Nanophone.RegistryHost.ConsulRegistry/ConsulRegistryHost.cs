@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Consul;
@@ -109,7 +110,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
         }
 
-        public async Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var serviceId = GetServiceId(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
@@ -131,12 +132,62 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
             await _consul.Agent.ServiceRegister(registration);
             s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
+
+            return new RegistryInformation
+            {
+                Name = registration.Name,
+                Id = registration.ID,
+                Address = registration.Address,
+                Port = registration.Port,
+                Version = version,
+                Tags = tagList
+            };
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
         {
             var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
             s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
+        }
+
+        private string GetCheckId(string serviceName, Uri uri)
+        {
+            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
+        }
+
+        public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        {
+            if (checkUri == null)
+            {
+                throw new ArgumentNullException(nameof(checkUri));
+            }
+
+            var checkId = GetCheckId(serviceName, checkUri);
+            var checkRegistration = new AgentCheckRegistration
+            {
+                ID = checkId,
+                Name = serviceName,
+                Notes = notes,
+                ServiceID = serviceId,
+                HTTP = checkUri.ToString(),
+                Interval = interval
+            };
+            var writeResult = await _consul.Agent.CheckRegister(checkRegistration);
+            bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
+            string success = isSuccess ? "succeeded" : "failed";
+            s_log.Info($"Registration of health check with id {checkId} on {serviceName} with id {serviceId}" + success);
+
+            return checkId;
+        }
+
+        public async Task<bool> DeregisterHealthCheckAsync(string checkId)
+        {
+            var writeResult = await _consul.Agent.CheckDeregister(checkId);
+            bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
+            string success = isSuccess ? "succeeded" : "failed";
+            s_log.Info($"Deregistration of health check with id {checkId} " + success);
+
+            return isSuccess;
         }
 
         public async Task KeyValuePutAsync(string key, string value)

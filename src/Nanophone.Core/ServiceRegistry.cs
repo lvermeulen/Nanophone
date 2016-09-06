@@ -5,7 +5,7 @@ using Nanophone.Core.Logging;
 
 namespace Nanophone.Core
 {
-    public class ServiceRegistry : IManageServiceInstances, IResolveServiceInstances, IHaveKeyValues
+    public class ServiceRegistry : IManageServiceInstances, IManageHealthChecks, IResolveServiceInstances, IHaveKeyValues
     {
         private static readonly ILog s_log = LogProvider.For<ServiceRegistry>();
 
@@ -18,21 +18,26 @@ namespace Nanophone.Core
             _registryHost = registryHost;
         }
 
-        public Task RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null,
-            IEnumerable<string> tags = null)
+        public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
-            _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags)
-                .Wait();
+            var registryInformation = await _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags);
 
-            return Task.FromResult(0);
+            return registryInformation;
         }
 
-        public Task DeregisterServiceAsync(string serviceId)
+        public async Task DeregisterServiceAsync(string serviceId)
         {
-            _registryHost.DeregisterServiceAsync(serviceId)
-                .Wait();
+            await _registryHost.DeregisterServiceAsync(serviceId);
+        }
 
-            return Task.FromResult(0);
+        public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        {
+            return await _registryHost.RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes);
+        }
+
+        public async Task<bool> DeregisterHealthCheckAsync(string checkId)
+        {
+            return await _registryHost.DeregisterHealthCheckAsync(checkId);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
