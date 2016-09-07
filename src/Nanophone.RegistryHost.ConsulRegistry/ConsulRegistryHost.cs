@@ -152,7 +152,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private string GetCheckId(string serviceName, Uri uri)
         {
-            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}";
+            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}_{uri.PathAndQuery.Replace("/", "")}";
         }
 
         public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)

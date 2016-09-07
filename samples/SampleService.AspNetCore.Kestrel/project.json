@@ -12,8 +12,10 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
+    "Nanophone.AspNetCore.ApplicationServices": { "target": "project" },
+    "Nanophone.AspNetCore.ConfigurationProvider": { "target": "project" },
     "Nanophone.Core": { "target": "project" },
-    "Nanophone.Fabio": {"target": "project" },
+    "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.WebApi": { "target": "project" },
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"

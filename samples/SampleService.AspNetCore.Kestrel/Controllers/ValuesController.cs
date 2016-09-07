@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
-namespace SampleService.AspNetCore.Owin.Controllers
+namespace SampleService.AspNetCore.Kestrel.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
