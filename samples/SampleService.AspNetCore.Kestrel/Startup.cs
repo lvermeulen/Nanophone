@@ -46,17 +46,12 @@ namespace SampleService.AspNetCore.Kestrel
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            var serviceRegistry = app.ApplicationServices.GetService<ServiceRegistry>();
+            // add tenant & health check
             var uri = new Uri($"http://localhost:{Program.PORT}/");
+            var registryInformation = app.AddTenant(new WebApiRegistryTenant(uri), "values", "1.7.0-pre", tags: new[] {"urlprefix-/values"});
+            var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "metrics"), TimeSpan.FromSeconds(15), "metrics");
 
-            var registryInformation = serviceRegistry.AddTenant(new WebApiRegistryTenant(uri),
-                "values", "1.7.0-pre", tags: new[] { "urlprefix-/values" })
-                .Result;
-
-            string checkId = serviceRegistry.AddHealthCheck(registryInformation.Name, registryInformation.Id,
-                new Uri(uri, "metrics"), TimeSpan.FromSeconds(15), "metrics")
-                .Result;
-
+            // prepare checkId for options injection
             app.ApplicationServices.GetService<IOptions<HealthCheckOptions>>().Value.HealthCheckId = checkId;
         }
     }

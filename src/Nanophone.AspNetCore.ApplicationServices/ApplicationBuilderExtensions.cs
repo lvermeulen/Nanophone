@@ -9,7 +9,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
     public static class ApplicationBuilderExtensions
     {
         // TODO: remove IRegistryTenant parameter
-        public static IApplicationBuilder AddTenant(this IApplicationBuilder app, IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        public static RegistryInformation AddTenant(this IApplicationBuilder app, IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             if (app == null)
             {
@@ -21,10 +21,28 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            serviceRegistry.AddTenant(registryTenant, serviceName, version, healthCheckUri, tags)
-                .Wait();
+            var registryInformation = serviceRegistry.AddTenantAsync(registryTenant, serviceName, version, healthCheckUri, tags)
+                .Result;
 
-            return app;
+            return registryInformation;
+        }
+
+        public static string AddHealthCheck(this IApplicationBuilder app, RegistryInformation registryInformation, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+            if (registryInformation == null)
+            {
+                throw new ArgumentNullException(nameof(registryInformation));
+            }
+
+            var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
+            string checkId = serviceRegistry.AddHealthCheckAsync(registryInformation.Name, registryInformation.Id, checkUri, interval, notes)
+                .Result;
+
+            return checkId;
         }
     }
 }
