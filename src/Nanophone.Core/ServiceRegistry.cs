@@ -90,13 +90,13 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindAllServicesAsync();
         }
 
-        public async Task<RegistryInformation> AddTenant(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        public async Task<RegistryInformation> AddTenantAsync(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var uri = registryTenant.Uri;
             return await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags);
         }
 
-        public async Task<string> AddHealthCheck(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        public async Task<string> AddHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
             return await RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes);
         }

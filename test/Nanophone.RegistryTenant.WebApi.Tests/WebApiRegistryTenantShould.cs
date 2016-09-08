@@ -19,7 +19,7 @@ namespace Nanophone.RegistryTenant.WebApi.Tests
             var uri = new Uri("http://localhost:1234");
             var tenant = new WebApiRegistryTenant(uri);
             string serviceName = nameof(WebApiRegistryTenantShould);
-            await serviceRegistry.AddTenant(tenant, serviceName, serviceName);
+            await serviceRegistry.AddTenantAsync(tenant, serviceName, serviceName);
 
             // register
             var instance = (await registryHost.FindAllServicesAsync())

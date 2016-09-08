@@ -19,7 +19,7 @@ namespace Nanophone.RegistryTenant.Nancy.Tests
             var uri = new Uri("http://localhost:1234");
             var tenant = new NancyRegistryTenant(uri);
             string serviceName = nameof(NancyRegistryTenantShould);
-            await serviceRegistry.AddTenant(tenant, serviceName, serviceName);
+            await serviceRegistry.AddTenantAsync(tenant, serviceName, serviceName);
 
             // register
             var instance = (await registryHost.FindAllServicesAsync())

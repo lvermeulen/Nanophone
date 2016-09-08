@@ -25,7 +25,7 @@ namespace SampleService.Nancy.Kestrel
             // uncomment for fabio
             //serviceRegistry.ResolveServiceInstancesWith(new FabioAdapter(new Uri("http://localhost:9999")));
 
-            serviceRegistry.AddTenant(new NancyRegistryTenant(new Uri(url)),
+            serviceRegistry.AddTenantAsync(new NancyRegistryTenant(new Uri(url)),
                 "orders", "1.3.4", tags: new[] { "urlprefix-/orders" })
                 .Wait();
 
