@@ -6,24 +6,24 @@ using Nanophone.Core;
 
 namespace SampleService.AspNetCore.Kestrel.Controllers
 {
-    [Route("/metrics")]
-    public class MetricsController : Controller
+    [Route("/randomvalue")]
+    public class RandomValueController : Controller
     {
         private static readonly Random s_random = new Random(Guid.NewGuid().GetHashCode());
         private readonly HealthCheckOptions _options;
 
-        public MetricsController(IOptions<HealthCheckOptions> options)
+        public RandomValueController(IOptions<HealthCheckOptions> options)
         {
             _options = options.Value;
         }
 
         [HttpGet]
-        public string GetMetrics()
+        public string GetRandomValue()
         {
             int random = s_random.Next(-1, 100) + 1;
+            string key = $"values/{_options.HealthCheckId}/randomvalue";
 
             var serviceRegistry = HttpContext.RequestServices.GetRequiredService<ServiceRegistry>();
-            string key = $"values/{_options.HealthCheckId}/metrics/cpu-usage";
             serviceRegistry.KeyValuePutAsync(key, random.ToString());
 
             return "OK";

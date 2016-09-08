@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Nanophone.AspNetCore.ApplicationServices;
-using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.WebApi;
 using NLog.Extensions.Logging;
@@ -49,7 +48,7 @@ namespace SampleService.AspNetCore.Kestrel
             // add tenant & health check
             var uri = new Uri($"http://localhost:{Program.PORT}/");
             var registryInformation = app.AddTenant(new WebApiRegistryTenant(uri), "values", "1.7.0-pre", tags: new[] {"urlprefix-/values"});
-            var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "metrics"), TimeSpan.FromSeconds(15), "metrics");
+            var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "randomvalue"), TimeSpan.FromSeconds(15), "random value");
 
             // prepare checkId for options injection
             app.ApplicationServices.GetService<IOptions<HealthCheckOptions>>().Value.HealthCheckId = checkId;
