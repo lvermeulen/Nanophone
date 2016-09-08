@@ -150,9 +150,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
-        private string GetCheckId(string serviceName, Uri uri)
+        private string GetCheckId(string serviceId, Uri uri)
         {
-            return $"{serviceName}_{uri.Host.Replace(".", "_")}_{uri.Port}_{uri.PathAndQuery.Replace("/", "")}";
+            return $"{serviceId}_{uri.GetPath().Replace("/", "")}";
         }
 
         public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
@@ -162,7 +162,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 throw new ArgumentNullException(nameof(checkUri));
             }
 
-            var checkId = GetCheckId(serviceName, checkUri);
+            var checkId = GetCheckId(serviceId, checkUri);
             var checkRegistration = new AgentCheckRegistration
             {
                 ID = checkId,
