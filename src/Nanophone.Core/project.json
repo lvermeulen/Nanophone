@@ -1,17 +1,15 @@
-﻿{
+{
   "title": "Nanophone.Core",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
   "description": "Nanophone core component",
-
   "buildOptions": {
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
     "outputName": "Nanophone.Core",
     "xmlDoc": false
   },
-
   "packOptions": {
     "owners": [ "Luk Vermeulen" ],
     "requireLicenseAcceptance": true,
@@ -25,13 +23,13 @@
       "url": "https://github.com/lvermeulen/Nanophone"
     }
   },
-
   "frameworks": {
     "net451": {},
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "System.Dynamic.Runtime": "4.0.11",
+        "System.Net.NameResolution": "4.0.0",
         "Microsoft.CSharp": "4.0.1"
       }
     }
