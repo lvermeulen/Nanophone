@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0",
   "testRunner": "xunit",
 
@@ -9,8 +9,8 @@
   "dependencies": {
     "coveralls.io": "1.3.4",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "Nancy": "2.0.0-barneyrubble",
-    "Nancy.Testing": "2.0.0-barneyrubble",
+    "Nancy": "2.0.0-Pre1774",
+    "Nancy.Testing": "2.0.0-Pre1774",
     "Nanophone.Core": { "target": "project" },
     "Nanophone.RegistryHost.InMemoryRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.Nancy": { "target": "project" },

@@ -46,11 +46,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Nancy, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.2.0.0-barneyrubble\lib\net452\Nancy.dll</HintPath>
+      <HintPath>..\..\packages\Nancy.2.0.0-Pre1774\lib\net452\Nancy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nancy.Hosting.Self, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nancy.Hosting.Self.2.0.0-barneyrubble\lib\net452\Nancy.Hosting.Self.dll</HintPath>
+      <HintPath>..\..\packages\Nancy.Hosting.Self.2.0.0-Pre1774\lib\net452\Nancy.Hosting.Self.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Nanophone.Core, Version=1.6.1.0, Culture=neutral, processorArchitecture=MSIL">

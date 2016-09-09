@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Nanophone.RegistryTenant.Nancy",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
@@ -27,21 +27,20 @@
   },
 
   "dependencies": {
+    "Nancy": "2.0.0-Pre1774",
     "Nanophone.Core": { "target": "project" }
   },
 
   "frameworks": {
     "net452": {
       "dependencies": {
-        "Nancy": "2.0.0-barneyrubble"
       }
     },
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
         "System.Dynamic.Runtime": "4.0.11",
-        "Microsoft.CSharp": "4.0.1",
-        "Nancy": "2.0.0-barneyrubble"
+        "Microsoft.CSharp": "4.0.1"
       }
     }
   }

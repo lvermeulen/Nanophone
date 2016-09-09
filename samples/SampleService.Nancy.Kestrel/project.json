@@ -15,9 +15,9 @@
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Options.ConfigurationExtensions": "1.0.0",
-    "Nancy": "2.0.0-barneyrubble",
+    "Nancy": "2.0.0-Pre1774",
     "Nanophone.Core": { "target": "project" },
-    "Nanophone.Fabio": {"target": "project" },
+    "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.Nancy": { "target": "project" },
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
