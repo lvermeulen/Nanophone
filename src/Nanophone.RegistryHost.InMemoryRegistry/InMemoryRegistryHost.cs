@@ -13,12 +13,13 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
         private readonly List<RegistryInformation> _serviceInstances = new List<RegistryInformation>();
+        private readonly List<HealthCheckInformation> _healthChecks = new List<HealthCheckInformation>();
 
         public KeyValues KeyValues { get; set; } = new KeyValues();
 
         public IList<RegistryInformation> ServiceInstances
         {
-            get { return _serviceInstances; }
+            private get { return _serviceInstances; }
             set
             {
                 foreach (var registryInformation in value)
@@ -28,7 +29,19 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                     {
                         url += $":{registryInformation.Port}";
                     }
-                    RegisterServiceAsync(registryInformation.Name, registryInformation.Version, new Uri(url), tags: registryInformation.Tags);
+                    RegisterServiceAsync(registryInformation.Name, registryInformation.Version, new Uri(url), tags: registryInformation.Tags).Wait();
+                }
+            }
+        }
+
+        public IList<HealthCheckInformation> HealthChecks
+        {
+            private get { return _healthChecks; }
+            set
+            {
+                foreach (var healthCheckInformation in value)
+                {
+                    RegisterHealthCheckAsync(healthCheckInformation.Name, healthCheckInformation.ServiceId, healthCheckInformation.Uri, healthCheckInformation.Interval, healthCheckInformation.Notes).Wait();
                 }
             }
         }
@@ -87,19 +100,40 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(ServiceInstances);
         }
 
-        public Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        private async Task<string> GetServiceId(string serviceName, Uri uri)
         {
+            var ipAddress = await DnsHelper.GetIpAddressAsync();
+            return $"{serviceName}_{ipAddress.Replace(".", "_")}_{uri.Port}";
+        }
+
+        public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        {
+            var serviceId = await GetServiceId(serviceName, uri);
+            healthCheckUri = healthCheckUri ?? new Uri(uri, "status");
+            s_log.Info($"Registering {serviceName} service at {uri} on in-memory host with status check {healthCheckUri}");
+
             var registryInformation = new RegistryInformation
             {
                 Name = serviceName,
-                Id = Guid.NewGuid().ToString(),
+                Id = serviceId,
                 Address = uri.Host,
                 Port = uri.Port,
                 Version = version,
                 Tags = tags ?? Enumerable.Empty<string>()
             };
             ServiceInstances.Add(registryInformation);
-            return Task.FromResult(registryInformation);
+            HealthChecks.Add(new HealthCheckInformation
+            {
+                Id = GetCheckId(serviceId, healthCheckUri),
+                Name = serviceName,
+                Notes = "",
+                ServiceId = serviceId,
+                Uri = null,
+                Interval = TimeSpan.FromSeconds(1)
+            });
+            s_log.Info($"Registration of {serviceName} with id {registryInformation.Id} succeeded");
+
+            return registryInformation;
         }
 
         public async Task DeregisterServiceAsync(string serviceId)
@@ -108,17 +142,48 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             if (instance != null)
             {
                 ServiceInstances.Remove(instance);
+                s_log.Info($"Deregistration of {serviceId} succeeded");
             }
+        }
+
+        private string GetCheckId(string serviceId, Uri uri)
+        {
+            return $"{serviceId}_{uri.GetPath().Replace("/", "")}";
         }
 
         public Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
-            return null;
+            if (checkUri == null)
+            {
+                throw new ArgumentNullException(nameof(checkUri));
+            }
+
+            var checkId = GetCheckId(serviceId, checkUri);
+            HealthChecks.Add(new HealthCheckInformation
+            {
+                Id = checkId,
+                Name = serviceName,
+                Notes = notes,
+                ServiceId = serviceId,
+                Uri = checkUri,
+                Interval = interval ?? TimeSpan.FromSeconds(15)
+            });
+            s_log.Info($"Registration of health check with id {checkId} on {serviceName} with id {serviceId} succeeded");
+
+            return Task.FromResult(checkId);
         }
 
         public Task<bool> DeregisterHealthCheckAsync(string checkId)
         {
-            return Task.FromResult(false);
+            var healthCheckInformation = HealthChecks.FirstOrDefault(x => x.Id == checkId);
+            bool isCheckFound = healthCheckInformation != null;
+            if (isCheckFound)
+            {
+                HealthChecks.Remove(healthCheckInformation);
+                s_log.Info($"Deregistration of health check with id {checkId} succeeded");
+            }
+
+            return Task.FromResult(isCheckFound);
         }
 
         public async Task KeyValuePutAsync(string key, string value)

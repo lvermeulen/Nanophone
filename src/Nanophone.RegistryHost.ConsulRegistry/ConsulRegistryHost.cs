@@ -114,8 +114,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var serviceId = await GetServiceId(serviceName, uri);
-            string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
-            s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
+            healthCheckUri = healthCheckUri ?? new Uri(uri, "status");
+            s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {healthCheckUri}");
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
             var tagList = (tags ?? Enumerable.Empty<string>()).ToList();
@@ -128,7 +128,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Tags = tagList.ToArray(),
                 Address = uri.Host,
                 Port = uri.Port,
-                Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
+                Check = new AgentServiceCheck { HTTP = healthCheckUri.ToString(), Interval = TimeSpan.FromSeconds(1) }
             };
 
             await _consul.Agent.ServiceRegister(registration);
@@ -148,7 +148,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task DeregisterServiceAsync(string serviceId)
         {
             var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
-            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
+            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
         private string GetCheckId(string serviceId, Uri uri)
