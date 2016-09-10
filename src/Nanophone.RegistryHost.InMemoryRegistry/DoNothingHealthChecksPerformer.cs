@@ -25,9 +25,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(0);
         }
 
-        public Task ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation)
+        public Task<bool> ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation)
         {
-            return Task.FromResult(0);
+            return Task.FromResult(true);
         }
     }
 }

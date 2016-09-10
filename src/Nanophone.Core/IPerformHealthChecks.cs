@@ -6,6 +6,6 @@ namespace Nanophone.Core
     {
         Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation);
         Task RemoveHealthCheckAsync(HealthCheckInformation healthCheckInformation);
-        Task ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation);
+        Task<bool> ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation);
     }
 }

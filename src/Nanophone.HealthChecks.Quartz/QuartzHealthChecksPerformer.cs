@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Nanophone.Core;
 using Quartz;
@@ -8,12 +9,14 @@ namespace Nanophone.HealthChecks.Quartz
 {
     public class QuartzHealthChecksPerformer : IPerformHealthChecks
     {
+        private readonly Func<Task> _executeHealthCheck;
+        private readonly Lazy<HttpClient> _httpClient;
         private readonly IScheduler _scheduler;
-        private Func<Task> _executeHealthCheck;
 
         public QuartzHealthChecksPerformer(Func<Task> executeHealthCheck = null)
         {
             _executeHealthCheck = executeHealthCheck;
+            _httpClient = new Lazy<HttpClient>();
 
             var factory = new StdSchedulerFactory();
             _scheduler = factory.GetScheduler()
@@ -45,9 +48,11 @@ namespace Nanophone.HealthChecks.Quartz
             await _scheduler.DeleteJob(new JobKey(healthCheckInformation.Id));
         }
 
-        public async Task ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation)
+        public async Task<bool> ExecuteHealthCheckAsync(HealthCheckInformation healthCheckInformation)
         {
-            await Task.Yield();
+            var response = await _httpClient.Value.GetAsync(healthCheckInformation.Uri);
+
+            return response.IsSuccessStatusCode;
         }
     }
 }
