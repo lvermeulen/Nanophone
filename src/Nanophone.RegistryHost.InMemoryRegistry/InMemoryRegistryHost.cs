@@ -12,6 +12,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
     {
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
+        private readonly InMemoryRegistryHostConfiguration _configuration;
         private readonly List<RegistryInformation> _serviceInstances = new List<RegistryInformation>();
         private readonly List<HealthCheckInformation> _healthChecks = new List<HealthCheckInformation>();
 
@@ -44,6 +45,11 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                     RegisterHealthCheckAsync(healthCheckInformation.Name, healthCheckInformation.ServiceId, healthCheckInformation.Uri, healthCheckInformation.Interval, healthCheckInformation.Notes).Wait();
                 }
             }
+        }
+
+        public InMemoryRegistryHost(InMemoryRegistryHostConfiguration configuration = null)
+        {
+            _configuration = configuration ?? new InMemoryRegistryHostConfiguration();
         }
 
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
