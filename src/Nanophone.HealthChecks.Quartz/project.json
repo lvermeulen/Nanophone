@@ -1,0 +1,48 @@
+﻿{
+  "title": "Nanophone.HealthChecks.Hangfire",
+  "version": "1.4.0-alpha",
+  "authors": [ "Luk Vermeulen" ],
+  "copyright": "Copyright 2016",
+  "description": "Nanophone health check execution with Quartz",
+
+  "buildOptions": {
+    "define": [ "LIBLOG_PORTABLE" ],
+    "optimize": true,
+    "outputName": "Nanophone.HealthChecks.Hangfire",
+    "xmlDoc": false
+  },
+
+  "packOptions": {
+    "owners": [ "Luk Vermeulen" ],
+    "requireLicenseAcceptance": true,
+    "summary": "Nanophone health check execution with Quartz",
+    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices", "Quartz" ],
+    "projectUrl": "https://github.com/lvermeulen/Nanophone",
+    "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
+    "iconUrl": "http://i.imgur.com/WnKfKOC.png?1",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lvermeulen/Nanophone"
+    }
+  },
+
+  "dependencies": {
+    "Nanophone.Core": { "target": "project" },
+    "Quartz": "3.0.0-alpha2" 
+  },
+
+  "frameworks": {
+    "net451": {
+      "dependencies": {
+        "Newtonsoft.Json": "9.0.1"
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "Microsoft.CSharp": "4.0.1"
+      }
+    }
+  }
+}

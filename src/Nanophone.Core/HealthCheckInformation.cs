@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Nanophone.RegistryHost.InMemoryRegistry
+namespace Nanophone.Core
 {
     public class HealthCheckInformation
     {

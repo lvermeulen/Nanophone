@@ -12,7 +12,6 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
     {
         private static readonly ILog s_log = LogProvider.For<InMemoryRegistryHost>();
 
-        private readonly InMemoryRegistryHostConfiguration _configuration;
         private readonly List<RegistryInformation> _serviceInstances = new List<RegistryInformation>();
         private readonly List<HealthCheckInformation> _healthChecks = new List<HealthCheckInformation>();
 
@@ -47,9 +46,11 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             }
         }
 
-        public InMemoryRegistryHost(InMemoryRegistryHostConfiguration configuration = null)
+        public IPerformHealthChecks HealthChecksPerformer { get; set; }
+
+        public InMemoryRegistryHost()
         {
-            _configuration = configuration ?? new InMemoryRegistryHostConfiguration();
+            HealthChecksPerformer = new DoNothingHealthChecksPerformer();
         }
 
         private Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
@@ -128,15 +129,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 Tags = tags ?? Enumerable.Empty<string>()
             };
             ServiceInstances.Add(registryInformation);
-            HealthChecks.Add(new HealthCheckInformation
-            {
-                Id = GetCheckId(serviceId, healthCheckUri),
-                Name = serviceName,
-                Notes = "",
-                ServiceId = serviceId,
-                Uri = null,
-                Interval = TimeSpan.FromSeconds(1)
-            });
+
+            await RegisterHealthCheckAsync(serviceName, serviceId, healthCheckUri, TimeSpan.FromSeconds(1));
+
             s_log.Info($"Registration of {serviceName} with id {registryInformation.Id} succeeded");
 
             return registryInformation;
@@ -157,7 +152,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return $"{serviceId}_{uri.GetPath().Replace("/", "")}";
         }
 
-        public Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
+        public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
             if (checkUri == null)
             {
@@ -165,7 +160,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             }
 
             var checkId = GetCheckId(serviceId, checkUri);
-            HealthChecks.Add(new HealthCheckInformation
+            var healthCheckInformation = new HealthCheckInformation
             {
                 Id = checkId,
                 Name = serviceName,
@@ -173,23 +168,27 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 ServiceId = serviceId,
                 Uri = checkUri,
                 Interval = interval ?? TimeSpan.FromSeconds(15)
-            });
+            };
+            HealthChecks.Add(healthCheckInformation);
+            await HealthChecksPerformer.AddHealthCheckAsync(healthCheckInformation);
+
             s_log.Info($"Registration of health check with id {checkId} on {serviceName} with id {serviceId} succeeded");
 
-            return Task.FromResult(checkId);
+            return checkId;
         }
 
-        public Task<bool> DeregisterHealthCheckAsync(string checkId)
+        public async Task<bool> DeregisterHealthCheckAsync(string checkId)
         {
             var healthCheckInformation = HealthChecks.FirstOrDefault(x => x.Id == checkId);
             bool isCheckFound = healthCheckInformation != null;
             if (isCheckFound)
             {
                 HealthChecks.Remove(healthCheckInformation);
+                await HealthChecksPerformer.RemoveHealthCheckAsync(healthCheckInformation);
                 s_log.Info($"Deregistration of health check with id {checkId} succeeded");
             }
 
-            return Task.FromResult(isCheckFound);
+            return isCheckFound;
         }
 
         public async Task KeyValuePutAsync(string key, string value)
