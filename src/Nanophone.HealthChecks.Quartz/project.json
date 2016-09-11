@@ -1,5 +1,5 @@
 ﻿{
-  "title": "Nanophone.HealthChecks.Hangfire",
+  "title": "Nanophone.HealthChecks.Quartz",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
   "copyright": "Copyright 2016",
@@ -8,7 +8,7 @@
   "buildOptions": {
     "define": [ "LIBLOG_PORTABLE" ],
     "optimize": true,
-    "outputName": "Nanophone.HealthChecks.Hangfire",
+    "outputName": "Nanophone.HealthChecks.Quartz",
     "xmlDoc": false
   },
 
