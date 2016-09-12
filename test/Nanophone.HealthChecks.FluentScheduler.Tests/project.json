@@ -5,7 +5,7 @@
   "dependencies": {
     "coveralls.io": "1.3.4",
     "dotnet-test-xunit": "2.2.0-preview2-build1029",
-    "Nanophone.HealthChecks.Quartz": { "target": "project" },
+    "Nanophone.HealthChecks.FluentScheduler": { "target": "project" },
     "Nanophone.RegistryHost.InMemoryRegistry": { "target": "project" },
     "OpenCover": "4.6.519",
     "xunit": "2.2.0-beta2-build3300"

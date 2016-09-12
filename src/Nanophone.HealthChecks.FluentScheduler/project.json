@@ -1,0 +1,52 @@
+﻿{
+  "title": "Nanophone.HealthChecks.FluentScheduler",
+  "version": "1.4.0-alpha",
+  "authors": [ "Luk Vermeulen" ],
+  "copyright": "Copyright 2016",
+  "description": "Nanophone health check execution with FluentScheduler",
+
+  "buildOptions": {
+    "define": [ "LIBLOG_PORTABLE" ],
+    "optimize": true,
+    "outputName": "Nanophone.HealthChecks.FluentScheduler",
+    "xmlDoc": false
+  },
+
+  "packOptions": {
+    "owners": [ "Luk Vermeulen" ],
+    "requireLicenseAcceptance": true,
+    "summary": "Nanophone health check execution with FluentScheduler",
+    "tags": [ "Service", "Discovery", "ServiceDiscovery", "Consul", "Nancy", "WebApi", "Healing", "Autohealing", "Microservices", "FluentScheduler" ],
+    "projectUrl": "https://github.com/lvermeulen/Nanophone",
+    "licenseUrl": "https://github.com/lvermeulen/Nanophone/blob/master/LICENSE",
+    "iconUrl": "http://i.imgur.com/WnKfKOC.png?1",
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/lvermeulen/Nanophone"
+    }
+  },
+
+  "dependencies": {
+    "Nanophone.Core": { "target": "project" },
+    "FluentScheduler": "5.0.1-alpha-4"
+  },
+
+  "frameworks": {
+    "net451": {
+      "frameworkAssemblies": {
+        "System.Net.Http": "4.0.0.0" 
+      },
+      "dependencies": {
+        "Newtonsoft.Json": "9.0.1"
+      }
+    },
+    "netstandard1.6": {
+      "dependencies": {
+        "NETStandard.Library": "1.6.0",
+        "System.Dynamic.Runtime": "4.0.11",
+        "System.Net.Http": "4.1.0",
+        "Microsoft.CSharp": "4.0.1"
+      }
+    }
+  }
+}
