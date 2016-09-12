@@ -9,11 +9,11 @@ namespace Nanophone.HealthChecks.Quartz
 {
     public class QuartzHealthChecksPerformer : IPerformHealthChecks
     {
-        private readonly Func<Task> _executeHealthCheck;
+        private readonly Action _executeHealthCheck;
         private readonly Lazy<HttpClient> _httpClient;
         private readonly IScheduler _scheduler;
 
-        public QuartzHealthChecksPerformer(Func<Task> executeHealthCheck = null)
+        public QuartzHealthChecksPerformer(Action executeHealthCheck = null)
         {
             _executeHealthCheck = executeHealthCheck;
             _httpClient = new Lazy<HttpClient>();
@@ -25,9 +25,14 @@ namespace Nanophone.HealthChecks.Quartz
                 .Wait();
         }
 
-        public async Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation)
+        public async Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation, Action<bool> healthCheckResultAction)
         {
-            var job = AsyncActionJob.CreateAsyncActionJob(_executeHealthCheck ?? (() => ExecuteHealthCheckAsync(healthCheckInformation)))
+            if (healthCheckResultAction == null)
+            {
+                throw new ArgumentNullException(nameof(healthCheckResultAction));
+            }
+
+            var job = ActionJob.CreateActionJob(_executeHealthCheck ?? (() => healthCheckResultAction(ExecuteHealthCheckAsync(healthCheckInformation).Result)))
                 .WithIdentity(healthCheckInformation.Id)
                 .UsingJobData(nameof(HealthCheckInformation.Uri), healthCheckInformation.Uri.ToString())
                 .Build();

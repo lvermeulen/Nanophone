@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Nanophone.Core;
 
 namespace Nanophone.RegistryHost.InMemoryRegistry
@@ -15,7 +16,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(0);
         }
 
-        public Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation)
+        public Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation, Action<bool> healthCheckResultAction)
         {
             return Task.FromResult(0);
         }

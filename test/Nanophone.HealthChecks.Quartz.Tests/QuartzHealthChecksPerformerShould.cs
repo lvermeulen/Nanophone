@@ -13,11 +13,7 @@ namespace Nanophone.HealthChecks.Quartz.Tests
             bool isExecuted = false;
             var host = new InMemoryRegistryHost
             {
-                HealthChecksPerformer = new QuartzHealthChecksPerformer(() =>
-                {
-                    isExecuted = true;
-                    return Task.FromResult(0);
-                })
+                HealthChecksPerformer = new QuartzHealthChecksPerformer(() => isExecuted = true)
             };
             var checkId = await host.RegisterHealthCheckAsync(nameof(QuartzHealthChecksPerformerShould),
                 nameof(QuartzHealthChecksPerformerShould), new Uri($"http://{nameof(QuartzHealthChecksPerformerShould)}"), TimeSpan.FromSeconds(1));

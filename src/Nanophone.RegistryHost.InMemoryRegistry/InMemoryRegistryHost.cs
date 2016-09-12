@@ -14,6 +14,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         private readonly List<RegistryInformation> _serviceInstances = new List<RegistryInformation>();
         private readonly List<HealthCheckInformation> _healthChecks = new List<HealthCheckInformation>();
+        private readonly Dictionary<string, HealthCheckStatus> _healthStates = new Dictionary<string, HealthCheckStatus>();
 
         public KeyValues KeyValues { get; set; } = new KeyValues();
 
@@ -152,6 +153,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return $"{serviceId}_{uri.GetPath().Replace("/", "")}";
         }
 
+        private void SetHealthCheckStatus(string serviceId, bool isPassing)
+        {
+            _healthStates[serviceId] = HealthCheckStatus.Warning;
+            _healthStates[serviceId] = isPassing ? HealthCheckStatus.Passing : HealthCheckStatus.Critical;
+        }
+
         public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
             if (checkUri == null)
@@ -170,7 +177,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 Interval = interval ?? TimeSpan.FromSeconds(15)
             };
             HealthChecks.Add(healthCheckInformation);
-            await HealthChecksPerformer.AddHealthCheckAsync(healthCheckInformation);
+            await HealthChecksPerformer.AddHealthCheckAsync(healthCheckInformation, isPassing => SetHealthCheckStatus(healthCheckInformation.ServiceId, isPassing));
 
             s_log.Info($"Registration of health check with id {checkId} on {serviceName} with id {serviceId} succeeded");
 

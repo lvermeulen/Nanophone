@@ -20,14 +20,18 @@ namespace Nanophone.HealthChecks.FluentScheduler
             JobManager.JobException += ex => System.Diagnostics.Debug.WriteLine(ex.Exception.Message);
         }
 
-        public Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation)
+        public Task AddHealthCheckAsync(HealthCheckInformation healthCheckInformation, Action<bool> healthCheckResultAction)
         {
-            int totalSeconds = (int)healthCheckInformation.Interval.TotalSeconds;
-            _registry.Schedule(_executeHealthCheck ?? (() => ExecuteHealthCheckAsync(healthCheckInformation).Wait()))
+            if (healthCheckResultAction == null)
+            {
+                throw new ArgumentNullException(nameof(healthCheckResultAction));
+            }
+
+            _registry.Schedule(_executeHealthCheck ?? (() => healthCheckResultAction(ExecuteHealthCheckAsync(healthCheckInformation).Result)))
                 .WithName(healthCheckInformation.Id)
                 .NonReentrant()
                 .ToRunNow()
-                .AndEvery(Math.Max(1, totalSeconds)).Seconds();
+                .AndEvery(Math.Max(1, (int)healthCheckInformation.Interval.TotalSeconds)).Seconds();
 
             return Task.FromResult(0);
         }
