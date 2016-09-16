@@ -22,7 +22,10 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public ConsulRegistryHost(ConsulRegistryHostConfiguration configuration = null)
         {
-            _configuration = configuration ?? new ConsulRegistryHostConfiguration { ConsulHost = "localhost", ConsulPort = 8500 };
+            string consulHost = configuration?.ConsulHost ?? "localhost";
+            int consulPort = configuration?.ConsulPort ?? 8500;
+            _configuration = new ConsulRegistryHostConfiguration {ConsulHost = consulHost, ConsulPort = consulPort};
+
             _consul = new ConsulClient(config =>
             {
                 config.Address = new Uri($"http://{_configuration.ConsulHost}:{_configuration.ConsulPort}");

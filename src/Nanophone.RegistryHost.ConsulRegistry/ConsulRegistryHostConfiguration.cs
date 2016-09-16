@@ -3,6 +3,6 @@
     public class ConsulRegistryHostConfiguration
     {
         public string ConsulHost { get; set; }
-        public int ConsulPort { get; set; }
+        public int? ConsulPort { get; set; }
     }
 }
