@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Nanophone.AspNetCore.ApplicationServices;
+using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.WebApi;
 using NLog.Extensions.Logging;
@@ -29,7 +30,8 @@ namespace SampleService.AspNetCore.Kestrel
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNanophone(() => new ConsulRegistryHost());
+            var consulConfig = new ConsulRegistryHostConfiguration { ConsulHost = "192.168.178.92", ConsulPort = 8500 };
+            services.AddNanophone(() => new ConsulRegistryHost(consulConfig));
             services.AddMvc();
             services.AddOptions();
         }
@@ -46,7 +48,8 @@ namespace SampleService.AspNetCore.Kestrel
             });
 
             // add tenant & health check
-            var uri = new Uri($"http://localhost:{Program.PORT}/");
+            var localAddress = DnsHelper.GetIpAddressAsync().Result;
+            var uri = new Uri($"http://{localAddress}:{Program.PORT}/");
             var registryInformation = app.AddTenant(new WebApiRegistryTenant(uri), "values", "1.7.0-pre", tags: new[] {"urlprefix-/values"});
             var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "randomvalue"), TimeSpan.FromSeconds(15), "random value");
 

@@ -27,7 +27,7 @@
   },
 
   "dependencies": {
-    "Nancy": "2.0.0-Pre1774",
+    "Nancy": "2.0.0-barneyrubble",
     "Nanophone.Core": { "target": "project" }
   },
 

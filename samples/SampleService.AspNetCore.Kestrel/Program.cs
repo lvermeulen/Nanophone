@@ -16,8 +16,9 @@ namespace SampleService.AspNetCore.Kestrel
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
 
+            var consulConfig = new ConsulRegistryHostConfiguration { ConsulHost = "192.168.178.92", ConsulPort = 8500 };
             var config = new ConfigurationBuilder()
-                .AddNanophoneKeyValues(() => new ConsulRegistryHost())
+                .AddNanophoneKeyValues(() => new ConsulRegistryHost(consulConfig))
                 .Build();
 
             var host = new WebHostBuilder()
