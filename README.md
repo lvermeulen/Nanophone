@@ -1,15 +1,15 @@
 ![Icon](http://i.imgur.com/WnKfKOC.png?1) 
 # Nanophone [![Build status](https://ci.appveyor.com/api/projects/status/hwk6g88wm7orvcog?svg=true)](https://ci.appveyor.com/project/lvermeulen/nanophone) [![license](https://img.shields.io/github/license/lvermeulen/Nanophone.svg?maxAge=2592000)](https://github.com/lvermeulen/Nanophone/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/Nanophone.Core.svg?maxAge=2592000)](https://www.nuget.org/packages/Nanophone.Core/) [![Coverage Status](https://coveralls.io/repos/github/lvermeulen/Nanophone/badge.svg?branch=master)](https://coveralls.io/github/lvermeulen/Nanophone?branch=master) [![Join the chat at https://gitter.im/lvermeulen/Nanophone](https://badges.gitter.im/lvermeulen/Nanophone.svg)](https://gitter.im/lvermeulen/Nanophone?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) ![](https://img.shields.io/badge/.net-4.5.1-yellowgreen.svg) ![](https://img.shields.io/badge/netstandard-1.6-yellowgreen.svg)
-Nanophone is a minimalistic library for Service Registration and Discovery and is the driving force behind the [Equalizer](https://github.com/lvermeulen/Equalizer) middleware for aspnetcore.
+Nanophone is a minimalistic library for Service Registration and Discovery and is used by the [Equalizer](https://github.com/lvermeulen/Equalizer) middleware for aspnetcore.
 
 ##Features:
 * Find available service instances by service name
 * Find available service instances by service name and version (**strict semver 2.0**)
-* Extensible service registry host - includes [Consul](https://www.consul.io/) host
+* Extensible service registry host - includes [Consul](https://www.consul.io/) and in-memory hosts
 * Extensible service registry tenants - includes [Nancy](https://github.com/NancyFx/Nancy) and Web Api tenants
-* Supports [eBay Fabio](https://github.com/eBay/fabio) (experimental)
-* Configuration provider for aspnetcore (uses Consul key/value store)
-* Application services for aspnetcore
+* Supports [eBay Fabio](https://github.com/eBay/fabio)
+* Configuration provider for aspnetcore to use Consul key/value store
+* Application services for aspnetcore to add tenants and health checks
 
 ##Usage:
 
