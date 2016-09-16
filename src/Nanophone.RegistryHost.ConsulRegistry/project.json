@@ -30,7 +30,7 @@
   },
 
   "dependencies": {
-    "Consul": "0.7.0-rc1",
+    "Consul": "0.7.0",
     "Nanophone.Core": { "target": "project" }
   },
 

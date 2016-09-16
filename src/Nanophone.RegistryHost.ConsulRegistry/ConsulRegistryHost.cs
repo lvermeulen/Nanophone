@@ -23,7 +23,10 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public ConsulRegistryHost(ConsulRegistryHostConfiguration configuration = null)
         {
             _configuration = configuration ?? new ConsulRegistryHostConfiguration { ConsulHost = "localhost", ConsulPort = 8500 };
-            _consul = new ConsulClient();
+            _consul = new ConsulClient(config =>
+            {
+                config.Address = new Uri($"http://{_configuration.ConsulHost}:{_configuration.ConsulPort}");
+            });
         }
 
         private string GetVersionFromStrings(IEnumerable<string> strings)
@@ -148,7 +151,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task DeregisterServiceAsync(string serviceId)
         {
             var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
-            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == System.Net.HttpStatusCode.OK ? "succeeded" : "failed")}");
+            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == HttpStatusCode.OK ? "succeeded" : "failed")}");
         }
 
         private string GetCheckId(string serviceId, Uri uri)
@@ -220,7 +223,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            var queryResult = await _consul.KV.Keys(prefix);
+            var queryResult = await _consul.KV.Keys(prefix ?? "");
             return queryResult.Response;
         }
     }
