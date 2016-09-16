@@ -25,13 +25,15 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public bool TryGet(string key, out string value)
         {
-            value = _serviceRegistry.KeyValueGetAsync(key).Result;
+            value = _serviceRegistry.KeyValueGetAsync(key)
+                .Result;
             return value != null;
         }
 
         public void Set(string key, string value)
         {
-            _serviceRegistry.KeyValuePutAsync(key, value);
+            _serviceRegistry.KeyValuePutAsync(key, value)
+                .Wait();
         }
 
         public IChangeToken GetReloadToken() => _configurationReloadToken;
@@ -43,7 +45,8 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
         {
-            return _serviceRegistry.KeyValuesGetKeysAsync(parentPath).Result ?? Enumerable.Empty<string>();
+            return _serviceRegistry.KeyValuesGetKeysAsync(parentPath)
+                .Result ?? Enumerable.Empty<string>();
         }
     }
 }

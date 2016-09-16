@@ -101,29 +101,29 @@ namespace Nanophone.Core
             return await RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes);
         }
 
-        public Task KeyValuePutAsync(string key, string value)
+        public async Task KeyValuePutAsync(string key, string value)
         {
-            return _registryHost.KeyValuePutAsync(key, value);
+            await _registryHost.KeyValuePutAsync(key, value);
         }
 
-        public Task<string> KeyValueGetAsync(string key)
+        public async Task<string> KeyValueGetAsync(string key)
         {
-            return _registryHost.KeyValueGetAsync(key);
+            return await _registryHost.KeyValueGetAsync(key);
         }
 
-        public Task KeyValueDeleteAsync(string key)
+        public async Task KeyValueDeleteAsync(string key)
         {
-            return _registryHost.KeyValueDeleteAsync(key);
+            await _registryHost.KeyValueDeleteAsync(key);
         }
 
-        public Task KeyValueDeleteTreeAsync(string prefix)
+        public async Task KeyValueDeleteTreeAsync(string prefix)
         {
-            return _registryHost.KeyValueDeleteTreeAsync(prefix);
+            await _registryHost.KeyValueDeleteTreeAsync(prefix);
         }
 
-        public Task<string[]> KeyValuesGetKeysAsync(string prefix)
+        public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            return _registryHost.KeyValuesGetKeysAsync(prefix);
+            return await _registryHost.KeyValuesGetKeysAsync(prefix);
         }
 
         public void ResolveServiceInstancesWith<T>(T serviceInstancesResolver)
