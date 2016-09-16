@@ -1,4 +1,4 @@
-$consul_version = '0.6.4'
+$consul_version = '0.7.0'
     
 choco install 7zip.commandline
 $consul_zip = "consul_$($consul_version)_windows_386.zip"
