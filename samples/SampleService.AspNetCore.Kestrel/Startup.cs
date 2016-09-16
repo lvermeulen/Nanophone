@@ -30,8 +30,7 @@ namespace SampleService.AspNetCore.Kestrel
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var consulConfig = new ConsulRegistryHostConfiguration { ConsulHost = "192.168.178.92", ConsulPort = 8500 };
-            services.AddNanophone(() => new ConsulRegistryHost(consulConfig));
+            services.AddNanophone(() => new ConsulRegistryHost());
             services.AddMvc();
             services.AddOptions();
         }
