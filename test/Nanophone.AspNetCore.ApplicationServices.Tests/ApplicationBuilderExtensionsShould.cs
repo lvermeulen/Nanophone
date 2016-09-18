@@ -22,7 +22,7 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                 })
                 .Configure(app =>
                 {
-                    app.AddTenant(new WebApiRegistryTenant(new Uri("http://localhost:1234")), nameof(ApplicationBuilderExtensionsShould), "1.0.0");
+                    app.AddTenant(nameof(ApplicationBuilderExtensionsShould), "1.0.0", new Uri("http://localhost:1234"));
 
                     var serviceRegistry = app.ApplicationServices.GetService<ServiceRegistry>();
                     Assert.NotNull(serviceRegistry);

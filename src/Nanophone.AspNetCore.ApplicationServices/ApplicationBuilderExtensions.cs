@@ -8,23 +8,34 @@ namespace Nanophone.AspNetCore.ApplicationServices
 {
     public static class ApplicationBuilderExtensions
     {
-        // TODO: remove IRegistryTenant parameter
-        public static RegistryInformation AddTenant(this IApplicationBuilder app, IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
+        public static RegistryInformation AddTenant(this IApplicationBuilder app, string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             if (app == null)
             {
                 throw new ArgumentNullException(nameof(app));
             }
-            if (registryTenant == null)
-            {
-                throw new ArgumentNullException(nameof(registryTenant));
-            }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            var registryInformation = serviceRegistry.AddTenantAsync(registryTenant, serviceName, version, healthCheckUri, tags)
+            var registryInformation = serviceRegistry.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags)
                 .Result;
 
             return registryInformation;
+        }
+
+        public static bool RemoveTenant(this IApplicationBuilder app, string serviceId)
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+            if (string.IsNullOrEmpty(serviceId))
+            {
+                throw new ArgumentNullException(nameof(serviceId));
+            }
+
+            var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
+            return serviceRegistry.DeregisterServiceAsync(serviceId)
+                .Result;
         }
 
         public static string AddHealthCheck(this IApplicationBuilder app, RegistryInformation registryInformation, Uri checkUri, TimeSpan? interval = null, string notes = null)
@@ -43,6 +54,22 @@ namespace Nanophone.AspNetCore.ApplicationServices
                 .Result;
 
             return checkId;
+        }
+
+        public static bool RemoveHealthCheck(this IApplicationBuilder app, string checkId)
+        {
+            if (app == null)
+            {
+                throw new ArgumentNullException(nameof(app));
+            }
+            if (string.IsNullOrEmpty(checkId))
+            {
+                throw new ArgumentNullException(nameof(checkId));
+            }
+
+            var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
+            return serviceRegistry.DeregisterHealthCheckAsync(checkId)
+                .Result;
         }
     }
 }

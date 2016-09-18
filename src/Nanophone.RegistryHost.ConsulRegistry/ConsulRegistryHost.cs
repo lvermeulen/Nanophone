@@ -22,13 +22,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public ConsulRegistryHost(ConsulRegistryHostConfiguration configuration = null)
         {
-            string consulHost = configuration?.ConsulHost ?? "localhost";
-            int consulPort = configuration?.ConsulPort ?? 8500;
-            _configuration = new ConsulRegistryHostConfiguration {ConsulHost = consulHost, ConsulPort = consulPort};
+            string consulHost = configuration?.HostName ?? "localhost";
+            int consulPort = configuration?.Port ?? 8500;
+            _configuration = new ConsulRegistryHostConfiguration {HostName = consulHost, Port = consulPort};
 
             _consul = new ConsulClient(config =>
             {
-                config.Address = new Uri($"http://{_configuration.ConsulHost}:{_configuration.ConsulPort}");
+                config.Address = new Uri($"http://{_configuration.HostName}:{_configuration.Port}");
             });
         }
 
@@ -104,8 +104,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Id = serviceEntry.Value.ID,
                 Address = serviceEntry.Value.Address,
                 Port = serviceEntry.Value.Port,
-                Version = GetVersionFromStrings(serviceEntry.Value.Tags)
-                // TODO: KeyValuePairs = serviceEntry.Value.Tags.Select(prefix)
+                Version = GetVersionFromStrings(serviceEntry.Value.Tags),
+                Tags = serviceEntry.Value.Tags
             });
 
             return instances.ToList();
@@ -121,7 +121,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         {
             var serviceId = await GetServiceId(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
-            s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.ConsulHost}:{_configuration.ConsulPort} with status check {check}");
+            s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.HostName}:{_configuration.Port} with status check {check}");
 
             string versionLabel = $"{VERSION_PREFIX}{version}";
             var tagList = (tags ?? Enumerable.Empty<string>()).ToList();
@@ -151,10 +151,14 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             };
         }
 
-        public async Task DeregisterServiceAsync(string serviceId)
+        public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
             var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
-            s_log.Info($"Deregistration of {serviceId} {(writeResult.StatusCode == HttpStatusCode.OK ? "succeeded" : "failed")}");
+            bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
+            string success = isSuccess ? "succeeded" : "failed";
+            s_log.Info($"Deregistration of {serviceId} " + success);
+
+            return isSuccess;
         }
 
         private string GetCheckId(string serviceId, Uri uri)

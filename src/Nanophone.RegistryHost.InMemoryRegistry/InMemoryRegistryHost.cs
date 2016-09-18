@@ -102,13 +102,16 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(registryInformation);
         }
 
-        public async Task DeregisterServiceAsync(string serviceId)
+        public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
             var instance = (await FindServiceInstancesAsync()).FirstOrDefault(x => x.Id == serviceId);
             if (instance != null)
             {
                 ServiceInstances.Remove(instance);
+                return true;
             }
+
+            return false;
         }
 
         public Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)

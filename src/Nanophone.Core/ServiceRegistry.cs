@@ -25,9 +25,9 @@ namespace Nanophone.Core
             return registryInformation;
         }
 
-        public async Task DeregisterServiceAsync(string serviceId)
+        public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
-            await _registryHost.DeregisterServiceAsync(serviceId);
+            return await _registryHost.DeregisterServiceAsync(serviceId);
         }
 
         public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
