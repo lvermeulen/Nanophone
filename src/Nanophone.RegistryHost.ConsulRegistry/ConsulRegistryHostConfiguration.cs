@@ -2,7 +2,7 @@
 {
     public class ConsulRegistryHostConfiguration
     {
-        public string ConsulHost { get; set; }
-        public int? ConsulPort { get; set; }
+        public string HostName { get; set; }
+        public int? Port { get; set; }
     }
 }
