@@ -30,12 +30,15 @@ namespace SampleService.AspNetCore.Kestrel
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddNanophone(() => new ConsulRegistryHost());
+            var appSettings = new AppSettings();
+            Configuration.Bind(appSettings);
+            var consulConfig = new ConsulRegistryHostConfiguration { HostName = appSettings.Consul.HostName, Port = appSettings.Consul.Port };
+            services.AddNanophone(() => new ConsulRegistryHost(consulConfig));
             services.AddMvc();
             services.AddOptions();
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime)
         {
             loggerFactory.AddNLog();
 
@@ -49,11 +52,19 @@ namespace SampleService.AspNetCore.Kestrel
             // add tenant & health check
             var localAddress = DnsHelper.GetIpAddressAsync().Result;
             var uri = new Uri($"http://{localAddress}:{Program.PORT}/");
-            var registryInformation = app.AddTenant(new WebApiRegistryTenant(uri), "values", "1.7.0-pre", tags: new[] {"urlprefix-/values"});
+            var registryInformation = app.AddTenant("values", "1.7.0-pre", uri, tags: new[] {"urlprefix-/values"});
             var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "randomvalue"), TimeSpan.FromSeconds(15), "random value");
 
             // prepare checkId for options injection
             app.ApplicationServices.GetService<IOptions<HealthCheckOptions>>().Value.HealthCheckId = checkId;
+
+            // register service & health check cleanup
+            applicationLifetime.ApplicationStopping.Register(() =>
+            {
+                app.RemoveHealthCheck(checkId);
+                app.RemoveTenant(registryInformation.Id);
+            });
+
         }
     }
 }
