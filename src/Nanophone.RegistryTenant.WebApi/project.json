@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Nanophone.RegistryTenant.WebApi",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
@@ -41,7 +41,7 @@
         "NETStandard.Library": "1.6.0",
         "System.Dynamic.Runtime": "4.0.11",
         "Microsoft.CSharp": "4.0.1",
-        "Microsoft.AspNetCore.Mvc": "1.0.0"
+        "Microsoft.AspNetCore.Mvc": "1.0.1"
       }
     }
   }
