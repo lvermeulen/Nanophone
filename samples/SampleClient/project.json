@@ -11,11 +11,11 @@
     "Nanophone.Core": { "target": "project" },
     "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
+    "NLog": "4.4.0-betaV15",
     "Microsoft.NETCore.App": {
       "type": "platform",
-      "version": "1.0.0"
-    },
-    "NLog": "4.4.0-betaV15"
+      "version": "1.0.1"
+    }
   },
 
   "frameworks": {

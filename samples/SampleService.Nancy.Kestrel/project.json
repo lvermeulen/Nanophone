@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "Microsoft.NETCore.App": {
-      "version": "1.0.0",
+      "version": "1.0.1",
       "type": "platform"
     },
     "Microsoft.AspNetCore.Hosting": "1.0.0",
@@ -20,7 +20,7 @@
     "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.Nancy": { "target": "project" },
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4"
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
   },
 
   "tools": {
