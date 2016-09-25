@@ -3,10 +3,7 @@
   "testRunner": "xunit",
 
   "buildOptions": {
-    "define": [ "LIBLOG_PORTABLE" ],
-    "compile": {
-      "include": [ "../../src/Nanophone.SemVer/*.cs", "../Nanophone.SemVer.Tests/*.cs" ]
-    }
+    "define": [ "LIBLOG_PORTABLE" ]
   },
 
   "dependencies": {

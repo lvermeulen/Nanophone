@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry.Logging;
-using Nanophone.SemVer;
+using SemVer;
 
 namespace Nanophone.RegistryHost.InMemoryRegistry
 {
