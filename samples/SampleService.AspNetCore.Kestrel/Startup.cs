@@ -38,9 +38,15 @@ namespace SampleService.AspNetCore.Kestrel
             services.AddOptions();
         }
 
-        public void Configure(IApplicationBuilder app, ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime)
         {
-            loggerFactory.AddNLog();
+            var log = loggerFactory
+                .AddNLog()
+                //.AddConsole()
+                //.AddDebug()
+                .CreateLogger<Startup>();
+
+            env.ConfigureNLog("NLog.config");
 
             app.UseMvc(routes =>
             {
@@ -52,7 +58,9 @@ namespace SampleService.AspNetCore.Kestrel
             // add tenant & health check
             var localAddress = DnsHelper.GetIpAddressAsync().Result;
             var uri = new Uri($"http://{localAddress}:{Program.PORT}/");
+            log.LogInformation("Registering tenant at ${uri}");
             var registryInformation = app.AddTenant("values", "1.7.0-pre", uri, tags: new[] {"urlprefix-/values"});
+            log.LogInformation("Registering additional health check");
             var checkId = app.AddHealthCheck(registryInformation, new Uri(uri, "randomvalue"), TimeSpan.FromSeconds(15), "random value");
 
             // prepare checkId for options injection
@@ -61,6 +69,7 @@ namespace SampleService.AspNetCore.Kestrel
             // register service & health check cleanup
             applicationLifetime.ApplicationStopping.Register(() =>
             {
+                log.LogInformation("Removing tenant & additional health check");
                 app.RemoveHealthCheck(checkId);
                 app.RemoveTenant(registryInformation.Id);
             });
