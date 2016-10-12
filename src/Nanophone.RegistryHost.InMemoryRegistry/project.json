@@ -28,7 +28,7 @@
 
   "dependencies": {
     "Nanophone.Core": { "target": "project" },
-    "SemanticVersioning": "0.7.4" 
+    "SemanticVersioning": "0.7.5"
   },
 
   "frameworks": {
