@@ -32,10 +32,7 @@
   },
 
   "frameworks": {
-    "net452": {
-      "dependencies": {
-      }
-    },
+    "net452": { },
     "netstandard1.6": {
       "dependencies": {
         "NETStandard.Library": "1.6.0",
