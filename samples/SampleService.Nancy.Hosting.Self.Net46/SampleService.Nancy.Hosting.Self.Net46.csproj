@@ -33,8 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Consul, Version=0.7.0.2, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Consul.0.7.0.2\lib\net45\Consul.dll</HintPath>
+    <Reference Include="Consul, Version=0.7.0.3, Culture=neutral, PublicKeyToken=20a6ad9a81df1d95, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Consul.0.7.0.3\lib\net45\Consul.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.DotNet.InternalAbstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
