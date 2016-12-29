@@ -27,7 +27,7 @@
   },
 
   "dependencies": {
-    "Nancy": "2.0.0-barneyrubble",
+    "Nancy": "2.0.0-clinteastwood",
     "Nanophone.Core": { "target": "project" }
   },
 

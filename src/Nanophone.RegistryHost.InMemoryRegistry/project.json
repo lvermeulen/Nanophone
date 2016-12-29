@@ -28,13 +28,13 @@
 
   "dependencies": {
     "Nanophone.Core": { "target": "project" },
-    "SemanticVersioning": "0.7.5"
+    "Newtonsoft.Json": "9.0.2-beta1",
+    "SemanticVersioning": "0.7.6"
   },
 
   "frameworks": {
     "net451": {
       "dependencies": {
-        "Newtonsoft.Json": "9.0.1"
       }
     },
     "netstandard1.6": {

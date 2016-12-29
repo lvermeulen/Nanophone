@@ -18,9 +18,9 @@
     "Nanophone.Fabio": { "target": "project" },
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.WebApi": { "target": "project" },
-    "NLog.Extensions.Logging": "1.0.0-rtm-alpha4",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0"
+    "Microsoft.Extensions.Logging.Debug": "1.0.0",
+    "NLog.Extensions.Logging": "1.0.0-rtm-alpha5"
   },
 
   "tools": {

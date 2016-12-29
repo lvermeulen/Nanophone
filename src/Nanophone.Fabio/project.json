@@ -1,4 +1,4 @@
-﻿{
+{
   "title": "Nanophone.Fabio",
   "version": "1.4.0-alpha",
   "authors": [ "Luk Vermeulen" ],
@@ -28,13 +28,13 @@
 
   "dependencies": {
     "Nanophone.Core": { "target": "project" },
-    "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" }
+    "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
+    "Newtonsoft.Json": "9.0.2-beta1"
   },
 
   "frameworks": {
     "net451": {
       "dependencies": {
-        "Newtonsoft.Json": "9.0.1"
       }
     },
     "netstandard1.6": {
