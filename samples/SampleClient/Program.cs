@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
-using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
 using NLog;
 

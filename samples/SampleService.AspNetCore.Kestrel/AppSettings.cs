@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SampleService.AspNetCore.Kestrel
+﻿namespace SampleService.AspNetCore.Kestrel
 {
     public class AppSettings
     {

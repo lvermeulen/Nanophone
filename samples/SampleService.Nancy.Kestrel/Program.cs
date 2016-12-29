@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Nanophone.Core;
-using Nanophone.Fabio;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
 using NLog;

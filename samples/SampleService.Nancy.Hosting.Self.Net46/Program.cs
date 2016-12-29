@@ -2,7 +2,6 @@
 using Nancy.Hosting.Self;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
-using Nanophone.RegistryTenant.Nancy;
 
 namespace SampleService.Nancy.Hosting.Self.Net46
 {

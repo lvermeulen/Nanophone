@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using Nanophone.AspNetCore.ApplicationServices;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
-using Nanophone.RegistryTenant.WebApi;
 using NLog.Extensions.Logging;
 
 namespace SampleService.AspNetCore.Kestrel
@@ -57,7 +56,7 @@ namespace SampleService.AspNetCore.Kestrel
 
             // add tenant & health check
             var localAddress = DnsHelper.GetIpAddressAsync().Result;
-            var uri = new Uri($"http://{localAddress}:{Program.PORT}/");
+            var uri = new Uri($"http://{localAddress}:{Program.Port}/");
             log.LogInformation("Registering tenant at ${uri}");
             var registryInformation = app.AddTenant("values", "1.7.0-pre", uri, tags: new[] {"urlprefix-/values"});
             log.LogInformation("Registering additional health check");

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry;
-using Nanophone.RegistryTenant.WebApi;
 using Xunit;
 
 namespace Nanophone.AspNetCore.ApplicationServices.Tests

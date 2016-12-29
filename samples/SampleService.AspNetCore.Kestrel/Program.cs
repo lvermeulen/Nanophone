@@ -10,7 +10,7 @@ namespace SampleService.AspNetCore.Kestrel
 {
     public class Program
     {
-        public const int PORT = 9030;
+        public const int Port = 9030;
 
         public static void Main()
         {
@@ -25,7 +25,7 @@ namespace SampleService.AspNetCore.Kestrel
 
             var host = new WebHostBuilder()
                 .UseKestrel()
-                .UseUrls($"http://*:{PORT}")
+                .UseUrls($"http://*:{Port}")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseConfiguration(config)
                 .UseStartup<Startup>()
