@@ -30,7 +30,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         public async Task RegisterService()
         {
             var serviceName = nameof(ConsulRegistryHostShould);
-            _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"))
+            var tags = new[] {"tag1", "tag2"};
+            _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags)
                 .Wait();
 
             Func<string, Task<RegistryInformation>> findTenant = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
@@ -38,6 +39,8 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
 
             var tenant = findTenant(serviceName).Result;
             Assert.NotNull(tenant);
+            Assert.Contains(tags.First(), tenant.Tags);
+            Assert.Contains(tags.Last(), tenant.Tags);
             await _registryHost.DeregisterServiceAsync(tenant.Id);
             Assert.Null(findTenant(serviceName).Result);
         }

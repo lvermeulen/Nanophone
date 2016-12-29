@@ -50,9 +50,11 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
             {
                 Name = serviceEntry.Service.Service,
+                Id = serviceEntry.Service.ID,
                 Address = serviceEntry.Service.Address,
                 Port = serviceEntry.Service.Port,
-                Version = GetVersionFromStrings(serviceEntry.Service.Tags)
+                Version = GetVersionFromStrings(serviceEntry.Service.Tags),
+                Tags = serviceEntry.Service.Tags
             });
 
             return instances.ToList();
