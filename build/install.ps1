@@ -1,1 +1,2 @@
-Invoke-Expression ".\build\installConsul.ps1"
+choco install consul
+
