@@ -15,7 +15,8 @@
       "type": "platform",
       "version": "1.0.1"
     },
-    "NLog": "5.0.0-beta04"
+    "NLog": "5.0.0-beta04",
+    "Nito.AsyncEx.Context": "1.1.0"
   },
 
   "frameworks": {

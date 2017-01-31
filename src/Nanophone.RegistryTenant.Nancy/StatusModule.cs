@@ -10,7 +10,7 @@ namespace Nanophone.RegistryTenant.Nancy
 
         public StatusModule()
         {
-            Get("/status", async parameters =>
+            Get("/status", async (parameters, ct) =>
             {
                 s_log.Info("Status: OK");
                 return await Task.FromResult("OK");

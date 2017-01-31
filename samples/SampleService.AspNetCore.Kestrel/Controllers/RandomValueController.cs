@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -21,15 +22,14 @@ namespace SampleService.AspNetCore.Kestrel.Controllers
         }
 
         [HttpGet]
-        public string GetRandomValue()
+        public async Task<string> GetRandomValue()
         {
             int random = s_random.Next(-1, 100) + 1;
             _logger.LogTrace("Random value: ${random}");
             string key = $"values/{_options.HealthCheckId}/randomvalue";
 
             var serviceRegistry = HttpContext.RequestServices.GetRequiredService<ServiceRegistry>();
-            serviceRegistry.KeyValuePutAsync(key, random.ToString())
-                .Wait();
+            await serviceRegistry.KeyValuePutAsync(key, random.ToString());
 
             return "OK";
         }

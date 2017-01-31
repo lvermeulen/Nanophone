@@ -31,18 +31,17 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         {
             var serviceName = nameof(ConsulRegistryHostShould);
             var tags = new[] {"tag1", "tag2"};
-            _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags)
-                .Wait();
+            await _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags);
 
-            Func<string, Task<RegistryInformation>> findTenant = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
+            Func<string, Task<RegistryInformation>> findTenantAsync = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
                 .FirstOrDefault(x => x.Name == s);
 
-            var tenant = findTenant(serviceName).Result;
+            var tenant = await findTenantAsync(serviceName);
             Assert.NotNull(tenant);
             Assert.Contains(tags.First(), tenant.Tags);
             Assert.Contains(tags.Last(), tenant.Tags);
             await _registryHost.DeregisterServiceAsync(tenant.Id);
-            Assert.Null(findTenant(serviceName).Result);
+            Assert.Null(await findTenantAsync(serviceName));
         }
 
         [Fact]

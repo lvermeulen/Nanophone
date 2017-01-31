@@ -26,7 +26,7 @@ namespace SampleService.Nancy.Kestrel
 
             app.UseOwin(x =>
             {
-                x.UseNancy(opt => opt.Bootstrapper = new SampleBootstrapper());
+                x.UseNancy();
             });
         }
     }

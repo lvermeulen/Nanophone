@@ -25,8 +25,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public bool TryGet(string key, out string value)
         {
-            value = _serviceRegistry.KeyValueGetAsync(key)
-                .Result;
+            value = _serviceRegistry.KeyValueGetAsync(key).GetAwaiter().GetResult();
             return value != null;
         }
 
@@ -45,8 +44,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider
 
         public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string parentPath)
         {
-            return _serviceRegistry.KeyValuesGetKeysAsync(parentPath)
-                .Result ?? Enumerable.Empty<string>();
+            return _serviceRegistry.KeyValuesGetKeysAsync(parentPath).GetAwaiter().GetResult() ?? Enumerable.Empty<string>();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,7 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
     public class ApplicationBuilderExtensionsShould
     {
         [Fact]
-        public void AddTenant()
+        public Task AddTenant()
         {
             var registryHost = new InMemoryRegistryHost();
             var hostBuilder = new WebHostBuilder()
@@ -19,14 +20,14 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                 {
                     services.AddNanophone(() => registryHost);
                 })
-                .Configure(app =>
+                .Configure(async app =>
                 {
                     app.AddTenant(nameof(ApplicationBuilderExtensionsShould), "1.0.0", new Uri("http://localhost:1234"));
 
                     var serviceRegistry = app.ApplicationServices.GetService<ServiceRegistry>();
                     Assert.NotNull(serviceRegistry);
 
-                    var instances = serviceRegistry.FindAllServicesAsync().Result;
+                    var instances = await serviceRegistry.FindAllServicesAsync();
                     Assert.Equal(1, instances.Count);
                 });
 
@@ -35,6 +36,8 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                 // ConfigureServices
                 // Configure
             }
+
+            return Task.FromResult(0);
         }
     }
 }
