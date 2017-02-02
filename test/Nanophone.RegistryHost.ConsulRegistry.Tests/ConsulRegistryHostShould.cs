@@ -18,7 +18,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServices()
+        public async Task FindServicesAsync()
         {
             var services = await _registryHost.FindServiceInstancesAsync("consul");
 
@@ -27,7 +27,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task RegisterService()
+        public async Task RegisterServiceAsync()
         {
             var serviceName = nameof(ConsulRegistryHostShould);
             var tags = new[] {"tag1", "tag2"};
@@ -45,7 +45,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task UseKeyValueStore()
+        public async Task UseKeyValueStoreAsync()
         {
             const string KEY = "hello";
             var dateValue = new DateTime(2016, 5, 28);
@@ -58,7 +58,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task UseKeyValueStoreWithFolders()
+        public async Task UseKeyValueStoreWithFoldersAsync()
         {
             const string FOLDER = "folder/hello/world/";
             const string KEY = "date";

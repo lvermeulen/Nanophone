@@ -113,7 +113,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return instances.ToList();
         }
 
-        private async Task<string> GetServiceId(string serviceName, Uri uri)
+        private async Task<string> GetServiceIdAsync(string serviceName, Uri uri)
         {
             var ipAddress = await DnsHelper.GetIpAddressAsync();
             return $"{serviceName}_{ipAddress.Replace(".", "_")}_{uri.Port}";
@@ -121,7 +121,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
-            var serviceId = await GetServiceId(serviceName, uri);
+            var serviceId = await GetServiceIdAsync(serviceName, uri);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.HostName}:{_configuration.Port} with status check {check}");
 

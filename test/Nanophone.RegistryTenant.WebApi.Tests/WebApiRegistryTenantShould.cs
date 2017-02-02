@@ -10,7 +10,7 @@ namespace Nanophone.RegistryTenant.WebApi.Tests
     public class WebApiRegistryTenantShould
     {
         [Fact]
-        public async Task BeRegistered()
+        public async Task BeRegisteredAsync()
         {
             var registryHost = new InMemoryRegistryHost();
             var serviceRegistry = new ServiceRegistry(registryHost);
