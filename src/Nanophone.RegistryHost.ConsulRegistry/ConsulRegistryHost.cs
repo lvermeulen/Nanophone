@@ -41,12 +41,12 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
         {
-            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: x => true);
+            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: x => true).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true);
+            var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true).ConfigureAwait(false);
             var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
             {
                 Name = serviceEntry.Service.Service,
@@ -62,7 +62,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
-            var instances = await FindServiceInstancesAsync(name);
+            var instances = await FindServiceInstancesAsync(name).ConfigureAwait(false);
             var range = new Range(version);
 
             return instances.Where(x => range.IsSatisfied(x.Version)).ToArray();
@@ -70,7 +70,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
         {
-            var queryResult = await _consul.Catalog.Services(); // local agent datacenter is implied
+            var queryResult = await _consul.Catalog.Services().ConfigureAwait(false); // local agent datacenter is implied
             var services = queryResult.Response;
 
             return services;
@@ -78,7 +78,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate, Predicate<RegistryInformation> registryInformationPredicate)
         {
-            return (await GetServicesCatalogAsync())
+            return (await GetServicesCatalogAsync().ConfigureAwait(false))
                 .Where(kvp => nameTagsPredicate(kvp))
                 .Select(kvp => kvp.Key)
                 .Select(FindServiceInstancesAsync)
@@ -89,17 +89,17 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
         {
-            return await FindServiceInstancesAsync(nameTagsPredicate: predicate, registryInformationPredicate: x => true);
+            return await FindServiceInstancesAsync(nameTagsPredicate: predicate, registryInformationPredicate: x => true).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
         {
-            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate);
+            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindAllServicesAsync()
         {
-            var queryResult = await _consul.Agent.Services();
+            var queryResult = await _consul.Agent.Services().ConfigureAwait(false);
             var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
             {
                 Name = serviceEntry.Value.Service,
@@ -115,13 +115,13 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private async Task<string> GetServiceIdAsync(string serviceName, Uri uri)
         {
-            var ipAddress = await DnsHelper.GetIpAddressAsync();
+            var ipAddress = await DnsHelper.GetIpAddressAsync().ConfigureAwait(false);
             return $"{serviceName}_{ipAddress.Replace(".", "_")}_{uri.Port}";
         }
 
         public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
-            var serviceId = await GetServiceIdAsync(serviceName, uri);
+            var serviceId = await GetServiceIdAsync(serviceName, uri).ConfigureAwait(false);
             string check = healthCheckUri?.ToString() ?? $"{uri}".TrimEnd('/') + "/status";
             s_log.Info($"Registering {serviceName} service at {uri} on Consul {_configuration.HostName}:{_configuration.Port} with status check {check}");
 
@@ -139,7 +139,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 Check = new AgentServiceCheck { HTTP = check, Interval = TimeSpan.FromSeconds(1) }
             };
 
-            await _consul.Agent.ServiceRegister(registration);
+            await _consul.Agent.ServiceRegister(registration).ConfigureAwait(false);
             s_log.Info($"Registration of {serviceName} with id {serviceId} succeeded");
 
             return new RegistryInformation
@@ -155,7 +155,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
-            var writeResult = await _consul.Agent.ServiceDeregister(serviceId);
+            var writeResult = await _consul.Agent.ServiceDeregister(serviceId).ConfigureAwait(false);
             bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
             string success = isSuccess ? "succeeded" : "failed";
             s_log.Info($"Deregistration of {serviceId} " + success);
@@ -185,7 +185,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
                 HTTP = checkUri.ToString(),
                 Interval = interval
             };
-            var writeResult = await _consul.Agent.CheckRegister(checkRegistration);
+            var writeResult = await _consul.Agent.CheckRegister(checkRegistration).ConfigureAwait(false);
             bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
             string success = isSuccess ? "succeeded" : "failed";
             s_log.Info($"Registration of health check with id {checkId} on {serviceName} with id {serviceId}" + success);
@@ -195,7 +195,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task<bool> DeregisterHealthCheckAsync(string checkId)
         {
-            var writeResult = await _consul.Agent.CheckDeregister(checkId);
+            var writeResult = await _consul.Agent.CheckDeregister(checkId).ConfigureAwait(false);
             bool isSuccess = writeResult.StatusCode == HttpStatusCode.OK;
             string success = isSuccess ? "succeeded" : "failed";
             s_log.Info($"Deregistration of health check with id {checkId} " + success);
@@ -206,12 +206,12 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         public async Task KeyValuePutAsync(string key, string value)
         {
             var keyValuePair = new KVPair(key) { Value = Encoding.UTF8.GetBytes(value) };
-            await _consul.KV.Put(keyValuePair);
+            await _consul.KV.Put(keyValuePair).ConfigureAwait(false);
         }
 
         public async Task<string> KeyValueGetAsync(string key)
         {
-            var queryResult = await _consul.KV.Get(key);
+            var queryResult = await _consul.KV.Get(key).ConfigureAwait(false);
             if (queryResult.Response == null)
             {
                 return null;
@@ -222,17 +222,17 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         public async Task KeyValueDeleteAsync(string key)
         {
-            await _consul.KV.Delete(key);
+            await _consul.KV.Delete(key).ConfigureAwait(false);
         }
 
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
-            await _consul.KV.DeleteTree(prefix);
+            await _consul.KV.DeleteTree(prefix).ConfigureAwait(false);
         }
 
         public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            var queryResult = await _consul.KV.Keys(prefix ?? "");
+            var queryResult = await _consul.KV.Keys(prefix ?? "").ConfigureAwait(false);
             return queryResult.Response;
         }
     }

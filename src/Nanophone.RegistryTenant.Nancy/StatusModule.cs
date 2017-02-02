@@ -13,7 +13,7 @@ namespace Nanophone.RegistryTenant.Nancy
             Get("/status", async (parameters, ct) =>
             {
                 s_log.Info("Status: OK");
-                return await Task.FromResult("OK");
+                return await Task.FromResult("OK").ConfigureAwait(false);
             });
         }
     }

@@ -29,7 +29,7 @@ namespace SampleService.AspNetCore.Kestrel.Controllers
             string key = $"values/{_options.HealthCheckId}/randomvalue";
 
             var serviceRegistry = HttpContext.RequestServices.GetRequiredService<ServiceRegistry>();
-            await serviceRegistry.KeyValuePutAsync(key, random.ToString());
+            await serviceRegistry.KeyValuePutAsync(key, random.ToString()).ConfigureAwait(false);
 
             return "OK";
         }
