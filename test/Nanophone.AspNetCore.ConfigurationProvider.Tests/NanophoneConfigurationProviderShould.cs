@@ -90,5 +90,11 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
             GetChildKeys(_inMemoryProvider);
             GetChildKeys(_consulProvider);
         }
+
+        [Fact]
+        public void ThrowWithInvalidArguments()
+        {
+            Assert.Throws<ArgumentNullException>(() => new NanophoneConfigurationProvider(null));
+        }
     }
 }
