@@ -20,7 +20,8 @@
     "Nanophone.RegistryHost.ConsulRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.Nancy": { "target": "project" },
     "NLog.Extensions.Logging": "1.0.0-rtm-alpha5",
-    "Nancy": "2.0.0-clinteastwood"
+    "Nancy": "2.0.0-clinteastwood",
+    "Nito.AsyncEx.Context": "1.1.0"
   },
 
   "tools": {

@@ -8,7 +8,7 @@ namespace Nanophone.Core
     {
         public static async Task<string> GetIpAddressAsync(bool ipv4 = true)
         {
-            var hostEntry = await Dns.GetHostEntryAsync(string.Empty);
+            var hostEntry = await Dns.GetHostEntryAsync(string.Empty).ConfigureAwait(false);
             foreach (var address in hostEntry.AddressList)
             {
                 if (ipv4 && address.AddressFamily == AddressFamily.InterNetwork)

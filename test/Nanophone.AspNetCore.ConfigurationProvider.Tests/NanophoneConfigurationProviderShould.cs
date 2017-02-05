@@ -17,11 +17,11 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
 
         public NanophoneConfigurationProviderShould()
         {
-            _inMemoryProvider = new NanophoneConfigurationProvider(() => GetInMemoryRegistryHost().Result);
-            _consulProvider = new NanophoneConfigurationProvider(() => GetConsulRegistryHost().Result);
+            _inMemoryProvider = new NanophoneConfigurationProvider(() => GetInMemoryRegistryHostAsync().Result);
+            _consulProvider = new NanophoneConfigurationProvider(() => GetConsulRegistryHostAsync().Result);
         }
 
-        private async Task<IRegistryHost> GetInMemoryRegistryHost()
+        private async Task<IRegistryHost> GetInMemoryRegistryHostAsync()
         {
             var registryHost = new InMemoryRegistryHost();
             await registryHost.KeyValuePutAsync("key1", "value1");
@@ -32,7 +32,7 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
             return registryHost;
         }
 
-        private async Task<IRegistryHost> GetConsulRegistryHost()
+        private async Task<IRegistryHost> GetConsulRegistryHostAsync()
         {
             var registryHost = new ConsulRegistryHost();
             await registryHost.KeyValuePutAsync("key1", "value1");

@@ -20,110 +20,110 @@ namespace Nanophone.Core
 
         public async Task<RegistryInformation> RegisterServiceAsync(string serviceName, string version, Uri uri, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
-            var registryInformation = await _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags);
+            var registryInformation = await _registryHost.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags).ConfigureAwait(false);
 
             return registryInformation;
         }
 
         public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
-            return await _registryHost.DeregisterServiceAsync(serviceId);
+            return await _registryHost.DeregisterServiceAsync(serviceId).ConfigureAwait(false);
         }
 
         public async Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
-            return await _registryHost.RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes);
+            return await _registryHost.RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes).ConfigureAwait(false);
         }
 
         public async Task<bool> DeregisterHealthCheckAsync(string checkId)
         {
-            return await _registryHost.DeregisterHealthCheckAsync(checkId);
+            return await _registryHost.DeregisterHealthCheckAsync(checkId).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync()
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync()
-                : await _serviceInstancesResolver.FindServiceInstancesAsync();
+                ? await _registryHost.FindServiceInstancesAsync().ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync().ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync(name)
-                : await _serviceInstancesResolver.FindServiceInstancesAsync(name);
+                ? await _registryHost.FindServiceInstancesAsync(name).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(name).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version)
-                : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version);
+                ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate,
             Predicate<RegistryInformation> registryInformationPredicate)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate)
-                : await _serviceInstancesResolver.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate);
+                ? await _registryHost.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(nameTagsPredicate, registryInformationPredicate).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync(predicate)
-                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
+                ? await _registryHost.FindServiceInstancesAsync(predicate).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync(predicate)
-                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate);
+                ? await _registryHost.FindServiceInstancesAsync(predicate).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(predicate).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindAllServicesAsync()
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindAllServicesAsync()
-                : await _serviceInstancesResolver.FindAllServicesAsync();
+                ? await _registryHost.FindAllServicesAsync().ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindAllServicesAsync().ConfigureAwait(false);
         }
 
         public async Task<RegistryInformation> AddTenantAsync(IRegistryTenant registryTenant, string serviceName, string version, Uri healthCheckUri = null, IEnumerable<string> tags = null)
         {
             var uri = registryTenant.Uri;
-            return await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags);
+            return await RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags).ConfigureAwait(false);
         }
 
         public async Task<string> AddHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
-            return await RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes);
+            return await RegisterHealthCheckAsync(serviceName, serviceId, checkUri, interval, notes).ConfigureAwait(false);
         }
 
         public async Task KeyValuePutAsync(string key, string value)
         {
-            await _registryHost.KeyValuePutAsync(key, value);
+            await _registryHost.KeyValuePutAsync(key, value).ConfigureAwait(false);
         }
 
         public async Task<string> KeyValueGetAsync(string key)
         {
-            return await _registryHost.KeyValueGetAsync(key);
+            return await _registryHost.KeyValueGetAsync(key).ConfigureAwait(false);
         }
 
         public async Task KeyValueDeleteAsync(string key)
         {
-            await _registryHost.KeyValueDeleteAsync(key);
+            await _registryHost.KeyValueDeleteAsync(key).ConfigureAwait(false);
         }
 
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
-            await _registryHost.KeyValueDeleteTreeAsync(prefix);
+            await _registryHost.KeyValueDeleteTreeAsync(prefix).ConfigureAwait(false);
         }
 
         public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            return await _registryHost.KeyValuesGetKeysAsync(prefix);
+            return await _registryHost.KeyValuesGetKeysAsync(prefix).ConfigureAwait(false);
         }
 
         public void ResolveServiceInstancesWith<T>(T serviceInstancesResolver)

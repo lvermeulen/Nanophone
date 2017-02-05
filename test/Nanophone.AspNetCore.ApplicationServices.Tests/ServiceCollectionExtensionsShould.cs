@@ -54,12 +54,12 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                 {
                     services.AddNanophone(GetRegistryHost);
                 })
-                .Configure(app =>
+                .Configure(async app =>
                 {
                     var serviceRegistry = app.ApplicationServices.GetService<ServiceRegistry>();
                     Assert.NotNull(serviceRegistry);
 
-                    var instances = serviceRegistry.FindAllServicesAsync().Result;
+                    var instances = await serviceRegistry.FindAllServicesAsync();
                     Assert.Equal(1, instances.Count);
                 });
 

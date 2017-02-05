@@ -10,7 +10,7 @@ namespace Nanophone.RegistryTenant.Nancy.Tests
     public class NancyRegistryTenantShould
     {
         [Fact]
-        public async Task BeRegistered()
+        public async Task BeRegisteredAsync()
         {
             var registryHost = new InMemoryRegistryHost();
             var serviceRegistry = new ServiceRegistry(registryHost);

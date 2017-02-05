@@ -53,20 +53,36 @@
       <HintPath>..\..\packages\Nancy.Hosting.Self.2.0.0-clinteastwood\lib\net452\Nancy.Hosting.Self.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nanophone.Core, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nanophone.Core.1.6.2-alpha\lib\net451\Nanophone.Core.dll</HintPath>
+    <Reference Include="Nanophone.Core, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nanophone.Core.1.7.0-alpha\lib\net451\Nanophone.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nanophone.RegistryHost.ConsulRegistry, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nanophone.RegistryHost.ConsulRegistry.1.6.2-alpha\lib\net451\Nanophone.RegistryHost.ConsulRegistry.dll</HintPath>
+    <Reference Include="Nanophone.RegistryHost.ConsulRegistry, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nanophone.RegistryHost.ConsulRegistry.1.7.0-alpha\lib\net451\Nanophone.RegistryHost.ConsulRegistry.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Nanophone.RegistryTenant.Nancy, Version=1.6.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Nanophone.RegistryTenant.Nancy.1.6.2-alpha\lib\net452\Nanophone.RegistryTenant.Nancy.dll</HintPath>
+    <Reference Include="Nanophone.RegistryTenant.Nancy, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nanophone.RegistryTenant.Nancy.1.7.0-alpha\lib\net452\Nanophone.RegistryTenant.Nancy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Newtonsoft.Json.9.0.2-beta1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Context, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.Context.1.1.0\lib\net46\Nito.AsyncEx.Context.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.AsyncEx.Tasks, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.AsyncEx.Tasks.1.1.0\lib\net46\Nito.AsyncEx.Tasks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nito.Disposables, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Nito.Disposables.1.0.0\lib\portable45-net45+win8+wp8+wpa81\Nito.Disposables.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SemVer, Version=0.7.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SemanticVersioning.0.7.6\lib\net45\SemVer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

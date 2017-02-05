@@ -18,7 +18,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServices()
+        public async Task FindServicesAsync()
         {
             var services = await _registryHost.FindServiceInstancesAsync("consul");
 
@@ -27,26 +27,25 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task RegisterService()
+        public async Task RegisterServiceAsync()
         {
             var serviceName = nameof(ConsulRegistryHostShould);
             var tags = new[] {"tag1", "tag2"};
-            _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags)
-                .Wait();
+            await _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags);
 
-            Func<string, Task<RegistryInformation>> findTenant = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
+            Func<string, Task<RegistryInformation>> findTenantAsync = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())
                 .FirstOrDefault(x => x.Name == s);
 
-            var tenant = findTenant(serviceName).Result;
+            var tenant = await findTenantAsync(serviceName);
             Assert.NotNull(tenant);
             Assert.Contains(tags.First(), tenant.Tags);
             Assert.Contains(tags.Last(), tenant.Tags);
             await _registryHost.DeregisterServiceAsync(tenant.Id);
-            Assert.Null(findTenant(serviceName).Result);
+            Assert.Null(await findTenantAsync(serviceName));
         }
 
         [Fact]
-        public async Task UseKeyValueStore()
+        public async Task UseKeyValueStoreAsync()
         {
             const string KEY = "hello";
             var dateValue = new DateTime(2016, 5, 28);
@@ -59,7 +58,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
         }
 
         [Fact]
-        public async Task UseKeyValueStoreWithFolders()
+        public async Task UseKeyValueStoreWithFoldersAsync()
         {
             const string FOLDER = "folder/hello/world/";
             const string KEY = "date";

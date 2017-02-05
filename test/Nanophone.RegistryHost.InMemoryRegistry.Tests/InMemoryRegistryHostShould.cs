@@ -49,14 +49,14 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServiceInstances()
+        public async Task FindServiceInstancesAsync()
         {
             var instances = await _host.FindServiceInstancesAsync();
             Assert.Equal(_instances.Count, instances.Count);
         }
 
         [Fact]
-        public async Task FindServiceInstancesWithName()
+        public async Task FindServiceInstancesWithNameAsync()
         {
             var instances = await _host.FindServiceInstancesAsync("Two");
             Assert.Equal(2, instances.Count);
@@ -65,7 +65,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServiceInstancesWithNameAndVersion()
+        public async Task FindServiceInstancesWithNameAndVersionAsync()
         {
             var instances = await _host.FindServiceInstancesWithVersionAsync("Three", "3.2.0");
             Assert.Equal(1, instances.Count);
@@ -73,7 +73,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServiceInstancesWithNameAndSemVerRange()
+        public async Task FindServiceInstancesWithNameAndSemVerRangeAsync()
         {
             var instances = await _host.FindServiceInstancesWithVersionAsync("Four", ">=1.2.0 <3.2.0");
             Assert.Equal(3, instances.Count);
@@ -82,41 +82,41 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
-        public async Task FindServiceInstancesWithNameTags()
+        public async Task FindServiceInstancesWithNameTagsAsync()
         {
             var instances = await _host.FindServiceInstancesAsync(kvp => kvp.Value.Any(x => x.Equals("prefix/path")));
             Assert.Equal(2, instances.Count);
         }
 
         [Fact]
-        public async Task FindServiceInstancesWithRegistryInformation()
+        public async Task FindServiceInstancesWithRegistryInformationAsync()
         {
             var instances = await _host.FindServiceInstancesAsync(x => x.Version == "2.1.0");
             Assert.Equal(2, instances.Count);
         }
 
         [Fact]
-        public async Task RegisterService()
+        public async Task RegisterServiceAsync()
         {
-            string serviceName = nameof(RegisterService);
+            string serviceName = nameof(RegisterServiceAsync);
             string version = "";
             var uri = new Uri("http://host:1234/path?key=value"); 
 
             // add service
             await _host.RegisterServiceAsync(serviceName, version, uri);
-            var instances = await _host.FindServiceInstancesAsync(nameof(RegisterService));
+            var instances = await _host.FindServiceInstancesAsync(nameof(RegisterServiceAsync));
             Assert.Equal(1, instances.Count);
             var first = instances.First();
-            Assert.Equal(nameof(RegisterService), first.Name);
+            Assert.Equal(nameof(RegisterServiceAsync), first.Name);
 
             // remove service
             await _host.DeregisterServiceAsync(first.Id);
-            instances = await _host.FindServiceInstancesAsync(nameof(RegisterService));
+            instances = await _host.FindServiceInstancesAsync(nameof(RegisterServiceAsync));
             Assert.Equal(0, instances.Count);
         }
 
         [Fact]
-        public async Task KeyValuePutGetDelete()
+        public async Task KeyValuePutGetDeleteAsync()
         {
             // add key/value
             await _host.KeyValuePutAsync("4", "Four");
@@ -130,7 +130,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
         }
 
         [Fact]
-        public async Task KeyValueDeleteTree()
+        public async Task KeyValueDeleteTreeAsync()
         {
             await _host.KeyValueDeleteTreeAsync("1");
             Assert.Equal(2, _keyValues.Count);

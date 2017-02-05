@@ -3,13 +3,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
+using Nito.AsyncEx;
 using NLog;
 
 namespace SampleClient
 {
     class Program
     {
-        static void Main()
+        private static async Task MainAsync()
         {
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
@@ -24,7 +25,7 @@ namespace SampleClient
                 {
                     try
                     {
-                        var instances = serviceRegistry.FindServiceInstancesAsync().Result;
+                        var instances = await serviceRegistry.FindServiceInstancesAsync();
                         var groupedByName = instances
                             .GroupBy(x => x.Name, x => x)
                             .ToList();
@@ -44,7 +45,7 @@ namespace SampleClient
                         }
                         Console.WriteLine();
 
-                        Task.Delay(TimeSpan.FromSeconds(1)).Wait();
+                        await Task.Delay(TimeSpan.FromSeconds(1));
                     }
                     catch (AggregateException ex)
                     {
@@ -52,6 +53,11 @@ namespace SampleClient
                     }
                 }
             } while (Console.ReadKey(true).Key != ConsoleKey.Escape);
+        }
+
+        static void Main()
+        {
+            AsyncContext.Run(async () => await MainAsync());
         }
     }
 }

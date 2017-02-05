@@ -1,16 +1,18 @@
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Nanophone.Core;
 using Nanophone.RegistryHost.ConsulRegistry;
 using Nanophone.RegistryTenant.Nancy;
+using Nito.AsyncEx;
 using NLog;
 
 namespace SampleService.Nancy.Kestrel
 {
     public class Program
     {
-        public static void Main()
+        private static async Task MainAsync()
         {
             var log = LogManager.GetCurrentClassLogger();
             log.Debug($"Starting {typeof(Program).Namespace}");
@@ -23,9 +25,8 @@ namespace SampleService.Nancy.Kestrel
             // uncomment for fabio
             //serviceRegistry.ResolveServiceInstancesWith(new FabioAdapter(new Uri("http://localhost:9999")));
 
-            serviceRegistry.AddTenantAsync(new NancyRegistryTenant(new Uri(url)),
-                "orders", "1.3.4", tags: new[] { "urlprefix-/orders" })
-                .Wait();
+            await serviceRegistry.AddTenantAsync(new NancyRegistryTenant(new Uri(url)),
+                "orders", "1.3.4", tags: new[] { "urlprefix-/orders" });
 
             var host = new WebHostBuilder()
                 .UseKestrel()
@@ -35,6 +36,11 @@ namespace SampleService.Nancy.Kestrel
                 .Build();
 
             host.Run();
+        }
+
+        public static void Main()
+        {
+            AsyncContext.Run(async () => await MainAsync());
         }
     }
 }

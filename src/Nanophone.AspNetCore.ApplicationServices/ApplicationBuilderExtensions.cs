@@ -16,8 +16,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            var registryInformation = serviceRegistry.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags)
-                .Result;
+            var registryInformation = serviceRegistry.RegisterServiceAsync(serviceName, version, uri, healthCheckUri, tags).GetAwaiter().GetResult();
 
             return registryInformation;
         }
@@ -34,8 +33,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            return serviceRegistry.DeregisterServiceAsync(serviceId)
-                .Result;
+            return serviceRegistry.DeregisterServiceAsync(serviceId).GetAwaiter().GetResult();
         }
 
         public static string AddHealthCheck(this IApplicationBuilder app, RegistryInformation registryInformation, Uri checkUri, TimeSpan? interval = null, string notes = null)
@@ -50,8 +48,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            string checkId = serviceRegistry.AddHealthCheckAsync(registryInformation.Name, registryInformation.Id, checkUri, interval, notes)
-                .Result;
+            string checkId = serviceRegistry.AddHealthCheckAsync(registryInformation.Name, registryInformation.Id, checkUri, interval, notes).GetAwaiter().GetResult();
 
             return checkId;
         }
@@ -68,8 +65,7 @@ namespace Nanophone.AspNetCore.ApplicationServices
             }
 
             var serviceRegistry = app.ApplicationServices.GetRequiredService<ServiceRegistry>();
-            return serviceRegistry.DeregisterHealthCheckAsync(checkId)
-                .Result;
+            return serviceRegistry.DeregisterHealthCheckAsync(checkId).GetAwaiter().GetResult();
         }
     }
 }

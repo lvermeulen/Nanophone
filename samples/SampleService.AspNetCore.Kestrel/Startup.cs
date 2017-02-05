@@ -55,7 +55,7 @@ namespace SampleService.AspNetCore.Kestrel
             });
 
             // add tenant & health check
-            var localAddress = DnsHelper.GetIpAddressAsync().Result;
+            var localAddress = DnsHelper.GetIpAddressAsync().GetAwaiter().GetResult();
             var uri = new Uri($"http://{localAddress}:{Program.Port}/");
             log.LogInformation("Registering tenant at ${uri}");
             var registryInformation = app.AddTenant("values", "1.7.0-pre", uri, tags: new[] {"urlprefix-/values"});

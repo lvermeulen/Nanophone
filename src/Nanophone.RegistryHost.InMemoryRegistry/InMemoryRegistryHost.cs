@@ -49,13 +49,13 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
         {
-            var instances = await FindServiceInstancesAsync();
+            var instances = await FindServiceInstancesAsync().ConfigureAwait(false);
             return instances.Where(x => x.Name == name).ToList();
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
         {
-            var instances = await FindServiceInstancesAsync(name);
+            var instances = await FindServiceInstancesAsync(name).ConfigureAwait(false);
             var range = new Range(version);
 
             return instances.Where(x => range.IsSatisfied(x.Version)).ToList();
@@ -63,7 +63,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate, Predicate<RegistryInformation> registryInformationPredicate)
         {
-            return (await GetServicesCatalogAsync())
+            return (await GetServicesCatalogAsync().ConfigureAwait(false))
                 .Where(kvp => nameTagsPredicate(kvp))
                 .Select(kvp => kvp.Key)
                 .Select(FindServiceInstancesAsync)
@@ -74,12 +74,12 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> predicate)
         {
-            return await FindServiceInstancesAsync(nameTagsPredicate: predicate, registryInformationPredicate: x => true);
+            return await FindServiceInstancesAsync(nameTagsPredicate: predicate, registryInformationPredicate: x => true).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<RegistryInformation> predicate)
         {
-            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate);
+            return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: predicate).ConfigureAwait(false);
         }
 
         public Task<IList<RegistryInformation>> FindAllServicesAsync()
@@ -104,7 +104,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public async Task<bool> DeregisterServiceAsync(string serviceId)
         {
-            var instance = (await FindServiceInstancesAsync()).FirstOrDefault(x => x.Id == serviceId);
+            var instance = (await FindServiceInstancesAsync().ConfigureAwait(false)).FirstOrDefault(x => x.Id == serviceId);
             if (instance != null)
             {
                 ServiceInstances.Remove(instance);
@@ -126,27 +126,27 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public async Task KeyValuePutAsync(string key, string value)
         {
-            await KeyValues.KeyValuePutAsync(key, value);
+            await KeyValues.KeyValuePutAsync(key, value).ConfigureAwait(false);
         }
 
         public async Task<string> KeyValueGetAsync(string key)
         {
-            return await KeyValues.KeyValueGetAsync(key);
+            return await KeyValues.KeyValueGetAsync(key).ConfigureAwait(false);
         }
 
         public async Task KeyValueDeleteAsync(string key)
         {
-            await KeyValues.KeyValueDeleteAsync(key);
+            await KeyValues.KeyValueDeleteAsync(key).ConfigureAwait(false);
         }
 
         public async Task KeyValueDeleteTreeAsync(string prefix)
         {
-            await KeyValues.KeyValueDeleteTreeAsync(prefix);
+            await KeyValues.KeyValueDeleteTreeAsync(prefix).ConfigureAwait(false);
         }
 
         public async Task<string[]> KeyValuesGetKeysAsync(string prefix)
         {
-            return await KeyValues.KeyValuesGetKeysAsync(prefix);
+            return await KeyValues.KeyValuesGetKeysAsync(prefix).ConfigureAwait(false);
         }
     }
 }
