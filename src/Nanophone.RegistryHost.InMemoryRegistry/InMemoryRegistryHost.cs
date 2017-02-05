@@ -99,6 +99,8 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
                 Tags = tags ?? Enumerable.Empty<string>()
             };
             ServiceInstances.Add(registryInformation);
+            s_log.Info($"Registering {serviceName} service at {uri}");
+
             return Task.FromResult(registryInformation);
         }
 
@@ -108,6 +110,8 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             if (instance != null)
             {
                 ServiceInstances.Remove(instance);
+                s_log.Info($"Deregistration of {serviceId} succeeded");
+
                 return true;
             }
 
