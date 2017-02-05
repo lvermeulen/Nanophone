@@ -8,7 +8,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 {
     public class KeyValues : IHaveKeyValues
     {
-        private readonly Base64Codec _codec = new Base64Codec();
+        private static readonly Base64Codec s_codec = new Base64Codec();
         private readonly Dictionary<string, string> _dictionary = new Dictionary<string, string>();
 
         public KeyValues WithKeyValue(string key, string value)
@@ -22,7 +22,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public Task KeyValuePutAsync(string key, string value)
         {
-            _dictionary.Add(key, _codec.Encode(value));
+            _dictionary.Add(key, s_codec.Encode(value));
 
             return Task.FromResult(0);
         }
@@ -32,7 +32,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             string value;
             if (_dictionary.TryGetValue(key, out value))
             {
-                return Task.FromResult(_codec.Decode(value));
+                return Task.FromResult(s_codec.Decode(value));
             }
 
             return Task.FromResult(default(string));
@@ -71,7 +71,9 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public static implicit operator List<KeyValuePair<string, string>>(KeyValues keyValues)
         {
-            return keyValues._dictionary.ToList();
+            return keyValues._dictionary
+                .Select(x => new KeyValuePair<string, string>(x.Key, s_codec.Decode(x.Value)))
+                .ToList();
         }
     }
 }

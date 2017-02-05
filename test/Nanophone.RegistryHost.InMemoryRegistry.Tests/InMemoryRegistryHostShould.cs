@@ -135,5 +135,22 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             await _host.KeyValueDeleteTreeAsync("1");
             Assert.Equal(2, _keyValues.Count);
         }
+
+        [Fact]
+        public void ConvertKeyValuesToKeyValuePairList()
+        {
+            var keyValues = new KeyValues()
+                .WithKeyValue("1", "One")
+                .WithKeyValue("1.1", "One.1")
+                .WithKeyValue("2", 2.0.ToString(CultureInfo.InvariantCulture))
+                .WithKeyValue("3", 3M.ToString(CultureInfo.InvariantCulture));
+
+            var list = (List<KeyValuePair<string, string>>)keyValues;
+            Assert.NotNull(list);
+            Assert.True(list.Any(x => x.Key == "1" && x.Value == "One"));
+            Assert.True(list.Any(x => x.Key == "1.1" && x.Value == "One.1"));
+            Assert.True(list.Any(x => x.Key == "2" && x.Value == 2.0.ToString(CultureInfo.InvariantCulture)));
+            Assert.True(list.Any(x => x.Key == "3" && x.Value == 3M.ToString(CultureInfo.InvariantCulture)));
+        }
     }
 }
