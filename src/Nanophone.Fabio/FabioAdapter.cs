@@ -37,13 +37,13 @@ namespace Nanophone.Fabio
             return GetFabioResult();
         }
 
-        public Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
+        public Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name, bool passingOnly = true)
         {
             s_log.Info($"Finding service instances with fabio adapter: service {name}");
             return GetFabioResult(name);
         }
 
-        public Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
+        public Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version, bool passingOnly = true)
         {
             s_log.Info($"Finding service instances with fabio adapter: service {name}, version {version}");
             return GetFabioResult(name);

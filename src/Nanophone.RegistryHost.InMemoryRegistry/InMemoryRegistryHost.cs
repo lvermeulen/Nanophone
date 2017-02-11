@@ -47,15 +47,15 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return Task.FromResult(ServiceInstances);
         }
 
-        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name, bool passingOnly = true)
         {
             var instances = await FindServiceInstancesAsync().ConfigureAwait(false);
             return instances.Where(x => x.Name == name).ToList();
         }
 
-        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version, bool passingOnly = true)
         {
-            var instances = await FindServiceInstancesAsync(name).ConfigureAwait(false);
+            var instances = await FindServiceInstancesAsync(name, passingOnly).ConfigureAwait(false);
             var range = new Range(version);
 
             return instances.Where(x => range.IsSatisfied(x.Version)).ToList();
@@ -66,7 +66,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             return (await GetServicesCatalogAsync().ConfigureAwait(false))
                 .Where(kvp => nameTagsPredicate(kvp))
                 .Select(kvp => kvp.Key)
-                .Select(FindServiceInstancesAsync)
+                .Select(name => FindServiceInstancesAsync(name, passingOnly: false))
                 .SelectMany(task => task.Result)
                 .Where(x => registryInformationPredicate(x))
                 .ToList();

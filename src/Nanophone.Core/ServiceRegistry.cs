@@ -47,18 +47,18 @@ namespace Nanophone.Core
                 : await _serviceInstancesResolver.FindServiceInstancesAsync().ConfigureAwait(false);
         }
 
-        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name, bool passingOnly = true)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesAsync(name).ConfigureAwait(false)
-                : await _serviceInstancesResolver.FindServiceInstancesAsync(name).ConfigureAwait(false);
+                ? await _registryHost.FindServiceInstancesAsync(name, passingOnly).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesAsync(name, passingOnly).ConfigureAwait(false);
         }
 
-        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version, bool passingOnly = true)
         {
             return _serviceInstancesResolver == null
-                ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version).ConfigureAwait(false)
-                : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version).ConfigureAwait(false);
+                ? await _registryHost.FindServiceInstancesWithVersionAsync(name, version, passingOnly).ConfigureAwait(false)
+                : await _serviceInstancesResolver.FindServiceInstancesWithVersionAsync(name, version, passingOnly).ConfigureAwait(false);
         }
 
         public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(Predicate<KeyValuePair<string, string[]>> nameTagsPredicate,

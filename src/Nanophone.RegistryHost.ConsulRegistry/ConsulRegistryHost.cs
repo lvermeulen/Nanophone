@@ -44,9 +44,22 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return await FindServiceInstancesAsync(nameTagsPredicate: x => true, registryInformationPredicate: x => true).ConfigureAwait(false);
         }
 
-        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name)
+        public async Task<IList<RegistryInformation>> FindServiceInstancesAsync(string name, bool passingOnly = true)
         {
-            var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: true).ConfigureAwait(false);
+            return await FindServiceInstancesInternalAsync(name, passingOnly);
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version, bool passingOnly = true)
+        {
+            var instances = await FindServiceInstancesAsync(name, passingOnly).ConfigureAwait(false);
+            var range = new Range(version);
+
+            return instances.Where(x => range.IsSatisfied(x.Version)).ToArray();
+        }
+
+        public async Task<IList<RegistryInformation>> FindServiceInstancesInternalAsync(string name, bool passingOnly)
+        {
+            var queryResult = await _consul.Health.Service(name, tag: "", passingOnly: passingOnly).ConfigureAwait(false);
             var instances = queryResult.Response.Select(serviceEntry => new RegistryInformation
             {
                 Name = serviceEntry.Service.Service,
@@ -58,14 +71,6 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             });
 
             return instances.ToList();
-        }
-
-        public async Task<IList<RegistryInformation>> FindServiceInstancesWithVersionAsync(string name, string version)
-        {
-            var instances = await FindServiceInstancesAsync(name).ConfigureAwait(false);
-            var range = new Range(version);
-
-            return instances.Where(x => range.IsSatisfied(x.Version)).ToArray();
         }
 
         private async Task<IDictionary<string, string[]>> GetServicesCatalogAsync()
@@ -81,7 +86,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
             return (await GetServicesCatalogAsync().ConfigureAwait(false))
                 .Where(kvp => nameTagsPredicate(kvp))
                 .Select(kvp => kvp.Key)
-                .Select(FindServiceInstancesAsync)
+                .Select(x => FindServiceInstancesInternalAsync(x, passingOnly: false))
                 .SelectMany(task => task.Result)
                 .Where(x => registryInformationPredicate(x))
                 .ToList();
