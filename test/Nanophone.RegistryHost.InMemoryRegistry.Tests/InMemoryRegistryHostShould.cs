@@ -152,5 +152,19 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             Assert.True(list.Any(x => x.Key == "2" && x.Value == 2.0.ToString(CultureInfo.InvariantCulture)));
             Assert.True(list.Any(x => x.Key == "3" && x.Value == 3M.ToString(CultureInfo.InvariantCulture)));
         }
+
+        [Fact]
+        public async Task RegisterHealthCheckAsync()
+        {
+            var result = await _host.RegisterHealthCheckAsync(nameof(RegisterHealthCheckAsync), nameof(RegisterHealthCheckAsync), new Uri("http://localhost"));
+            Assert.Null(result);
+        }
+
+        [Fact]
+        public async Task DeregisterHealthCheckAsync()
+        {
+            var result = await _host.DeregisterHealthCheckAsync(nameof(DeregisterHealthCheckAsync));
+            Assert.False(result);
+        }
     }
 }

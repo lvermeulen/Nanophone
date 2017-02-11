@@ -120,7 +120,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
 
         public Task<string> RegisterHealthCheckAsync(string serviceName, string serviceId, Uri checkUri, TimeSpan? interval = null, string notes = null)
         {
-            return null;
+            return Task.FromResult(default(string));
         }
 
         public Task<bool> DeregisterHealthCheckAsync(string checkId)
