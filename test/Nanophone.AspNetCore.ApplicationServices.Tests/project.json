@@ -12,6 +12,7 @@
     "Nanophone.AspNetCore.ApplicationServices": { "target": "project" },
     "Nanophone.RegistryHost.InMemoryRegistry": { "target": "project" },
     "Nanophone.RegistryTenant.WebApi": { "target": "project" },
+    "NSubstitute": "2.0.1-rc",
     "OpenCover": "4.6.519",
     "xunit": "2.2.0-beta4-build3444" },
 

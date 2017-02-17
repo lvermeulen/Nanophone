@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Nanophone.Core;
 using Nanophone.RegistryHost.InMemoryRegistry;
+using NSubstitute;
 using Xunit;
 
 namespace Nanophone.AspNetCore.ApplicationServices.Tests
@@ -51,6 +53,15 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
             }
 
             return Task.FromResult(0);
+        }
+
+
+        [Fact]
+        public void ThrowWithInvalidArguments()
+        {
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.AddTenant(null, nameof(ThrowWithInvalidArguments), "1.0.0", new Uri("http://localhost:4321")));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveTenant(null, nameof(ThrowWithInvalidArguments)));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveTenant(Substitute.For<IApplicationBuilder>(), null));
         }
     }
 }
