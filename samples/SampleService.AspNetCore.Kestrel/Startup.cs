@@ -14,6 +14,8 @@ namespace SampleService.AspNetCore.Kestrel
 {
     public class Startup
     {
+        private static readonly IHostEntryProvider s_hostEntryProvider = new DnsHostEntryProvider();
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -55,7 +57,7 @@ namespace SampleService.AspNetCore.Kestrel
             });
 
             // add tenant & health check
-            var localAddress = DnsHelper.GetIpAddressAsync().GetAwaiter().GetResult();
+            var localAddress = DnsHelper.GetIpAddressAsync(s_hostEntryProvider).GetAwaiter().GetResult();
             var uri = new Uri($"http://{localAddress}:{Program.Port}/");
             log.LogInformation("Registering tenant at ${uri}");
             var registryInformation = app.AddTenant("values", "1.7.0-pre", uri, tags: new[] {"urlprefix-/values"});

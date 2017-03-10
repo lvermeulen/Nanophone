@@ -110,6 +110,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             Assert.Equal(nameof(RegisterServiceAsync), first.Name);
 
             // remove service
+            Assert.False(await _host.DeregisterServiceAsync(""));
             await _host.DeregisterServiceAsync(first.Id);
             instances = await _host.FindServiceInstancesAsync(nameof(RegisterServiceAsync));
             Assert.Equal(0, instances.Count);

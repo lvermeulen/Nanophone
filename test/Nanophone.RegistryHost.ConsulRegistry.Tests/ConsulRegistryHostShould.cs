@@ -78,6 +78,9 @@ namespace Nanophone.RegistryHost.ConsulRegistry.Tests
             var serviceName = nameof(ConsulRegistryHostShould);
             var tags = new[] {"tag1", "tag2"};
             var registryInformation = await _registryHost.RegisterServiceAsync(serviceName, serviceName, new Uri("http://localhost:1234"), null, tags);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _registryHost.RegisterHealthCheckAsync(serviceName, registryInformation.Id, null, TimeSpan.FromSeconds(30)));
+
             string checkId = await _registryHost.RegisterHealthCheckAsync(serviceName, registryInformation.Id, new Uri("http://localhost:4321"), TimeSpan.FromSeconds(30));
 
             Func<string, Task<RegistryInformation>> findTenantAsync = async s => (await ((ConsulRegistryHost)_registryHost).FindAllServicesAsync())

@@ -16,6 +16,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
         private const string VERSION_PREFIX = "version-";
 
         private static readonly ILog s_log = LogProvider.For<ConsulRegistryHost>();
+        private static readonly IHostEntryProvider s_hostEntryProvider = new DnsHostEntryProvider();
 
         private readonly ConsulRegistryHostConfiguration _configuration;
         private readonly ConsulClient _consul;
@@ -120,7 +121,7 @@ namespace Nanophone.RegistryHost.ConsulRegistry
 
         private async Task<string> GetServiceIdAsync(string serviceName, Uri uri)
         {
-            var ipAddress = await DnsHelper.GetIpAddressAsync().ConfigureAwait(false);
+            var ipAddress = await DnsHelper.GetIpAddressAsync(s_hostEntryProvider).ConfigureAwait(false);
             return $"{serviceName}_{ipAddress.Replace(".", "_")}_{uri.Port}";
         }
 
