@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Nanophone.Core
 {
@@ -10,5 +11,9 @@ namespace Nanophone.Core
         public int Port { get; set; }
         public string Version { get; set; }
         public IEnumerable<string> Tags { get; set; }
+
+        public Uri Uri => Port >= 0
+            ? new Uri($"{Address}:{Port}")
+            : new Uri(Address);
     }
 }

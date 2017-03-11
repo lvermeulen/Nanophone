@@ -23,12 +23,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry
             {
                 foreach (var registryInformation in value)
                 {
-                    string url = registryInformation.Address;
-                    if (registryInformation.Port >= 0)
-                    {
-                        url += $":{registryInformation.Port}";
-                    }
-                    RegisterServiceAsync(registryInformation.Name, registryInformation.Version, new Uri(url), tags: registryInformation.Tags);
+                    RegisterServiceAsync(registryInformation.Name, registryInformation.Version, registryInformation.Uri, tags: registryInformation.Tags);
                 }
             }
         }

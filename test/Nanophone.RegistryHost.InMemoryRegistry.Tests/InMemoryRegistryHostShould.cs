@@ -125,6 +125,7 @@ namespace Nanophone.RegistryHost.InMemoryRegistry.Tests
             Assert.Equal("Four", value);
 
             // remove key/value
+            await _host.KeyValueDeleteAsync(nameof(KeyValuePutGetDeleteAsync));
             await _host.KeyValueDeleteAsync("4");
             value = await _host.KeyValueGetAsync("4");
             Assert.Equal(null, value);
