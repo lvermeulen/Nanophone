@@ -38,7 +38,7 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
                     Assert.Null(app.AddHealthCheck(registryInformation, new Uri("http://localhost:4321")));
 
                     // remove health check
-                    Assert.False(app.RemoveHealthCheck(null));
+                    Assert.False(app.RemoveHealthCheck(nameof(AddRemoveTenantAndHealthCheck)));
 
                     // remove tenant
                     Assert.True(app.RemoveTenant(registryInformation.Id));
@@ -62,6 +62,10 @@ namespace Nanophone.AspNetCore.ApplicationServices.Tests
             Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.AddTenant(null, nameof(ThrowWithInvalidArguments), "1.0.0", new Uri("http://localhost:4321")));
             Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveTenant(null, nameof(ThrowWithInvalidArguments)));
             Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveTenant(Substitute.For<IApplicationBuilder>(), null));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.AddHealthCheck(null, new RegistryInformation(), new Uri("http://localhost:1234")));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.AddHealthCheck(Substitute.For<IApplicationBuilder>(), null, new Uri("http://localhost:1234")));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveHealthCheck(null, nameof(ThrowWithInvalidArguments)));
+            Assert.Throws<ArgumentNullException>(() => ApplicationBuilderExtensions.RemoveHealthCheck(Substitute.For<IApplicationBuilder>(), null));
         }
     }
 }
