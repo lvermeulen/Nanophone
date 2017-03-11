@@ -237,3 +237,6 @@ _Pvt_Extensions
 .fake/
 *.db
 /build/1
+
+# Local
+/codecoverage/coverage

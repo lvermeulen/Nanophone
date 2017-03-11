@@ -35,6 +35,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{376EA26A
 		build\beforeTest.ps1 = build\beforeTest.ps1
 		build\build.ps1 = build\build.ps1
 		build\cover.ps1 = build\cover.ps1
+		build\coverlocal.ps1 = build\coverlocal.ps1
 		build\install.ps1 = build\install.ps1
 		build\test.ps1 = build\test.ps1
 	EndProjectSection
