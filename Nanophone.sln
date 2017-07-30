@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{755AAD0E-ACA3-482E-8325-9C22929CC984}"
 	ProjectSection(SolutionItems) = preProject
@@ -9,23 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 		appveyor.yml = appveyor.yml
 		codecov.yml = codecov.yml
-		global.json = global.json
 		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{119F7828-4CCA-4F2F-84B1-AA134E7C004A}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core.Tests", "test\Nanophone.Core.Tests\Nanophone.Core.Tests.xproj", "{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "test\Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.xproj", "{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Core", "src\Nanophone.Core\Nanophone.Core.xproj", "{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.ConsulRegistry", "src\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.xproj", "{EA667313-9505-4C96-A0A3-A7E3CDF7B453}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.Nancy", "src\Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.xproj", "{C1D8398F-DC85-4FAB-A495-458737F2B26E}"
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.WebApi", "src\Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.xproj", "{5023B7BA-727A-4FD3-857E-9167F96B247E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{65A72131-6AE0-4BE2-BEB6-86729759C613}"
 EndProject
@@ -40,33 +27,45 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{376EA26A
 		build\test.ps1 = build\test.ps1
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleService.AspNetCore.Kestrel", "samples\SampleService.AspNetCore.Kestrel\SampleService.AspNetCore.Kestrel.xproj", "{C2CE58CC-8036-47E9-B921-50360B0F00F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.Core.Tests", "test\Nanophone.Core.Tests\Nanophone.Core.Tests.csproj", "{8C976BEE-0DFF-42C4-88A8-86A7FF17CD78}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleService.Nancy.Kestrel", "samples\SampleService.Nancy.Kestrel\SampleService.Nancy.Kestrel.xproj", "{65BA75F9-228F-4483-B47A-169BC302AB41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryHost.ConsulRegistry.Tests", "test\Nanophone.RegistryHost.ConsulRegistry.Tests\Nanophone.RegistryHost.ConsulRegistry.Tests.csproj", "{F29468BE-2BAF-4CE3-9B28-D0D7E01ACB1E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Fabio", "src\Nanophone.Fabio\Nanophone.Fabio.xproj", "{EDD431DD-EFB0-405D-B4C9-C7C87B6EDAA0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.Core", "src\Nanophone.Core\Nanophone.Core.csproj", "{61EEBBD3-DB6A-4FFB-A358-D3D0482AEDA2}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "SampleClient", "samples\SampleClient\SampleClient.xproj", "{30F3CB95-4F8B-4920-A36E-C9501121383B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryHost.ConsulRegistry", "src\Nanophone.RegistryHost.ConsulRegistry\Nanophone.RegistryHost.ConsulRegistry.csproj", "{EA667313-9505-4C96-A0A3-A7E3CDF7B453}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.InMemoryRegistry.Tests", "test\Nanophone.RegistryHost.InMemoryRegistry.Tests\Nanophone.RegistryHost.InMemoryRegistry.Tests.xproj", "{199C62CC-96A2-4134-B873-0AF10AB428EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryTenant.Nancy", "src\Nanophone.RegistryTenant.Nancy\Nanophone.RegistryTenant.Nancy.csproj", "{C1D8398F-DC85-4FAB-A495-458737F2B26E}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryHost.InMemoryRegistry", "src\Nanophone.RegistryHost.InMemoryRegistry\Nanophone.RegistryHost.InMemoryRegistry.xproj", "{4DDA1A3F-3960-43C7-B2D2-528F00097A0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryTenant.WebApi", "src\Nanophone.RegistryTenant.WebApi\Nanophone.RegistryTenant.WebApi.csproj", "{5023B7BA-727A-4FD3-857E-9167F96B247E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleService.AspNetCore.Kestrel", "samples\SampleService.AspNetCore.Kestrel\SampleService.AspNetCore.Kestrel.csproj", "{C2CE58CC-8036-47E9-B921-50360B0F00F4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleService.Nancy.Kestrel", "samples\SampleService.Nancy.Kestrel\SampleService.Nancy.Kestrel.csproj", "{65BA75F9-228F-4483-B47A-169BC302AB41}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.Fabio", "src\Nanophone.Fabio\Nanophone.Fabio.csproj", "{EDD431DD-EFB0-405D-B4C9-C7C87B6EDAA0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleClient", "samples\SampleClient\SampleClient.csproj", "{30F3CB95-4F8B-4920-A36E-C9501121383B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryHost.InMemoryRegistry.Tests", "test\Nanophone.RegistryHost.InMemoryRegistry.Tests\Nanophone.RegistryHost.InMemoryRegistry.Tests.csproj", "{199C62CC-96A2-4134-B873-0AF10AB428EC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryHost.InMemoryRegistry", "src\Nanophone.RegistryHost.InMemoryRegistry\Nanophone.RegistryHost.InMemoryRegistry.csproj", "{4DDA1A3F-3960-43C7-B2D2-528F00097A0C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleService.Nancy.Hosting.Self.Net46", "samples\SampleService.Nancy.Hosting.Self.Net46\SampleService.Nancy.Hosting.Self.Net46.csproj", "{9E390C47-EB78-44BD-BBB6-6E3DFDD546F2}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.Nancy.Tests", "test\Nanophone.RegistryTenant.Nancy.Tests\Nanophone.RegistryTenant.Nancy.Tests.xproj", "{4D3CAC61-0C08-4FFD-A0FF-26EFF631BF4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryTenant.Nancy.Tests", "test\Nanophone.RegistryTenant.Nancy.Tests\Nanophone.RegistryTenant.Nancy.Tests.csproj", "{4D3CAC61-0C08-4FFD-A0FF-26EFF631BF4C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.RegistryTenant.WebApi.Tests", "test\Nanophone.RegistryTenant.WebApi.Tests\Nanophone.RegistryTenant.WebApi.Tests.xproj", "{C32A2818-BDE0-45BF-936D-E61CC9BF4EE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.RegistryTenant.WebApi.Tests", "test\Nanophone.RegistryTenant.WebApi.Tests\Nanophone.RegistryTenant.WebApi.Tests.csproj", "{C32A2818-BDE0-45BF-936D-E61CC9BF4EE0}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.ApplicationServices", "src\Nanophone.AspNetCore.ApplicationServices\Nanophone.AspNetCore.ApplicationServices.xproj", "{A12F773F-4A2F-4CA4-BD35-15123ACE77AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.AspNetCore.ApplicationServices", "src\Nanophone.AspNetCore.ApplicationServices\Nanophone.AspNetCore.ApplicationServices.csproj", "{A12F773F-4A2F-4CA4-BD35-15123ACE77AC}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.ConfigurationProvider", "src\Nanophone.AspNetCore.ConfigurationProvider\Nanophone.AspNetCore.ConfigurationProvider.xproj", "{6AB55B3F-5345-446D-B0D4-B0F45CEF3EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.AspNetCore.ConfigurationProvider", "src\Nanophone.AspNetCore.ConfigurationProvider\Nanophone.AspNetCore.ConfigurationProvider.csproj", "{6AB55B3F-5345-446D-B0D4-B0F45CEF3EEE}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.ApplicationServices.Tests", "test\Nanophone.AspNetCore.ApplicationServices.Tests\Nanophone.AspNetCore.ApplicationServices.Tests.xproj", "{D6B8516B-952F-4E59-AC3A-46CD31C3D04B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.AspNetCore.ApplicationServices.Tests", "test\Nanophone.AspNetCore.ApplicationServices.Tests\Nanophone.AspNetCore.ApplicationServices.Tests.csproj", "{D6B8516B-952F-4E59-AC3A-46CD31C3D04B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.AspNetCore.ConfigurationProvider.Tests", "test\Nanophone.AspNetCore.ConfigurationProvider.Tests\Nanophone.AspNetCore.ConfigurationProvider.Tests.xproj", "{1170E15B-4126-4E24-897B-F6AAEAB4E083}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.AspNetCore.ConfigurationProvider.Tests", "test\Nanophone.AspNetCore.ConfigurationProvider.Tests\Nanophone.AspNetCore.ConfigurationProvider.Tests.csproj", "{1170E15B-4126-4E24-897B-F6AAEAB4E083}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Nanophone.Fabio.Tests", "test\Nanophone.Fabio.Tests\Nanophone.Fabio.Tests.xproj", "{6F1D231B-38E3-489C-9C8C-751633CC197A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nanophone.Fabio.Tests", "test\Nanophone.Fabio.Tests\Nanophone.Fabio.Tests.csproj", "{6F1D231B-38E3-489C-9C8C-751633CC197A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

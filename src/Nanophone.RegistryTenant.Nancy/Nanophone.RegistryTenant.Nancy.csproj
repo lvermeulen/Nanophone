@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Nanophone Nancy registry tenant</Description>
+    <Copyright>Copyright 2016</Copyright>
+    <AssemblyTitle>Nanophone.RegistryTenant.Nancy</AssemblyTitle>
+    <VersionPrefix>1.4.0-alpha</VersionPrefix>
+    <Authors>Luk Vermeulen</Authors>
+    <TargetFrameworks>net452;netstandard1.6</TargetFrameworks>
+    <DefineConstants>$(DefineConstants);LIBLOG_PORTABLE</DefineConstants>
+    <AssemblyName>Nanophone.RegistryTenant.Nancy</AssemblyName>
+    <PackageId>Nanophone.RegistryTenant.Nancy</PackageId>
+    <PackageTags>Service;Discovery;ServiceDiscovery;Consul;Nancy;WebApi;Healing;Autohealing;Microservices</PackageTags>
+    <PackageIconUrl>http://i.imgur.com/WnKfKOC.png?1</PackageIconUrl>
+    <PackageProjectUrl>https://github.com/lvermeulen/Nanophone</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/lvermeulen/Nanophone/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/lvermeulen/Nanophone</RepositoryUrl>
+    <NetStandardImplicitPackageVersion Condition=" '$(TargetFramework)' == 'netstandard1.6' ">1.6.0</NetStandardImplicitPackageVersion>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Nanophone.Core\Nanophone.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.Dynamic.Runtime" Version="4.0.11" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
+  </ItemGroup>
+
+</Project>
