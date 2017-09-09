@@ -21,14 +21,19 @@ if (-not (test-path $tempPath) ) {
 }
 
 # run opencover
-Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object {
-    $path = "$tempPath\$($_.Directory.BaseName)"
+foreach ($test in ls $PSScriptRoot\..\test/*) {
+
+#Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object {
+    #$path = "$tempPath\$($_.Directory.BaseName)"
+	$path = "$tempPath\$test"
     if (-not (test-path $path) ) {
         mkdir $path | Out-Null
     }
 
     $tempBinPath = $path + "\bin\"
-    $targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
+    #$targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
+	$targetArgs = "`"test -o $tempBinPath $test`""
+	Write-Host targetArgs is $targetArgs
 
     if (-not (test-path $tempBinPath) ) {
         mkdir $tempBinPath | Out-Null
@@ -65,4 +70,4 @@ Write-Output "Sending code coverage results to coveralls.io"
 Push-AppveyorArtifact codecoverage.zip
 
 pip install codecov
-codecov -f $tempCoverageFileName
+codecov -f $tempCoverageFileName -X gcov
