@@ -1,10 +1,10 @@
 ![Icon](http://i.imgur.com/WnKfKOC.png?1) 
 # Nanophone 
 [![Build status](https://ci.appveyor.com/api/projects/status/hwk6g88wm7orvcog?svg=true)](https://ci.appveyor.com/project/lvermeulen/nanophone) [![license](https://img.shields.io/github/license/lvermeulen/Nanophone.svg?maxAge=2592000)](https://github.com/lvermeulen/Nanophone/blob/master/LICENSE) [![NuGet](https://img.shields.io/nuget/vpre/Nanophone.Core.svg?maxAge=2592000)](https://www.nuget.org/packages/Nanophone.Core/) [![Coverage Status](https://coveralls.io/repos/github/lvermeulen/Nanophone/badge.svg?branch=master)](https://coveralls.io/github/lvermeulen/Nanophone?branch=master) [![codecov](https://codecov.io/gh/lvermeulen/Nanophone/branch/master/graph/badge.svg)](https://codecov.io/gh/lvermeulen/Nanophone)
- [![Join the chat at https://gitter.im/lvermeulen/Nanophone](https://badges.gitter.im/lvermeulen/Nanophone.svg)](https://gitter.im/lvermeulen/Nanophone?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) ![](https://img.shields.io/badge/.net-4.5.1-yellowgreen.svg) ![](https://img.shields.io/badge/netstandard-1.6-yellowgreen.svg) [![Rager Releases](http://rager.io/badge.svg?url=https%3A%2F%2Fgithub.com%2Flvermeulen%2FNanophone)](http://rager.io/projects/search?badge=1&query=github.com/lvermeulen/Nanophone)
+ [![Join the chat at https://gitter.im/lvermeulen/Nanophone](https://badges.gitter.im/lvermeulen/Nanophone.svg)](https://gitter.im/lvermeulen/Nanophone?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) ![](https://img.shields.io/badge/.net-4.5.1-yellowgreen.svg) ![](https://img.shields.io/badge/netstandard-1.6-yellowgreen.svg)
 Nanophone is a minimalistic library for Service Registration and Discovery and is used by the [Equalizer](https://github.com/lvermeulen/Equalizer) middleware for aspnetcore.
 
-##Features:
+## Features:
 * Find available service instances by service name
 * Find available service instances by service name and version (**strict semver 2.0**)
 * Extensible service registry host - includes [Consul](https://www.consul.io/) and in-memory hosts
@@ -13,7 +13,7 @@ Nanophone is a minimalistic library for Service Registration and Discovery and i
 * Configuration provider for aspnetcore to use Consul key/value store
 * Application services for aspnetcore to add tenants and health checks
 
-##Usage:
+## Usage:
 
 * Find available service instances by service name:
 ~~~~
@@ -102,6 +102,6 @@ var hostBuilder = new WebHostBuilder()
     });
 ~~~~
 
-##Thanks
+## Thanks
 * [SIM Card](https://thenounproject.com/term/sim-card/15160) icon by misirlou from [The Noun Project](https://thenounproject.com)
 * Look, up in the sky. It's a bird. It's a plane. It's [LibLog](https://www.nuget.org/packages/LibLog/)!
