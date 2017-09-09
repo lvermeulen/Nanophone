@@ -21,18 +21,15 @@ if (-not (test-path $tempPath) ) {
 }
 
 # run opencover
-foreach ($test in ls $PSScriptRoot\..\test/*) {
-
-#Get-ChildItem -Path $PSScriptRoot\..\test -Filter project.json -Recurse | ForEach-Object {
-    #$path = "$tempPath\$($_.Directory.BaseName)"
-	$path = "$tempPath\$test"
+Get-ChildItem -Path $PSScriptRoot\..\test -Filter *.csproj -Recurse | ForEach-Object {
+    $path = "$tempPath\$($_.Directory.BaseName)"
     if (-not (test-path $path) ) {
         mkdir $path | Out-Null
     }
 
     $tempBinPath = $path + "\bin\"
-    #$targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
-	$targetArgs = "`"test -o $tempBinPath $test`""
+	$targetArgs = "test -o $tempBinPath $($_.FullName)"
+
 	Write-Host targetArgs is $targetArgs
 
     if (-not (test-path $tempBinPath) ) {
@@ -46,14 +43,14 @@ foreach ($test in ls $PSScriptRoot\..\test/*) {
     & $opencoverPath `
         -register:user `
         -target:"dotnet.exe" `
-        -targetargs:$targetArgs `
+        "-targetargs:$targetArgs" `
         -searchdirs:$tempBinPath `
         -output:$tempCoverageFileName `
         -mergebyhash `
         -mergeoutput `
         -skipautoprops `
         -returntargetcode `
-        -filter:$filter `
+        -filter:"$filter" `
         -hideskipped:Filter `
         -oldstyle 
 }
