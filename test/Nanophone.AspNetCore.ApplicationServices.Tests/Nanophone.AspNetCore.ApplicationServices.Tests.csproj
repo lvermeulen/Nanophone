@@ -11,6 +11,11 @@
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\src\Nanophone.AspNetCore.ApplicationServices\Nanophone.AspNetCore.ApplicationServices.csproj" />
     <ProjectReference Include="..\..\src\Nanophone.RegistryHost.InMemoryRegistry\Nanophone.RegistryHost.InMemoryRegistry.csproj" />
