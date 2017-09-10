@@ -43,10 +43,9 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
             return registryHost;
         }
 
-        private void TryGet(IConfigurationProvider provider)
+        private void TryGetWithConfigurationProvider(IConfigurationProvider provider)
         {
-            string value;
-            Assert.True(provider.TryGet("key1", out value));
+            Assert.True(provider.TryGet("key1", out string value));
             Assert.Equal("value1", value);
 
             Assert.True(provider.TryGet("key2", out value));
@@ -56,29 +55,28 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         [Fact]
         public void TryGet()
         {
-            TryGet(_inMemoryProvider);
-            TryGet(_consulProvider);
+            TryGetWithConfigurationProvider(_inMemoryProvider);
+            TryGetWithConfigurationProvider(_consulProvider);
         }
 
-        private void Set(IConfigurationProvider provider)
+        private void SetWithConfigurationProvider(IConfigurationProvider provider)
         {
             string key = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-            string expectedValue = nameof(NanophoneConfigurationProviderShould.Set);
+            string expectedValue = nameof(Set);
 
             provider.Set(key, expectedValue);
-            string value;
-            Assert.True(provider.TryGet(key, out value));
+            Assert.True(provider.TryGet(key, out string value));
             Assert.Equal(expectedValue, value);
         }
 
         [Fact]
         public void Set()
         {
-            Set(_inMemoryProvider);
-            Set(_consulProvider);
+            SetWithConfigurationProvider(_inMemoryProvider);
+            SetWithConfigurationProvider(_consulProvider);
         }
 
-        private void GetChildKeys(IConfigurationProvider provider)
+        private void GetChildKeysWithConfigurationProvider(IConfigurationProvider provider)
         {
             var result = provider.GetChildKeys(Enumerable.Empty<string>(), "folder/");
             Assert.Equal(new[] { "folder/key3", "folder/key4" }, result);
@@ -87,8 +85,8 @@ namespace Nanophone.AspNetCore.ConfigurationProvider.Tests
         [Fact]
         public void GetChildKeys()
         {
-            GetChildKeys(_inMemoryProvider);
-            GetChildKeys(_consulProvider);
+            GetChildKeysWithConfigurationProvider(_inMemoryProvider);
+            GetChildKeysWithConfigurationProvider(_consulProvider);
         }
 
         [Fact]
