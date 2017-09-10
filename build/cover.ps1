@@ -6,7 +6,10 @@
 Write-Output "Starting code coverage with filter: $CoverFilter"
 
 $alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]* -[Consul*]* -[Nancy*]* -[AngleSharp]* -[csc]* -[Anonymously*]*"
-$filter = "$CoverFilter $alwaysFilter"
+$actualFilter = "+[Nano*]* -[*]*.Logging.* -[*Tests]*" # while appveyor doesn't correctly give the entire filter string in environment, use this actual filter
+Write-Output "Actually using filter: $actualFilter"
+#$filter = "$CoverFilter $alwaysFilter"
+$filter = "$actualFilter $alwaysFilter"
 
 $packagesPath = $env:USERPROFILE + "\.nuget\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
@@ -28,9 +31,7 @@ Get-ChildItem -Path $PSScriptRoot\..\test -Filter *.csproj -Recurse | ForEach-Ob
     }
 
     $tempBinPath = $path + "\bin\"
-	$targetArgs = "test -o $tempBinPath $($_.FullName)"
-
-	Write-Host targetArgs is $targetArgs
+    $targetArgs = "`"test -o $tempBinPath $($_.FullName)`""
 
     if (-not (test-path $tempBinPath) ) {
         mkdir $tempBinPath | Out-Null
@@ -43,14 +44,14 @@ Get-ChildItem -Path $PSScriptRoot\..\test -Filter *.csproj -Recurse | ForEach-Ob
     & $opencoverPath `
         -register:user `
         -target:"dotnet.exe" `
-        "-targetargs:$targetArgs" `
+        -targetargs:$targetArgs `
         -searchdirs:$tempBinPath `
         -output:$tempCoverageFileName `
         -mergebyhash `
         -mergeoutput `
         -skipautoprops `
         -returntargetcode `
-        -filter:"$filter" `
+        -filter:$filter `
         -hideskipped:Filter `
         -oldstyle 
 }
@@ -64,7 +65,9 @@ Write-Output "Sending code coverage results to coveralls.io"
     --repo-token $CoverallsRepoToken
 
 7z a codecoverage.zip $tempCoverageFileName
-Push-AppveyorArtifact codecoverage.zip
+Push-AppveyorArtifact $tempCoverageFileName
 
 pip install codecov
 codecov -f $tempCoverageFileName -X gcov
+
+
