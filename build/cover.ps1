@@ -9,7 +9,7 @@ $alwaysFilter = "-[xunit*]* -[Microsoft*]* -[dotnet*]* -[NuGet*]* -[Newtonsoft*]
 $actualFilter = "+[Nano*]* -[*]*.Logging.* -[*Tests]*" # while appveyor doesn't correctly give the entire filter string in environment, use this actual filter
 Write-Output "Actually using filter: $actualFilter"
 #$filter = "$CoverFilter $alwaysFilter"
-$filter = "$actualFilter $alwaysFilter"
+$filter = "`"$actualFilter $alwaysFilter`""
 
 $packagesPath = $env:USERPROFILE + "\.nuget\packages"
 $opencoverPath = $packagesPath + "\OpenCover\4.6.519\tools\OpenCover.Console.exe"
